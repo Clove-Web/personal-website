@@ -34,7 +34,7 @@ export default function Home() {
           <p className="about-bio">{t("home.bio")}</p>
           <a
             className="about-source"
-            href="https://github.com/doughmination/web/tree/main/personal"
+            href="https://github.com/Clove-Web/personal-website"
             target="_blank"
             rel="noopener noreferrer"
           >
