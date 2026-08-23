@@ -50,7 +50,7 @@ globalStyle("html, body", {
 });
 
 globalStyle("body", {
-  fontFamily: "'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace",
+  fontFamily: "'Comic Code', sans-serif",
   display: "flex",
   justifyContent: "center",
   // `safe` stops the centred content being clipped when it overflows the viewport.

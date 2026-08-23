@@ -23,7 +23,7 @@
 import { globalStyle, globalKeyframes } from "@vanilla-extract/css";
 import { vars } from "../themes.css";
 
-const MONO = "'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace";
+const MONO = "'Comic Code', ui-monospace, monospace";
 const ELLIPSIS = {
   whiteSpace: "nowrap",
   overflow: "hidden",

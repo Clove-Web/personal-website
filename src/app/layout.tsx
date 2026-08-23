@@ -105,18 +105,12 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://doughmination.uk" />
         <link rel="preconnect" href="https://abacus.jasoncameron.dev" crossOrigin="" />
         <link rel="dns-prefetch" href="https://abacus.jasoncameron.dev" />
-        {/* Discord fonts (DDN) and cursor/watermark/oneko assets are served
-            from here (see styles/fonts.css.ts). Warming the connection early
-            matters because the @font-face is only discovered once Next's CSS
-            chunk has parsed. */}
+        {/* Comic Code (and the Discord DDN fonts, cursor/watermark/oneko
+            assets) are served from here (see styles/fonts.css.ts). Warming
+            the connection early matters because the @font-face is only
+            discovered once Next's CSS chunk has parsed. */}
         <link rel="preconnect" href="https://m.doughmination.gay" crossOrigin="" />
         <link rel="dns-prefetch" href="https://m.doughmination.gay" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
-          rel="stylesheet"
-        />
       </head>
       <body>
         {/* Active language (localStorage-persisted, browser-detected on first
