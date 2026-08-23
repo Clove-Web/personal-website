@@ -325,7 +325,7 @@ const es = {
     techStack: "Stack tecnológico",
     techStackLabel: "Stack tecnológico",
     hardware: "Hardware",
-    hardwareIntro: "Esta es la bestia que uso a diario. ✨",
+    hardwareIntro: "Esta es la bestia que uso a diario.",
     hwStorage: "Almacenamiento",
     hwMotherboard: "Placa base",
     hwCooling: "Refrigeración",

@@ -23,7 +23,7 @@
 import { globalStyle, globalKeyframes } from "@vanilla-extract/css";
 import { vars } from "../themes.css";
 
-const MONO = "'Comic Code', ui-monospace, monospace";
+const MONO = "'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace";
 const ELLIPSIS = {
   whiteSpace: "nowrap",
   overflow: "hidden",
@@ -73,7 +73,7 @@ globalStyle(".mdc", {
   alignItems: "center",
   background: vars.bgRaised,
   border: `1px solid ${vars.surface}`,
-  borderRadius: 18,
+  borderRadius: 0,
   padding: "1.1rem",
   position: "relative",
   overflow: "hidden",
@@ -103,10 +103,10 @@ globalStyle("#music.is-live .mdc::before", { opacity: 1 });
 globalStyle(".mdc-art", {
   width: 132,
   height: 132,
-  borderRadius: 12,
+  borderRadius: 0,
   objectFit: "cover",
   background: vars.surface,
-  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.35)",
+  boxShadow: "3px 3px 0 rgba(0, 0, 0, 0.35)",
   "@media": {
     "(max-width: 560px)": {
       width: 96,
@@ -181,7 +181,7 @@ globalStyle(".mdc-progress", {
 globalStyle(".mdc-bar", {
   flex: 1,
   height: 6,
-  borderRadius: 999,
+  borderRadius: 0,
   background: vars.surface,
   overflow: "hidden",
 });
@@ -191,7 +191,7 @@ globalStyle(".mdc-fill", {
   height: "100%",
   width: "0%",
   background: vars.accent,
-  borderRadius: 999,
+  borderRadius: 0,
   transition: "width 0.4s linear",
   "@media": { "(prefers-reduced-motion: reduce)": { transition: "none" } },
 });
@@ -230,7 +230,7 @@ globalStyle(".ly-lock", {
   fontSize: "0.72rem",
   letterSpacing: "0.04em",
   cursor: 'url("https://m.doughmination.gay/img/cursor/pointer_0.png"), pointer',
-  borderRadius: 999,
+  borderRadius: 0,
   padding: "0.28rem 0.8rem 0.28rem 0.7rem",
   background: vars.surface,
   color: vars.textSoft,
@@ -271,7 +271,7 @@ globalStyle(".ly-bars", {
 globalStyle(".ly-bars i", {
   flex: 1,
   height: "100%",
-  borderRadius: 1,
+  borderRadius: 0,
   background: "currentColor",
   transformOrigin: "bottom",
   transform: "scaleY(0.4)",
@@ -306,7 +306,7 @@ globalStyle(".lyrics", {
   overflowY: "auto",
   scrollBehavior: "smooth",
   overscrollBehavior: "contain",
-  borderRadius: 16,
+  borderRadius: 0,
   background: vars.bgDeep,
   border: `1px solid ${vars.surface}`,
   padding: "1.4rem",
@@ -324,7 +324,7 @@ globalStyle(".lyrics::-webkit-scrollbar", { width: 8 });
 
 globalStyle(".lyrics::-webkit-scrollbar-thumb", {
   background: vars.surfaceHi,
-  borderRadius: 999,
+  borderRadius: 0,
 });
 
 /** Short states (loading / instrumental / empty) centre their message instead. */
@@ -395,7 +395,7 @@ globalStyle(".rc-item a", {
   alignItems: "center",
   textDecoration: "none",
   padding: "0.45rem 0.55rem",
-  borderRadius: 12,
+  borderRadius: 0,
   transition: "background 0.15s ease",
 });
 
@@ -404,7 +404,7 @@ globalStyle(".rc-item a:hover", { background: vars.surface });
 globalStyle(".rc-art", {
   width: 44,
   height: 44,
-  borderRadius: 8,
+  borderRadius: 0,
   objectFit: "cover",
   background: vars.surface,
 });
@@ -445,7 +445,7 @@ globalStyle(".rc-now", {
 /** Highlights the track that's playing right now. */
 globalStyle(".is-now", {
   background: vars.accent,
-  borderRadius: 12
+  borderRadius: 0
 });
 
 globalStyle(".rc-note", {
@@ -459,7 +459,7 @@ globalStyle(".rc-note code", {
   background: vars.surface,
   color: vars.text,
   padding: "0.1rem 0.35rem",
-  borderRadius: 6,
+  borderRadius: 0,
   fontSize: "0.9em",
 });
 
@@ -481,7 +481,7 @@ globalStyle(".top-chip a", {
   gap: "0.45rem",
   background: vars.bgRaised,
   border: `1px solid ${vars.surface}`,
-  borderRadius: 999,
+  borderRadius: 0,
   padding: "0.35rem 0.8rem",
   textDecoration: "none",
   transition: "border-color 0.15s ease",
@@ -492,7 +492,7 @@ globalStyle(".top-chip a:hover", { borderColor: vars.accent });
 globalStyle(".top-art", {
   width: 34,
   height: 34,
-  borderRadius: "50%",
+  borderRadius: 0,
   objectFit: "cover",
   flex: "none",
   display: "inline-flex",

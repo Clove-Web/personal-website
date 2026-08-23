@@ -318,7 +318,7 @@ const pt = {
     techStack: "Stack de Tecnologia",
     techStackLabel: "Stack de tecnologia",
     hardware: "Hardware",
-    hardwareIntro: "Esta é a setup fera que uso no dia a dia. ✨",
+    hardwareIntro: "Esta é a setup fera que uso no dia a dia.",
     hwStorage: "Armazenamento",
     hwMotherboard: "Placa-mãe",
     hwCooling: "Refrigeração",

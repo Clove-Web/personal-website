@@ -48,9 +48,9 @@ globalStyle(".cat-picker-panel", {
   overflowY: "auto",
   background: vars.bg,
   border: `1px solid ${vars.surfaceHi}`,
-  borderRadius: 16,
+  borderRadius: 0,
   padding: "1rem",
-  boxShadow: "0 16px 48px rgba(0, 0, 0, 0.55)",
+  boxShadow: "6px 6px 0 rgba(0, 0, 0, 0.55)",
 });
 
 globalStyle(".cat-picker-head", {
@@ -94,7 +94,7 @@ globalStyle(".cat-option", {
   alignItems: "center",
   gap: "0.3rem",
   padding: "0.75rem 0.4rem 0.6rem",
-  borderRadius: 12,
+  borderRadius: 0,
   background: vars.surface,
   border: `1px solid ${vars.surfaceHi}`,
   color: vars.text,

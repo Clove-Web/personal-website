@@ -46,8 +46,8 @@ globalStyle(".presence-card", {
   maxWidth: 280,
   background: vars.surface,
   border: `1px solid ${vars.surfaceHi}`,
-  borderRadius: 16,
-  boxShadow: "0 8px 26px -12px rgba(17, 17, 27, 0.7)",
+  borderRadius: 0,
+  boxShadow: "5px 5px 0 rgba(17, 17, 27, 0.6)",
   overflow: "hidden",
   transition: "border-color 0.2s ease, box-shadow 0.2s ease",
 });
@@ -56,7 +56,7 @@ globalStyle(".presence-card[hidden]", { display: "none" });
 
 globalStyle(".presence-card.has-accent", {
   borderColor: "rgba(var(--dc-accent), 0.5)",
-  boxShadow: "0 8px 26px -12px rgba(var(--dc-accent), 0.6)",
+  boxShadow: "5px 5px 0 rgba(var(--dc-accent), 0.55)",
 });
 
 /* ---- header (always visible) ---------------------------------------------- */
@@ -78,7 +78,7 @@ globalStyle(".pc-avatar", {
 globalStyle(".pc-av-img", {
   width: 40,
   height: 40,
-  borderRadius: "50%",
+  borderRadius: 0,
   objectFit: "cover",
   display: "block",
   // Solid fill behind the avatar: many PFPs are partly transparent, and Discord
@@ -105,7 +105,7 @@ globalStyle(".pc-status", {
   bottom: -1,
   width: 12,
   height: 12,
-  borderRadius: "50%",
+  borderRadius: 0,
   border: `2.5px solid ${vars.surface}`,
   background: vars.textFaint,
 });
@@ -187,7 +187,7 @@ globalStyle(".pc-status-text::before", {
   display: "inline-block",
   width: 7,
   height: 7,
-  borderRadius: "50%",
+  borderRadius: 0,
   marginRight: "0.3rem",
   verticalAlign: "baseline",
   background: vars.textFaint,
@@ -211,7 +211,7 @@ globalStyle(".pc-row", {
   alignItems: "center",
   gap: "0.55rem",
   padding: "0.4rem 0.5rem",
-  borderRadius: 10,
+  borderRadius: 0,
   background: vars.bgRaised,
   // transparent so the hover border doesn't shift layout
   border: "1px solid transparent",
@@ -247,7 +247,7 @@ globalStyle(".pc-row-kind", {
 globalStyle(".pc-brand-logo", {
   width: 12,
   height: 12,
-  borderRadius: 3,
+  borderRadius: 0,
   objectFit: "contain",
   flexShrink: 0,
 });
@@ -286,7 +286,7 @@ globalStyle(".pc-row-elapsed:empty", { display: "none" });
 globalStyle(".pc-art, .pc-row-ic-img", {
   width: 38,
   height: 38,
-  borderRadius: 7,
+  borderRadius: 0,
   objectFit: "cover",
   flexShrink: 0,
 });
@@ -299,7 +299,7 @@ globalStyle(".pc-art, .pc-row-ic-img", {
 globalStyle(".pc-stream-thumb", {
   width: 56,
   height: 38,
-  borderRadius: 7,
+  borderRadius: 0,
   objectFit: "cover",
   flexShrink: 0,
   border: `1.5px solid ${vars.accentAlt}`,
@@ -308,7 +308,7 @@ globalStyle(".pc-stream-thumb", {
 globalStyle(".pc-row-ic.pc-dot", {
   width: 9,
   height: 9,
-  borderRadius: "50%",
+  borderRadius: 0,
   flexShrink: 0,
   margin: "0 0.5rem",
   background: vars.accent,
@@ -317,7 +317,7 @@ globalStyle(".pc-row-ic.pc-dot", {
 /** Activity kind recolours (and reshapes) the dot. */
 globalStyle(".pc-dev .pc-row-ic.pc-dot", {
   background: vars.info,
-  borderRadius: 2
+  borderRadius: 0
 });
 globalStyle(".pc-game .pc-row-ic.pc-dot", { background: vars.success });
 globalStyle(".pc-stream .pc-row-ic.pc-dot", { background: vars.accentAlt });
@@ -332,7 +332,7 @@ globalStyle(".pc-custom", {
   padding: "0.5rem 0.7rem",
   gap: "0.4rem",
   alignItems: "flex-start",
-  borderRadius: 13,
+  borderRadius: 0,
   // squared-off top-left corner where the bubble tail attaches
   borderTopLeftRadius: 4,
   marginTop: "0.3rem",
@@ -343,7 +343,7 @@ globalStyle(".pc-custom::before, .pc-custom::after", {
   content: '""',
   position: "absolute",
   background: vars.surfaceHi,
-  borderRadius: "50%",
+  borderRadius: 0,
   pointerEvents: "none",
 });
 
@@ -396,7 +396,7 @@ globalStyle(".pc-progress", {
 
 globalStyle(".pc-bar", {
   height: 4,
-  borderRadius: 999,
+  borderRadius: 0,
   background: vars.surfaceHi,
   overflow: "hidden",
 });
@@ -405,7 +405,7 @@ globalStyle(".pc-fill", {
   display: "block",
   height: "100%",
   width: 0,
-  borderRadius: 999,
+  borderRadius: 0,
   background: "rgb(var(--dc-accent))",
 });
 
@@ -449,7 +449,7 @@ globalStyle(".pc-tag", {
   gap: "0.2rem",
   flexShrink: 0,
   padding: "0.05rem 0.35rem",
-  borderRadius: 6,
+  borderRadius: 0,
   background: vars.surfaceHigher,
   fontSize: "0.58rem",
   fontWeight: 700,
@@ -547,7 +547,7 @@ globalStyle(".pc-ic-badge", {
   bottom: -3,
   width: 16,
   height: 16,
-  borderRadius: "50%",
+  borderRadius: 0,
   // ring in the row's own background so the badge reads as separate
   border: `2px solid ${vars.bgRaised}`,
   objectFit: "cover",
@@ -563,7 +563,7 @@ globalStyle(".pc-buttons", {
 globalStyle(".pc-btn", {
   fontSize: "0.66rem",
   padding: "0.22rem 0.55rem",
-  borderRadius: 6,
+  borderRadius: 0,
   background: vars.surfaceHi,
   color: vars.text,
   textDecoration: "none",
@@ -644,7 +644,7 @@ globalStyle(".pc-wl-item", {
   alignItems: "center",
   gap: "0.45rem",
   padding: "0.25rem 0.4rem",
-  borderRadius: 8,
+  borderRadius: 0,
   textDecoration: "none",
   color: vars.text,
 });
@@ -654,7 +654,7 @@ globalStyle("a.pc-wl-item:hover", { background: vars.bgRaised });
 globalStyle(".pc-wl-ic", {
   width: 22,
   height: 22,
-  borderRadius: 5,
+  borderRadius: 0,
   objectFit: "cover",
 });
 
@@ -777,7 +777,7 @@ globalStyle(
 globalStyle(".pc-bio", {
   margin: "0 0.7rem 0.5rem",
   padding: "0.5rem 0.6rem",
-  borderRadius: 10,
+  borderRadius: 0,
   background: vars.bgRaised,
   fontSize: "0.74rem",
   lineHeight: 1.25,
@@ -824,7 +824,7 @@ globalStyle(".pc-conn", {
   alignItems: "center",
   gap: "0.3rem",
   padding: "0.2rem 0.5rem",
-  borderRadius: 999,
+  borderRadius: 0,
   background: vars.surfaceHi,
   border: "1px solid transparent",
   color: vars.text,
@@ -868,7 +868,7 @@ globalStyle("svg.pc-conn-ic", {
 /** Pronouns and timezone share a chip treatment. */
 const CHIP = {
   padding: "0.05rem 0.4rem",
-  borderRadius: 6,
+  borderRadius: 0,
   background: vars.surfaceHigher,
   fontSize: "0.6rem",
   fontWeight: 600,
@@ -900,7 +900,7 @@ globalStyle(".pc-premium[hidden]", { display: "none" });
 /** Nitro purple, blended toward the theme so it doesn't clash outright. */
 globalStyle(".pc-nitro", {
   padding: "0.05rem 0.4rem",
-  borderRadius: 6,
+  borderRadius: 0,
   background: `color-mix(in srgb, #b57edc 22%, ${vars.surfaceHigher})`,
   fontSize: "0.6rem",
   fontWeight: 600,
@@ -956,14 +956,14 @@ globalStyle(".pc-bio code", {
   fontSize: "0.88em",
   background: vars.bgDeep,
   padding: "0.05em 0.28em",
-  borderRadius: 4,
+  borderRadius: 0,
 });
 
 globalStyle(".pc-bio pre", {
   margin: "0.25rem 0",
   padding: "0.35rem 0.45rem",
   background: vars.bgDeep,
-  borderRadius: 6,
+  borderRadius: 0,
   overflowX: "auto",
 });
 globalStyle(".pc-bio pre code", {
@@ -999,7 +999,7 @@ globalStyle(".pc-bio li", {
 /** Spoiler: blacked out until clicked, as Discord does. */
 globalStyle(".pc-spoiler", {
   background: vars.surfaceHigher,
-  borderRadius: 3,
+  borderRadius: 0,
   cursor: "pointer",
   color: "transparent",
   transition: "color 0.12s ease, background 0.12s ease",

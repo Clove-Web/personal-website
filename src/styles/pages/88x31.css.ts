@@ -63,7 +63,7 @@ globalStyle(".button-wall img", {
   width: 132,
   height: 46,
   border: `1px solid ${vars.surfaceHi}`,
-  borderRadius: 2,
+  borderRadius: 0,
   transition: "transform 0.12s ease, border-color 0.12s ease",
 });
 

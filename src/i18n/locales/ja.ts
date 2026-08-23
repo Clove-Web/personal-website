@@ -326,7 +326,7 @@ const ja = {
     techStack: "技術スタック",
     techStackLabel: "技術スタック",
     hardware: "ハードウェア",
-    hardwareIntro: "これが私が毎日使っている最強のセットアップ。✨",
+    hardwareIntro: "これが私が毎日使っている最強のセットアップ。",
     hwStorage: "ストレージ",
     hwMotherboard: "マザーボード",
     hwCooling: "冷却",

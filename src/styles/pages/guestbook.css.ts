@@ -26,7 +26,7 @@ globalStyle(".gb-form", {
   gap: "0.85rem",
   background: vars.surface,
   border: `1px solid ${vars.surfaceHi}`,
-  borderRadius: 14,
+  borderRadius: 0,
   padding: "1.1rem 1.2rem",
   marginBottom: "2rem",
 });
@@ -55,7 +55,7 @@ globalStyle(".gb-form input, .gb-form textarea", {
   color: vars.text,
   background: vars.bgRaised,
   border: `1px solid ${vars.surfaceHi}`,
-  borderRadius: 9,
+  borderRadius: 0,
   padding: "0.55rem 0.7rem",
   width: "100%",
   resize: "vertical",
@@ -92,7 +92,7 @@ globalStyle(".gb-form button", {
   color: vars.bgDeep,
   background: vars.accent,
   border: "none",
-  borderRadius: 9,
+  borderRadius: 0,
   padding: "0.55rem 1.1rem",
   fontWeight: 700,
   transition: "transform 0.12s ease, opacity 0.12s ease",
@@ -141,7 +141,7 @@ globalStyle(".gb-empty", {
 globalStyle(".gb-entry", {
   background: vars.surface,
   border: `1px solid ${vars.surfaceHi}`,
-  borderRadius: 12,
+  borderRadius: 0,
   padding: "0.85rem 1rem",
   transition: "border-color 0.15s ease, transform 0.15s ease",
 });

@@ -93,7 +93,7 @@ globalStyle(".tech-icon::after", {
   left: "50%",
   transform: "translateX(-50%) translateY(4px)",
   padding: "0.25rem 0.5rem",
-  borderRadius: 6,
+  borderRadius: 0,
   background: vars.bgDeep,
   border: "1px solid currentColor",
   color: vars.text,
@@ -153,7 +153,7 @@ globalStyle(".waka-meta", {
 globalStyle(".waka-section", {
   background: vars.surface,
   border: `1px solid ${vars.surfaceHi}`,
-  borderRadius: 16,
+  borderRadius: 0,
   padding: "0.85rem 1.25rem 0.95rem",
   marginBottom: "0.7rem",
 });
@@ -207,7 +207,7 @@ globalStyle(".waka-day-track", {
   display: "flex",
   alignItems: "flex-end",
   background: vars.surfaceHi,
-  borderRadius: 7,
+  borderRadius: 0,
   overflow: "hidden",
 });
 
@@ -215,7 +215,7 @@ globalStyle(".waka-day-fill", {
   width: "100%",
   minHeight: 3,
   background: vars.accent,
-  borderRadius: "7px 7px 0 0",
+  borderRadius: 0,
   transition: "height 0.5s ease",
 });
 
@@ -251,7 +251,7 @@ globalStyle(".waka-bar-name", {
 globalStyle(".waka-bar-track", {
   height: 9,
   background: vars.surfaceHi,
-  borderRadius: 999,
+  borderRadius: 0,
   overflow: "hidden",
 });
 
@@ -260,7 +260,7 @@ globalStyle(".waka-bar-fill", {
   height: "100%",
   width: 0,
   background: vars.accent,
-  borderRadius: 999,
+  borderRadius: 0,
   transition: "width 0.6s ease",
 });
 
@@ -344,7 +344,7 @@ globalStyle("summary.section-title:hover", { color: vars.accent });
 globalStyle("summary.section-title:focus-visible", {
   outline: `2px solid ${vars.accent}`,
   outlineOffset: 3,
-  borderRadius: 6,
+  borderRadius: 0,
 });
 
 /** Custom chevron that flips when the section opens. */
@@ -454,7 +454,7 @@ globalStyle(".ch-scroll", {
 globalStyle(".ch-scroll::-webkit-scrollbar", { height: 8 });
 globalStyle(".ch-scroll::-webkit-scrollbar-thumb", {
   background: "var(--ch-muted)",
-  borderRadius: 4,
+  borderRadius: 0,
 });
 globalStyle(".ch-scroll::-webkit-scrollbar-track", { background: "transparent" });
 
@@ -505,7 +505,7 @@ globalKeyframes("ch-pop", { to: { opacity: 1 } });
 globalStyle(".ch-day", {
   width: "var(--ch-cell)",
   height: "var(--ch-cell)",
-  borderRadius: 3,
+  borderRadius: 0,
   outline: "1px solid rgba(255, 255, 255, 0.04)",
   outlineOffset: -1,
   opacity: 0,

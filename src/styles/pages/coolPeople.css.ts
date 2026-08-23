@@ -105,26 +105,35 @@ globalStyle(".presence-card.is-mini .pc-name--link:hover", {
   textDecoration: "underline",
 });
 
-/* ---- tier hearts ----------------------------------------------------------
-   Ported from the old .fc-name prefixes. PresenceCard.tsx adds `tier-<name>`
-   alongside is-mini, so the heart is chosen purely in CSS.
+/* ---- tier tags --------------------------------------------------------------
+   Ported from the old .fc-name emoji-heart prefixes. PresenceCard.tsx adds
+   `tier-<name>` alongside is-mini, so the tag is chosen purely in CSS. Bracket
+   text tags instead of emoji hearts — same move as the terminal/clunky
+   redesign elsewhere (see the system project's status banners).
    ------------------------------------------------------------------------- */
 
-const TIER_HEARTS: Record<string, string> = {
-  "": "🩵 ", // default, no tier class
-  closer: "💜 ",
-  known: "💛 ",
-  wife: "🖤 ",
-  close: "🤍 ",
-  "active-alt": "🎭 ",
-  "dead-alt": "💀 ",
+const TIER_TAGS: Record<string, { label: string; color: string }> = {
+  "": { label: "[mutual] ", color: vars.textDim }, // default, no tier class
+  closer: { label: "[closer] ", color: vars.accent },
+  known: { label: "[known] ", color: vars.textSoft },
+  wife: { label: "[wife] ", color: vars.accent },
+  close: { label: "[close] ", color: vars.accentAlt },
+  "active-alt": { label: "[alt] ", color: vars.sapphire },
+  "dead-alt": { label: "[dead] ", color: vars.textFaint },
 };
 
-for (const [tier, heart] of Object.entries(TIER_HEARTS)) {
+for (const [tier, { label, color }] of Object.entries(TIER_TAGS)) {
   const sel = tier
     ? `.presence-card.is-mini.tier-${tier} .pc-name::before`
     : ".presence-card.is-mini .pc-name::before";
-  globalStyle(sel, { content: `"${heart}"` });
+  globalStyle(sel, {
+    content: `"${label}"`,
+    color,
+    fontSize: "0.72rem",
+    fontWeight: 700,
+    letterSpacing: "0.02em",
+    verticalAlign: "middle",
+  });
 }
 
 /**

@@ -16,7 +16,7 @@
 import { globalStyle } from "@vanilla-extract/css";
 import { vars } from "./themes.css";
 
-const MONO = "'Comic Code', ui-monospace, monospace";
+const MONO = "'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace";
 
 globalStyle("#visitor-counter", {
   position: "fixed",

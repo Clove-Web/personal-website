@@ -318,7 +318,7 @@ const ru = {
     techStack: "Стек технологий",
     techStackLabel: "Стек технологий",
     hardware: "Железо",
-    hardwareIntro: "Вот тот зверь-сетап, на котором я сижу каждый день. ✨",
+    hardwareIntro: "Вот тот зверь-сетап, на котором я сижу каждый день.",
     hwStorage: "Накопитель",
     hwMotherboard: "Материнская плата",
     hwCooling: "Охлаждение",

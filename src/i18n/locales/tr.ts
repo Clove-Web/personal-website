@@ -318,7 +318,7 @@ const tr = {
     techStack: "Teknoloji Yığını",
     techStackLabel: "Teknoloji yığını",
     hardware: "Donanım",
-    hardwareIntro: "Her gün kullandığım canavar sistem bu. ✨",
+    hardwareIntro: "Her gün kullandığım canavar sistem bu.",
     hwStorage: "Depolama",
     hwMotherboard: "Anakart",
     hwCooling: "Soğutma",

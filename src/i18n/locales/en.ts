@@ -325,7 +325,7 @@ const en = {
     techStack: "Tech Stack",
     techStackLabel: "Tech stack",
     hardware: "Hardware",
-    hardwareIntro: "This is the beast setup I daily-drive. ✨",
+    hardwareIntro: "This is the beast setup I daily-drive.",
     hwStorage: "Storage",
     hwMotherboard: "Motherboard",
     hwCooling: "Cooling",

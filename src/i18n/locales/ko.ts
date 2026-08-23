@@ -318,7 +318,7 @@ const ko = {
     techStack: "기술 스택",
     techStackLabel: "기술 스택",
     hardware: "하드웨어",
-    hardwareIntro: "이게 제가 매일 쓰는 괴물 같은 셋업이에요. ✨",
+    hardwareIntro: "이게 제가 매일 쓰는 괴물 같은 셋업이에요.",
     hwStorage: "저장장치",
     hwMotherboard: "메인보드",
     hwCooling: "쿨링",

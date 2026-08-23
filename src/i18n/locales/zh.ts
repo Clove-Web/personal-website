@@ -318,7 +318,7 @@ const zh = {
     techStack: "技术栈",
     techStackLabel: "技术栈",
     hardware: "硬件",
-    hardwareIntro: "这是我每天使用的猛兽级配置。✨",
+    hardwareIntro: "这是我每天使用的猛兽级配置。",
     hwStorage: "存储",
     hwMotherboard: "主板",
     hwCooling: "散热",

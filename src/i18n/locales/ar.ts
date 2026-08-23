@@ -318,7 +318,7 @@ const ar = {
     techStack: "حزمة التقنيات",
     techStackLabel: "حزمة التقنيات",
     hardware: "العتاد",
-    hardwareIntro: "هذا هو نظام الوحش الذي أستخدمه يوميًا. ✨",
+    hardwareIntro: "هذا هو نظام الوحش الذي أستخدمه يوميًا.",
     hwStorage: "التخزين",
     hwMotherboard: "اللوحة الأم",
     hwCooling: "التبريد",

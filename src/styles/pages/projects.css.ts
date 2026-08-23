@@ -59,7 +59,7 @@ globalStyle(".project-card", {
   flexDirection: "column",
   gap: "0.7rem",
   padding: "1rem",
-  borderRadius: 16,
+  borderRadius: 0,
   background: vars.surface,
   border: `1px solid ${vars.surfaceHi}`,
   color: vars.text,
@@ -69,10 +69,10 @@ globalStyle(".project-card", {
 });
 
 globalStyle(".project-card:hover, .project-card:has(:focus-visible)", {
-  transform: "translateY(-3px)",
+  transform: "translate(-2px, -2px)",
   background: vars.surfaceHi,
   borderColor: vars.accent,
-  boxShadow: `0 6px 20px ${vars.accent}`,
+  boxShadow: `4px 4px 0 ${vars.accent}`,
 });
 
 /** The repo link fills the card body (avatar + title/status + bio). */
@@ -93,7 +93,7 @@ globalStyle(".project-card-live", {
   letterSpacing: "0.04em",
   textTransform: "uppercase",
   padding: "0.32rem 0.8rem",
-  borderRadius: 999,
+  borderRadius: 0,
   background: vars.sky,
   border: `1px solid ${vars.sky}`,
   color: vars.bgDeep,
@@ -111,10 +111,10 @@ globalStyle(".project-card-img", {
   width: 56,
   height: 56,
   flexShrink: 0,
-  borderRadius: 14,
+  borderRadius: 0,
   objectFit: "cover",
   border: `2px solid ${vars.warning}`,
-  boxShadow: `0 4px 14px ${vars.accent}`,
+  boxShadow: `3px 3px 0 ${vars.accent}`,
 });
 
 globalStyle(".project-card-body", {
@@ -143,7 +143,7 @@ globalStyle(".project-card-status", {
   letterSpacing: "0.04em",
   textTransform: "uppercase",
   padding: "0.15rem 0.55rem",
-  borderRadius: 999,
+  borderRadius: 0,
   background: vars.bgDeep,
   border: `1px solid ${vars.success}`,
   color: vars.success,

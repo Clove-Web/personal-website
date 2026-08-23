@@ -30,19 +30,19 @@ globalStyle(".mc-card", {
   alignItems: "center",
   gap: "0.6rem",
   padding: "1.1rem 1rem 1.2rem",
-  borderRadius: 14,
+  borderRadius: 0,
   background: vars.surface,
   border: `1px solid ${vars.surfaceHi}`,
   textDecoration: "none",
   color: vars.text,
-  boxShadow: "0 4px 14px rgba(0, 0, 0, 0.18)",
+  boxShadow: "3px 3px 0 rgba(0, 0, 0, 0.3)",
   cursor: "pointer",
   transition: "transform 0.12s ease, box-shadow 0.12s ease",
 });
 
 globalStyle(".mc-card:hover, .mc-card:focus-visible", {
-  transform: "translateY(-3px)",
-  boxShadow: "0 8px 22px rgba(0, 0, 0, 0.28)",
+  transform: "translate(-2px, -2px)",
+  boxShadow: "5px 5px 0 rgba(0, 0, 0, 0.3)",
   outline: "none",
 });
 
@@ -53,7 +53,7 @@ globalStyle(".mc-role", {
   fontWeight: 600,
   letterSpacing: "0.03em",
   padding: "0.15rem 0.55rem",
-  borderRadius: 999,
+  borderRadius: 0,
   color: vars.bg,
 });
 
@@ -105,9 +105,9 @@ globalStyle(".mc-dialog", {
   overflow: "auto",
   background: vars.bg,
   border: `1px solid ${vars.surfaceHi}`,
-  borderRadius: 18,
+  borderRadius: 0,
   padding: "1.4rem",
-  boxShadow: "0 20px 60px rgba(0, 0, 0, 0.5)",
+  boxShadow: "6px 6px 0 rgba(0, 0, 0, 0.5)",
   transform: "translateY(12px) scale(0.98)",
   transition: "transform 0.16s ease",
 });
@@ -121,7 +121,7 @@ globalStyle(".mc-close", {
   width: 30,
   height: 30,
   border: "none",
-  borderRadius: "50%",
+  borderRadius: 0,
   background: vars.surface,
   color: vars.text,
   fontSize: "1.1rem",
@@ -169,7 +169,7 @@ globalStyle(".mc-d-role", {
   fontWeight: 600,
   letterSpacing: "0.03em",
   padding: "0.15rem 0.6rem",
-  borderRadius: 999,
+  borderRadius: 0,
   color: vars.bg,
 });
 
@@ -179,7 +179,7 @@ globalStyle(".mc-hat", {
   font: "inherit",
   fontSize: "0.75rem",
   padding: "0.3rem 0.6rem",
-  borderRadius: 8,
+  borderRadius: 0,
   border: `1px solid ${vars.surfaceHi}`,
   background: vars.surface,
   color: vars.text,
@@ -243,7 +243,7 @@ globalStyle(".mc-3d-wrap", {
 
 globalStyle(".mc-3d-canvas", {
   maxWidth: "100%",
-  borderRadius: 12,
+  borderRadius: 0,
   background: vars.surface,
   border: `1px solid ${vars.surfaceHi}`,
   cursor: "grab",
@@ -308,7 +308,7 @@ globalStyle(".mc-pill", {
   font: "inherit",
   fontSize: "0.75rem",
   padding: "0.32rem 0.7rem",
-  borderRadius: 999,
+  borderRadius: 0,
   border: `1px solid ${vars.surfaceHi}`,
   background: vars.surface,
   color: vars.text,
@@ -338,7 +338,7 @@ globalStyle(".mc-row", {
   gap: "1rem",
   fontSize: "0.85rem",
   padding: "0.4rem 0.65rem",
-  borderRadius: 9,
+  borderRadius: 0,
   background: vars.surface,
 });
 
@@ -383,7 +383,7 @@ globalStyle(".mc-tex figure", {
 globalStyle(".mc-tex img, .mc-tex canvas", {
   imageRendering: "pixelated",
   background: vars.surface,
-  borderRadius: 8,
+  borderRadius: 0,
   border: `1px solid ${vars.surfaceHi}`,
 });
 
@@ -408,7 +408,7 @@ globalStyle(".mc-section-t", {
 
 globalStyle(".mc-soon", {
   padding: "1rem",
-  borderRadius: 12,
+  borderRadius: 0,
   border: `1px dashed ${vars.surfaceHi}`,
   background: vars.surface,
   color: vars.textMuted,
@@ -423,7 +423,7 @@ globalStyle(".mc-namemc", {
   boxSizing: "border-box",
   textAlign: "center",
   padding: "0.65rem",
-  borderRadius: 10,
+  borderRadius: 0,
   background: vars.surface,
   color: vars.text,
   textDecoration: "none",

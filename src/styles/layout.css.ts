@@ -14,13 +14,8 @@
  * page components (app/page.tsx, 88x31, selfies, dev-info, …) rather than owned
  * by a single one, so the class names must stay literal.
  */
-import { globalStyle, keyframes } from "@vanilla-extract/css";
+import { globalStyle } from "@vanilla-extract/css";
 import { vars } from "./themes.css";
-
-// Shared trans-flag gradient title, uniform across every site.
-const transSlide = keyframes({
-  to: { backgroundPositionX: "200%" },
-});
 
 globalStyle(".hub", {
   position: "relative",
@@ -32,10 +27,10 @@ globalStyle(".hub", {
 globalStyle(".pfp", {
   width: 96,
   height: 96,
-  borderRadius: "50%",
+  borderRadius: 0,
   objectFit: "cover",
-  border: `3px solid ${vars.warning}`,
-  boxShadow: "0 4px 18px rgba(245, 194, 231, 0.25)",
+  border: `2px solid ${vars.warning}`,
+  boxShadow: `4px 4px 0 ${vars.warning}`,
   marginBottom: "0.75rem",
 });
 
@@ -44,23 +39,18 @@ globalStyle(".hub-header", {
   marginBottom: "2.25rem",
 });
 
+/* The animated trans-flag gradient title was dropped in favour of a plain
+   solid heading — matching the terminal/clunky redesign's move away from
+   soft gradient-text effects (see the system project's home.css.ts). A
+   proper flag-stripe accent (a small div above the h1) is a page-by-page
+   JSX change, not a shared-file one — left for the per-page pass. */
 globalStyle(".hub-header h1", {
   margin: 0,
   fontSize: "2rem",
   fontWeight: 700,
-  letterSpacing: "-0.02em",
-  backgroundImage:
-    "linear-gradient(90deg, #5BCEFA, #F5A9B8, #ffffff, #F5A9B8, #5BCEFA, #5BCEFA)",
-  backgroundSize: "200% 100%",
-  WebkitBackgroundClip: "text",
-  backgroundClip: "text",
-  color: "transparent",
-  animation: `${transSlide} 6s linear infinite`,
-  "@media": {
-    "(prefers-reduced-motion: reduce)": {
-      animation: "none",
-    },
-  },
+  letterSpacing: "-0.01em",
+  textTransform: "uppercase",
+  color: vars.text,
 });
 
 globalStyle(".tagline", {

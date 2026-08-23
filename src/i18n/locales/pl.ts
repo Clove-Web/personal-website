@@ -318,7 +318,7 @@ const pl = {
     techStack: "Stos technologiczny",
     techStackLabel: "Stos technologiczny",
     hardware: "Sprzęt",
-    hardwareIntro: "To bestia setupu, której używam na co dzień. ✨",
+    hardwareIntro: "To bestia setupu, której używam na co dzień.",
     hwStorage: "Pamięć masowa",
     hwMotherboard: "Płyta główna",
     hwCooling: "Chłodzenie",

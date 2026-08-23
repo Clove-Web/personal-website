@@ -323,7 +323,7 @@ const nl: Dictionary = {
     techStack: "Tech Stack",
     techStackLabel: "Tech stack",
     hardware: "Hardware",
-    hardwareIntro: "Dit is de beestensetup die ik dagelijks gebruik. ✨",
+    hardwareIntro: "Dit is de beestensetup die ik dagelijks gebruik.",
     hwStorage: "Opslag",
     hwMotherboard: "Moederbord",
     hwCooling: "Koeling",

@@ -28,7 +28,7 @@ globalStyle(".guild-grid", {
 globalStyle(".guild-card", {
   display: "block",
   position: "relative",
-  borderRadius: 12,
+  borderRadius: 0,
   overflow: "hidden",
   background: vars.bg,
   textDecoration: "none",
@@ -39,8 +39,8 @@ globalStyle(".guild-card", {
 });
 
 globalStyle(".guild-card:hover, .guild-card:focus-visible", {
-  transform: "translateY(-2px)",
-  boxShadow: "0 6px 20px rgba(0, 0, 0, 0.25)",
+  transform: "translate(-2px, -2px)",
+  boxShadow: "4px 4px 0 rgba(0, 0, 0, 0.35)",
 });
 
 globalStyle(".gc-banner", {
@@ -61,7 +61,7 @@ globalStyle(".gc-head", {
 globalStyle(".gc-icon", {
   width: 56,
   height: 56,
-  borderRadius: "50%",
+  borderRadius: 0,
   border: `3px solid ${vars.bg}`,
   background: vars.bg,
   objectFit: "cover",
@@ -72,7 +72,7 @@ globalStyle(".gc-icon", {
 globalStyle(".gc-icon-fallback", {
   width: 56,
   height: 56,
-  borderRadius: "50%",
+  borderRadius: 0,
   border: `3px solid ${vars.bg}`,
   background: vars.accent,
   color: vars.bg,
@@ -129,7 +129,7 @@ globalStyle(".gc-counts", {
 globalStyle(".gc-dot", {
   width: 8,
   height: 8,
-  borderRadius: "50%",
+  borderRadius: 0,
   background: ONLINE_GREEN,
   display: "inline-block",
 });
@@ -147,14 +147,14 @@ globalStyle(".gc-role", {
   right: "0.5rem",
   zIndex: 1,
   padding: "0.15rem 0.5rem",
-  borderRadius: 999,
+  borderRadius: 0,
   fontSize: "0.7rem",
   fontWeight: 700,
   letterSpacing: "0.02em",
   lineHeight: 1.4,
   color: "#fff",
   background: ROLE.default,
-  boxShadow: "0 1px 4px rgba(0, 0, 0, 0.35)",
+  boxShadow: "1px 1px 0 rgba(0, 0, 0, 0.35)",
   textTransform: "uppercase",
 });
 

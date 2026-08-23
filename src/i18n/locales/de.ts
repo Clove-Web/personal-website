@@ -318,7 +318,7 @@ const de = {
     techStack: "Tech-Stack",
     techStackLabel: "Tech-Stack",
     hardware: "Hardware",
-    hardwareIntro: "Das ist das Biest-Setup, das ich täglich nutze. ✨",
+    hardwareIntro: "Das ist das Biest-Setup, das ich täglich nutze.",
     hwStorage: "Speicher",
     hwMotherboard: "Mainboard",
     hwCooling: "Kühlung",

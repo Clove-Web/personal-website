@@ -69,7 +69,7 @@ globalStyle(".selfie-thumb", {
   margin: 0,
   padding: 0,
   border: `1px solid ${vars.surfaceHi}`,
-  borderRadius: 14,
+  borderRadius: 0,
   overflow: "hidden",
   background: vars.surface,
   aspectRatio: "1 / 1",
@@ -88,9 +88,9 @@ globalStyle(".selfie-thumb img", {
 });
 
 globalStyle(".selfie-thumb:hover, .selfie-thumb:focus-visible", {
-  transform: "translateY(-3px)",
+  transform: "translate(-2px, -2px)",
   borderColor: vars.accent,
-  boxShadow: `0 6px 20px ${vars.accent}`,
+  boxShadow: `3px 3px 0 ${vars.accent}`,
   outline: "none",
 });
 
@@ -153,9 +153,9 @@ globalStyle(".lightbox-img", {
   // 80vh, not 86vh — leaves room beneath the image for the caption line.
   maxHeight: "80vh",
   objectFit: "contain",
-  borderRadius: 12,
+  borderRadius: 0,
   border: `2px solid ${vars.accent}`,
-  boxShadow: "0 12px 40px rgba(0, 0, 0, 0.5)",
+  boxShadow: "5px 5px 0 rgba(0, 0, 0, 0.5)",
 });
 
 globalStyle(".lightbox-caption", {
@@ -178,7 +178,7 @@ globalStyle(".lightbox-close, .lightbox-nav", {
   border: `1px solid ${vars.surfaceHi}`,
   background: `color-mix(in srgb, ${vars.surface} 85%, transparent)`,
   color: vars.text,
-  borderRadius: 999,
+  borderRadius: 0,
   lineHeight: 1,
   transition: "background 0.15s ease, border-color 0.15s ease, transform 0.15s ease",
   "@media": {

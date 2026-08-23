@@ -59,7 +59,7 @@ export const introSub = style({
 
 export const masthead = style({
   position: "relative",
-  borderRadius: 18,
+  borderRadius: 0,
   overflow: "hidden",
   background: vars.surface,
   border: `1px solid ${vars.surfaceHi}`,
@@ -127,7 +127,7 @@ export const avatarWrap = style({
 export const avatar = style({
   width: "100%",
   height: "100%",
-  borderRadius: "50%",
+  borderRadius: 0,
   objectFit: "cover",
   display: "block",
   background: vars.bgDeep,
@@ -152,7 +152,7 @@ export const statusPip = style({
   bottom: 2,
   width: 26,
   height: 26,
-  borderRadius: "50%",
+  borderRadius: 0,
   border: `4px solid ${vars.surface}`,
   background: vars.textFaint,
   boxSizing: "border-box",
@@ -261,7 +261,7 @@ export const guildTag = style({
   alignItems: "center",
   gap: "0.28rem",
   padding: "0.16rem 0.45rem",
-  borderRadius: 7,
+  borderRadius: 0,
   background: vars.surfaceHigher,
   fontSize: "0.72rem",
   fontWeight: 700,
@@ -297,7 +297,7 @@ export const statusText = style({
 export const statusDot = style({
   width: 8,
   height: 8,
-  borderRadius: "50%",
+  borderRadius: 0,
   background: vars.textFaint,
   flexShrink: 0,
 });
@@ -309,7 +309,7 @@ export const chip = style({
   gap: "0.28rem",
   height: 24,
   padding: "0 0.5rem",
-  borderRadius: 999,
+  borderRadius: 0,
   background: vars.bgRaised,
   border: `1px solid ${vars.surfaceHi}`,
   fontSize: "0.72rem",
@@ -371,7 +371,7 @@ export const grid = style({
 export const panel = style({
   background: vars.surface,
   border: `1px solid ${vars.surfaceHi}`,
-  borderRadius: 14,
+  borderRadius: 0,
   padding: "1rem 1.1rem 1.1rem",
   minWidth: 0,
 });
@@ -401,7 +401,7 @@ export const npTitle_brand = style([
 export const brandLogo = style({
   width: 14,
   height: 14,
-  borderRadius: 3,
+  borderRadius: 0,
   objectFit: "contain",
   flexShrink: 0,
 });
@@ -439,7 +439,7 @@ export const panelToggle = style({
     "&:focus-visible": {
       outline: `2px solid ${vars.accent}`,
       outlineOffset: 3,
-      borderRadius: 4
+      borderRadius: 0
     },
   },
 });
@@ -477,7 +477,7 @@ globalStyle(`${scrollArea}::-webkit-scrollbar`, { width: 8 });
 globalStyle(`${scrollArea}::-webkit-scrollbar-track`, { background: "transparent" });
 globalStyle(`${scrollArea}::-webkit-scrollbar-thumb`, {
   background: vars.surfaceHigher,
-  borderRadius: 4,
+  borderRadius: 0,
 });
 globalStyle(`${scrollArea}::-webkit-scrollbar-thumb:hover`, { background: vars.textFaint });
 
@@ -491,7 +491,7 @@ export const npRow = style({
   alignItems: "center",
   color: "inherit",
   textDecoration: "none",
-  borderRadius: 10,
+  borderRadius: 0,
   selectors: {
     "&:focus-visible": {
       outline: `2px solid ${vars.accent}`,
@@ -504,10 +504,10 @@ export const npRow = style({
 export const npArt = style({
   width: 88,
   height: 88,
-  borderRadius: 10,
+  borderRadius: 0,
   objectFit: "cover",
   flexShrink: 0,
-  boxShadow: "0 4px 16px -6px rgba(0,0,0,0.6)",
+  boxShadow: "3px 3px 0 rgba(0,0,0,0.5)",
   "@media": {
     "(max-width: 480px)": {
       width: 62,
@@ -548,7 +548,7 @@ export const npAlbum = style({
 export const npBar = style({
   position: "relative",
   height: 6,
-  borderRadius: 3,
+  borderRadius: 0,
   background: vars.bgDeep,
   overflow: "hidden",
   marginTop: "0.7rem",
@@ -562,7 +562,7 @@ export const npFill = style({
   position: "absolute",
   insetBlock: 0,
   left: 0,
-  borderRadius: 3,
+  borderRadius: 0,
   background: vars.accent,
   transition: "width 0.9s linear, background 0.6s ease",
 });
@@ -589,7 +589,7 @@ export const actRow = style({
   gap: "0.75rem",
   alignItems: "center",
   padding: "0.55rem 0.6rem",
-  borderRadius: 10,
+  borderRadius: 0,
   background: vars.bgRaised,
   border: "1px solid transparent",
   color: vars.text,
@@ -608,7 +608,7 @@ export const actIcWrap = style({
 export const actIc = style({
   width: 46,
   height: 46,
-  borderRadius: 9,
+  borderRadius: 0,
   objectFit: "cover",
   display: "block",
   background: vars.bgDeep,
@@ -620,7 +620,7 @@ export const actIcBadge = style({
   bottom: -4,
   width: 20,
   height: 20,
-  borderRadius: "50%",
+  borderRadius: 0,
   border: `2px solid ${vars.bgRaised}`,
   boxSizing: "border-box",
 });
@@ -628,7 +628,7 @@ export const actIcBadge = style({
 export const actDot = style({
   width: 46,
   height: 46,
-  borderRadius: 9,
+  borderRadius: 0,
   background: vars.surfaceHi,
   flexShrink: 0,
 });
@@ -674,7 +674,7 @@ export const actButtons = style({
 
 export const actBtn = style({
   padding: "0.2rem 0.5rem",
-  borderRadius: 7,
+  borderRadius: 0,
   background: vars.surfaceHi,
   fontSize: "0.7rem",
   color: vars.textSoft,
@@ -683,7 +683,7 @@ export const actBtn = style({
 export const streamThumb = style({
   width: 74,
   height: 46,
-  borderRadius: 9,
+  borderRadius: 0,
   objectFit: "cover",
   flexShrink: 0,
   border: `1.5px solid ${vars.accentAlt}`,
@@ -701,7 +701,7 @@ export const badgeGrid = style({
 export const badge = style({
   width: 30,
   height: 30,
-  borderRadius: 7,
+  borderRadius: 0,
   objectFit: "contain",
   background: vars.bgRaised,
   padding: 3,
@@ -711,7 +711,7 @@ export const badge = style({
 export const badgeLink = style({
   display: "block",
   lineHeight: 0,
-  borderRadius: 7,
+  borderRadius: 0,
   // No site-wide <a> reset exists; clear the UA underline/blue so a badge whose
   // image 404s falls back to plain alt text rather than a blue underlined link.
   color: "inherit",
@@ -737,7 +737,7 @@ export const conn = style({
   alignItems: "center",
   gap: "0.35rem",
   padding: "0.3rem 0.55rem",
-  borderRadius: 9,
+  borderRadius: 0,
   background: vars.bgRaised,
   border: `1px solid ${vars.surfaceHi}`,
   fontSize: "0.78rem",
@@ -812,14 +812,14 @@ globalStyle(`${bio} code`, {
   fontSize: "0.86em",
   background: vars.bgDeep,
   padding: "0.1em 0.35em",
-  borderRadius: 5,
+  borderRadius: 0,
 });
 
 globalStyle(`${bio} pre`, {
   margin: "0.4rem 0",
   padding: "0.5rem 0.6rem",
   background: vars.bgDeep,
-  borderRadius: 8,
+  borderRadius: 0,
   overflowX: "auto",
 });
 globalStyle(`${bio} pre code`, {
@@ -858,7 +858,7 @@ globalStyle(`${bio} li`, {
 /** Spoiler: blacked out until clicked, matching Discord's behaviour. */
 export const spoiler = style({
   background: vars.surfaceHigher,
-  borderRadius: 4,
+  borderRadius: 0,
   cursor: "pointer",
   color: "transparent",
   transition: "color 0.12s ease, background 0.12s ease",
@@ -891,7 +891,7 @@ export const wlItem = style({
   alignItems: "center",
   gap: "0.55rem",
   padding: "0.4rem 0.5rem",
-  borderRadius: 9,
+  borderRadius: 0,
   background: vars.bgRaised,
 });
 
@@ -900,7 +900,7 @@ export const wlOwned = style({ opacity: 0.55 });
 export const wlIc = style({
   width: 30,
   height: 30,
-  borderRadius: 6,
+  borderRadius: 0,
   flexShrink: 0,
   objectFit: "cover"
 });
@@ -951,7 +951,7 @@ export const skeleton = style({
   animation: `${pulse} 1.6s ease-in-out infinite`,
   background: vars.surface,
   border: `1px solid ${vars.surfaceHi}`,
-  borderRadius: 18,
+  borderRadius: 0,
   height: 300,
   "@media": { "(prefers-reduced-motion: reduce)": { animation: "none" } },
 });

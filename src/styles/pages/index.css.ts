@@ -28,8 +28,8 @@ const STATUS_CARD = {
   padding: "0.85rem 1rem",
   background: vars.bgRaised,
   border: `1px solid ${vars.surfaceHi}`,
-  borderRadius: 14,
-  boxShadow: "0 18px 50px -22px rgba(0, 0, 0, 0.6)",
+  borderRadius: 0,
+  boxShadow: "5px 5px 0 rgba(0, 0, 0, 0.5)",
 } as const;
 
 /** Shared header row for the three status cards. */
@@ -62,8 +62,8 @@ globalStyle(".about", {
   padding: "1.4rem 1.3rem",
   background: vars.bgRaised,
   border: `1px solid ${vars.surfaceHi}`,
-  borderRadius: 16,
-  boxShadow: "0 18px 50px -22px rgba(0, 0, 0, 0.6)",
+  borderRadius: 0,
+  boxShadow: "5px 5px 0 rgba(0, 0, 0, 0.5)",
 });
 
 globalStyle(".about-bio", {
@@ -79,7 +79,7 @@ globalStyle(".about-source", {
   alignItems: "center",
   gap: "0.5rem",
   padding: "0.5rem 1rem",
-  borderRadius: 999,
+  borderRadius: 0,
   fontWeight: 600,
   fontSize: "0.9rem",
   color: vars.bgDeep,
@@ -115,7 +115,7 @@ globalKeyframes("fr-pulse", {
 globalStyle(".fr-dot", {
   width: 8,
   height: 8,
-  borderRadius: "50%",
+  borderRadius: 0,
   background: vars.success,
   boxShadow: "0 0 0 0 rgba(166, 227, 161, 0.55)",
   animation: "fr-pulse 2.4s ease-out infinite",
@@ -138,7 +138,7 @@ globalStyle(".fr-member", {
   flex: "1 1 auto",
   minWidth: 0,
   padding: "0.5rem 0.75rem 0.5rem 0.5rem",
-  borderRadius: 12,
+  borderRadius: 0,
   background: vars.surface,
   border: `1px solid ${vars.surfaceHi}`,
   borderLeft: "3px solid var(--fr-accent)",
@@ -148,7 +148,7 @@ globalStyle(".fr-member", {
 globalStyle(".fr-av", {
   width: 38,
   height: 38,
-  borderRadius: "50%",
+  borderRadius: 0,
   objectFit: "cover",
   flex: "0 0 auto",
   border: "2px solid var(--fr-accent)",
@@ -236,7 +236,7 @@ globalStyle(".dev-icon", {
   width: 18,
   height: 10,
   border: `1.5px solid ${vars.textMuted}`,
-  borderRadius: 2,
+  borderRadius: 0,
 });
 
 /** The battery's positive terminal nub. */
@@ -248,7 +248,7 @@ globalStyle(".dev-icon::after", {
   width: 2,
   height: 5,
   transform: "translateY(-50%)",
-  borderRadius: "0 1px 1px 0",
+  borderRadius: 0,
   background: vars.textMuted,
 });
 
@@ -264,7 +264,7 @@ globalStyle(".dev-row", {
   flexDirection: "column",
   gap: "0.4rem",
   padding: "0.45rem 0.6rem",
-  borderRadius: 12,
+  borderRadius: 0,
   background: vars.surface,
   border: `1px solid ${vars.surfaceHi}`,
   borderLeft: "3px solid var(--dev-accent)",
@@ -299,7 +299,7 @@ globalStyle(".dev-track", {
   position: "relative",
   height: 10,
   minWidth: 0,
-  borderRadius: 999,
+  borderRadius: 0,
   background: vars.bgDeep,
   border: `1px solid ${vars.surfaceHi}`,
   overflow: "hidden",
@@ -313,7 +313,7 @@ globalKeyframes("dev-pulse", {
 globalStyle(".dev-fill", {
   display: "block",
   height: "100%",
-  borderRadius: 999,
+  borderRadius: 0,
   background: "var(--dev-accent)",
   transition: "width 0.5s ease",
 });
@@ -350,7 +350,7 @@ globalStyle(".dev-tag", {
   alignItems: "center",
   gap: "0.2rem",
   padding: "0.05rem 0.4rem",
-  borderRadius: 999,
+  borderRadius: 0,
   fontSize: "0.68rem",
   fontWeight: 600,
   background: vars.surfaceHi,
@@ -405,7 +405,7 @@ globalStyle(".loc-map", {
   width: "100%",
   height: 200,
   border: 0,
-  borderRadius: 10,
+  borderRadius: 0,
   display: "block",
   background: vars.surface,
 });

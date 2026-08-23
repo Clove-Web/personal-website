@@ -67,7 +67,7 @@ globalStyle(".genshin-desktop-only", {
       color: vars.text,
       background: vars.bgRaised,
       border: `1px solid ${vars.bgDeep}`,
-      borderRadius: "1rem",
+      borderRadius: 0,
       padding: "2rem 1.5rem",
       maxWidth: "40ch",
       margin: "1rem auto 0",
@@ -96,17 +96,17 @@ globalStyle(".genshin-stale-note", {
 globalStyle(".genshin-card", {
   background: vars.bgRaised,
   border: `1px solid ${vars.surface}`,
-  borderRadius: "1rem",
+  borderRadius: 0,
   overflow: "hidden",
   display: "flex",
   flexDirection: "column",
-  boxShadow: "0 6px 20px rgba(0, 0, 0, 0.25)",
+  boxShadow: "4px 4px 0 rgba(0, 0, 0, 0.35)",
   transition: "transform 0.18s ease, box-shadow 0.18s ease",
 });
 
 globalStyle(".genshin-card:hover", {
-  transform: "translateY(-4px)",
-  boxShadow: "0 12px 28px rgba(0, 0, 0, 0.35)",
+  transform: "translate(-2px, -2px)",
+  boxShadow: "6px 6px 0 rgba(0, 0, 0, 0.35)",
 });
 
 /**
@@ -128,13 +128,13 @@ globalStyle(".genshin-tag", {
   right: "0.6rem",
   zIndex: 2,
   padding: "0.2rem 0.6rem",
-  borderRadius: 999,
+  borderRadius: 0,
   fontSize: "0.72rem",
   fontWeight: 700,
   letterSpacing: "0.02em",
   textTransform: "uppercase",
   color: vars.bgDeep,
-  boxShadow: "0 2px 6px rgba(0, 0, 0, 0.3)",
+  boxShadow: "2px 2px 0 rgba(0, 0, 0, 0.3)",
   pointerEvents: "none",
 });
 
@@ -194,7 +194,7 @@ globalStyle(".genshin-level-track", {
   position: "relative",
   height: 6,
   width: "100%",
-  borderRadius: 999,
+  borderRadius: 0,
   background: vars.bgDeep,
   overflow: "hidden",
 });
@@ -202,7 +202,7 @@ globalStyle(".genshin-level-track", {
 globalStyle(".genshin-level-fill", {
   display: "block",
   height: "100%",
-  borderRadius: 999,
+  borderRadius: 0,
   background: `linear-gradient(90deg, ${vars.accentAlt}, ${vars.accent})`,
   transition: "width 0.3s ease",
 });

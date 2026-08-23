@@ -48,8 +48,8 @@ globalStyle(".bgm-gate-panel", {
   padding: "1.5rem 2rem",
   background: vars.bg,
   border: `1px solid ${vars.surfaceHi}`,
-  borderRadius: 16,
-  boxShadow: "0 16px 48px rgba(0, 0, 0, 0.55)",
+  borderRadius: 0,
+  boxShadow: "6px 6px 0 rgba(0, 0, 0, 0.55)",
   textAlign: "center",
   pointerEvents: "none", // click passes through to .bgm-gate
 });
