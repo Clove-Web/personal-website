@@ -22,7 +22,7 @@
 import { globalStyle } from "@vanilla-extract/css";
 
 /** Containers whose presence should make the page scrollable. */
-const WRAPS = [".friends-wrap", ".selfies-wrap"];
+const WRAPS = [".friends-wrap", ".selfies-wrap", ".privacy-wrap"];
 
 for (const wrap of WRAPS) {
   globalStyle(`html:has(${wrap}), body:has(${wrap})`, {
@@ -32,6 +32,6 @@ for (const wrap of WRAPS) {
   });
 }
 
-globalStyle("body:has(.friends-wrap)", {
+globalStyle("body:has(.friends-wrap), body:has(.privacy-wrap)", {
   alignItems: "flex-start",
 });

@@ -8,6 +8,8 @@ import type { Metadata, Viewport } from "next";
 import NavBridge from "./_components/navBridge";
 import SoundFX from "./soundFX";
 import Providers from "./providers";
+import Analytics from "@components/chrome/analytics";
+import CookieBanner from "@components/chrome/cookieBanner";
 import SettingsMenu from "@components/chrome/settingsMenu";
 import NavMenu from "@components/chrome/navMenu";
 import { MenusProvider } from "@components/chrome/menusProvider";
@@ -27,6 +29,7 @@ import "@styles/nav.css";
 import "@styles/visitorCounter.css";
 import "@styles/sections.css";
 import "@styles/scrollWrap.css";
+import "@styles/cookieBanner.css";
 // Last, so its media queries override the base rules above.
 import "@styles/responsive.css";
 
@@ -144,6 +147,12 @@ export default function RootLayout({
           <SiteChrome catSrc="https://m.doughmination.gay/img/oneko/classic.png" />
 
           <SoundFX />
+
+          {/* Consent gate + the analytics it unlocks. GA only loads once the
+              banner records an analytics opt-in; with no NEXT_PUBLIC_GA_ID set,
+              Analytics renders nothing. See src/scripts/consent.ts. */}
+          <Analytics />
+          <CookieBanner />
         </LanguageProvider>
       </body>
     </html>
