@@ -16,11 +16,14 @@
  *                    and only ever in non-personalized mode.
  *
  * The decision lives in a first-party cookie so the edge (and a fresh page
- * load) can read it too. `null` from readConsent() means "not decided yet" —
- * that is what makes the banner show.
+ * load) can read it too, and is mirrored into localStorage under the same key
+ * so a quick client read doesn't have to parse document.cookie and so other
+ * tabs get a real `storage` event. `null` from readConsent() means "not decided
+ * yet" — that is what makes the banner show.
  */
 
 const COOKIE_NAME = "dough-consent";
+const STORAGE_KEY = "dough-consent";
 // Bumped to 2 when the `advertising` category was added: v1 records don't
 // carry a choice for it, so they read back as null and the banner asks again.
 const COOKIE_VERSION = 2;
@@ -50,19 +53,11 @@ function isBrowser(): boolean {
   return typeof document !== "undefined";
 }
 
-/** The current decision, or null when the visitor has not chosen yet. */
-export function readConsent(): ConsentState | null {
-  if (!isBrowser()) return null;
-
-  const match = document.cookie
-    .split(";")
-    .map((part) => part.trim())
-    .find((part) => part.startsWith(`${COOKIE_NAME}=`));
-
-  if (!match) return null;
+/** Parse a stored JSON blob into a ConsentState, or null if it's stale/bad. */
+function parseStored(raw: string | null): ConsentState | null {
+  if (!raw) return null;
 
   try {
-    const raw = decodeURIComponent(match.slice(COOKIE_NAME.length + 1));
     const parsed = JSON.parse(raw) as StoredConsent;
 
     if (parsed.v !== COOKIE_VERSION) return null;
@@ -71,6 +66,40 @@ export function readConsent(): ConsentState | null {
       analytics: parsed.analytics === true,
       advertising: parsed.advertising === true,
     };
+  } catch {
+    return null;
+  }
+}
+
+/** The raw cookie value for our key, decoded, or null. */
+function readCookieRaw(): string | null {
+  const match = document.cookie
+    .split(";")
+    .map((part) => part.trim())
+    .find((part) => part.startsWith(`${COOKIE_NAME}=`));
+
+  if (!match) return null;
+
+  try {
+    return decodeURIComponent(match.slice(COOKIE_NAME.length + 1));
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * The current decision, or null when the visitor has not chosen yet. The
+ * cookie is the source of truth (the edge reads it too); localStorage is a
+ * fallback for when the cookie is missing but the mirror survived.
+ */
+export function readConsent(): ConsentState | null {
+  if (!isBrowser()) return null;
+
+  const fromCookie = parseStored(readCookieRaw());
+  if (fromCookie) return fromCookie;
+
+  try {
+    return parseStored(window.localStorage.getItem(STORAGE_KEY));
   } catch {
     return null;
   }
@@ -91,10 +120,18 @@ export function writeConsent(state: ConsentState): void {
     advertising: state.advertising === true,
   };
 
-  const value = encodeURIComponent(JSON.stringify(payload));
+  const json = JSON.stringify(payload);
 
   document.cookie =
-    `${COOKIE_NAME}=${value}; path=/; max-age=${COOKIE_MAX_AGE}; samesite=lax`;
+    `${COOKIE_NAME}=${encodeURIComponent(json)}; path=/; max-age=${COOKIE_MAX_AGE}; samesite=lax`;
+
+  // Mirror to localStorage: lets a client read skip cookie parsing, and gives
+  // other open tabs a real `storage` event (cookie writes don't emit one).
+  try {
+    window.localStorage.setItem(STORAGE_KEY, json);
+  } catch {
+    // Private mode / storage disabled — the cookie still carries the decision.
+  }
 
   window.dispatchEvent(new CustomEvent(CONSENT_EVENT));
 }
@@ -118,8 +155,8 @@ export function openCookieSettings(): void {
 /**
  * Subscribe to decision changes. Fires on this tab's own writes (via the
  * custom event) and on writes from other tabs (via the storage event, which
- * we trigger with a throwaway localStorage ping since cookie writes don't
- * emit one).
+ * the localStorage mirror in writeConsent() now emits — cookie writes alone
+ * don't).
  */
 export function subscribeConsent(callback: () => void): () => void {
   if (!isBrowser()) return () => {};

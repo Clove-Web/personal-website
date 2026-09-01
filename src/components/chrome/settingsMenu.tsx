@@ -16,10 +16,12 @@ import {
   Translate,
   ChevronDown,
   VolumeDownFill,
+  Cookie,
 } from "react-bootstrap-icons";
 import { playClickSound, playOpenSound, playCloseSound, playHoverSound } from "@lib/sound";
 import { useLanguage } from "@/i18n/languageProvider";
 import { LANGUAGE_NAMES, SUPPORTED_LANGUAGES } from "@/i18n/config";
+import { openCookieSettings } from "@scripts/consent";
 import { useMenus } from "./menusProvider";
 import styles from "./settingsMenu.module.css";
 
@@ -201,6 +203,24 @@ export default function SettingsMenu() {
             }}
           >
             {paused ? <PlayFill size={22} /> : <PauseFill size={22} />}
+          </button>
+
+          {/* TODO(i18n): label is hard-coded English, matching the rest of the
+              cookie-consent UI until the locale dictionaries carry it. */}
+          <button
+            type="button"
+            className={styles.btn}
+            title="Cookie preferences"
+            aria-label="Cookie preferences"
+            tabIndex={open ? 0 : -1}
+            onMouseEnter={playHoverSound}
+            onClick={() => {
+              playClickSound();
+              close();
+              openCookieSettings();
+            }}
+          >
+            <Cookie size={22} />
           </button>
         </div>
 
