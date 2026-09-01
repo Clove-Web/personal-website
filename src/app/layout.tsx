@@ -9,6 +9,7 @@ import NavBridge from "./_components/navBridge";
 import SoundFX from "./soundFX";
 import Providers from "./providers";
 import Analytics from "@components/chrome/analytics";
+import AdSense from "@components/chrome/adSense";
 import CookieBanner from "@components/chrome/cookieBanner";
 import SettingsMenu from "@components/chrome/settingsMenu";
 import NavMenu from "@components/chrome/navMenu";
@@ -148,10 +149,13 @@ export default function RootLayout({
 
           <SoundFX />
 
-          {/* Consent gate + the analytics it unlocks. GA only loads once the
-              banner records an analytics opt-in; with no NEXT_PUBLIC_GA_ID set,
-              Analytics renders nothing. See src/scripts/consent.ts. */}
+          {/* Consent gate + the scripts it unlocks. GA loads only on an
+              analytics opt-in (and only with NEXT_PUBLIC_GA_ID set); AdSense
+              loads only on an advertising opt-in, always non-personalized.
+              Ad slots themselves are placed with <AdUnit slot="…" />.
+              See src/scripts/consent.ts. */}
           <Analytics />
+          <AdSense />
           <CookieBanner />
         </LanguageProvider>
       </body>

@@ -12,12 +12,13 @@ import "@styles/pages/privacy.css";
 /*
  * Privacy & Cookies.
  *
- * DRAFT COPY — this is a working first pass built from what the site actually
- * does today (see the audit in each section). Clove to review the wording, add
- * a real contact route where marked, and set an "as of" date before relying on
- * it. English only on purpose: it is legal text, not chrome, so it is not run
- * through the locale dictionaries.
+ * The live disclosure. English only on purpose: it is legal text, not chrome,
+ * so it is not run through the locale dictionaries. When the wording changes
+ * materially, bump LAST_UPDATED so the "as of" line moves — the consent banner
+ * re-appears on its own six-month cycle.
  */
+
+const LAST_UPDATED = "1 September 2026";
 
 export const metadata: Metadata = {
   title: "Privacy & Cookies — Clove Nytrix Doughmination Twilight",
@@ -41,15 +42,16 @@ export default function PrivacyPage() {
     <main className="hub privacy-wrap">
       <header className="hub-header">
         <h1>Privacy &amp; Cookies</h1>
-        <p className="privacy-updated">Draft — not yet dated.</p>
+        <p className="privacy-updated">As of {LAST_UPDATED}.</p>
       </header>
 
       <div className="privacy-body">
         <p>
           This site is a personal homepage run by Clove Nytrix Doughmination
           Twilight (&ldquo;I&rdquo;, &ldquo;me&rdquo;). It is deployed as a
-          static site on Cloudflare Pages. There are no user accounts and no
-          advertising. This page explains what is stored on your device, what
+          static site on Cloudflare Pages. There are no user accounts. It
+          carries Google AdSense ads, served non-personalized and only after
+          you opt in. This page explains what is stored on your device, what
           leaves your browser, and how to control the optional parts.
         </p>
 
@@ -61,9 +63,9 @@ export default function PrivacyPage() {
             locale loads on your next visit. Lasts about a year.
           </li>
           <li>
-            <code>dough-consent</code> — records your choice from the cookie
-            banner (whether analytics is allowed). Lasts about six months, after
-            which the banner asks again.
+            <code>dough-consent</code> — records your choices from the cookie
+            banner (whether analytics and advertising are allowed). Lasts about
+            six months, after which the banner asks again.
           </li>
         </ul>
         <p>
@@ -93,7 +95,7 @@ export default function PrivacyPage() {
         </ul>
         <p>Clearing site data in your browser removes all of these.</p>
 
-        <h2>Optional analytics</h2>
+        <h2>Optional: analytics</h2>
         <p>
           If — and only if — you choose &ldquo;Accept all&rdquo; or enable
           analytics in &ldquo;Customize&rdquo;, the site loads{" "}
@@ -110,6 +112,36 @@ export default function PrivacyPage() {
           only to see rough traffic levels. If you reject optional cookies,
           Google Analytics is never loaded. You can change your mind at any time
           with the button below.
+        </p>
+
+        <h2>Optional: advertising</h2>
+        <p>
+          If — and only if — you choose &ldquo;Accept all&rdquo; or enable
+          advertising in &ldquo;Customize&rdquo;, the site loads{" "}
+          <a
+            href="https://policies.google.com/technologies/partner-sites"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Google AdSense
+          </a>{" "}
+          (Google Ireland Ltd / Google LLC) to show ads. Ads are always
+          requested <strong>non-personalized</strong>: they are not targeted
+          using a profile of you, and the site does not use a certified
+          consent-management platform for personalized advertising. Even so,
+          AdSense sets cookies on Google&rsquo;s domains for frequency capping,
+          ad measurement and fraud prevention, and Google receives your IP
+          address and user-agent. Nothing from Google&rsquo;s ad stack loads
+          until you opt in, and you can withdraw consent at any time with the
+          button below (a page reload then clears the rest). See{" "}
+          <a
+            href="https://support.google.com/adsense/answer/7549925"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            how Google uses cookies in advertising
+          </a>
+          .
         </p>
 
         <h2>Other third parties involved in loading the site</h2>
@@ -199,8 +231,10 @@ export default function PrivacyPage() {
 
         <h2>Changes</h2>
         <p>
-          If this notice changes materially, the banner will re-appear so you
-          can review your choices.
+          The date at the top of this page shows when it last changed. Your
+          saved cookie choice is re-requested at least every six months, and
+          sooner if a change to what loads means the old choice no longer
+          covers it.
         </p>
 
         <CookiePreferencesButton />

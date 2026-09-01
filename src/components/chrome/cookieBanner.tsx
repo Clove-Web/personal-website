@@ -45,8 +45,9 @@ export default function CookieBanner() {
   const [visible, setVisible] = useState(false);
   const [customising, setCustomising] = useState(false);
 
-  // Local state for the analytics toggle inside the Customise panel.
+  // Local state for the toggles inside the Customise panel.
   const [analyticsChoice, setAnalyticsChoice] = useState(false);
+  const [advertisingChoice, setAdvertisingChoice] = useState(false);
 
   useEffect(() => {
     setReady(true);
@@ -60,6 +61,7 @@ export default function CookieBanner() {
     const reopen = () => {
       const current = readConsent();
       setAnalyticsChoice(current?.analytics ?? false);
+      setAdvertisingChoice(current?.advertising ?? false);
       setCustomising(true);
       setVisible(true);
     };
@@ -86,16 +88,23 @@ export default function CookieBanner() {
   const onToggleCustomise = useCallback(() => {
     playClickSound();
     setCustomising((open) => {
-      if (!open) setAnalyticsChoice(readConsent()?.analytics ?? false);
+      if (!open) {
+        const current = readConsent();
+        setAnalyticsChoice(current?.analytics ?? false);
+        setAdvertisingChoice(current?.advertising ?? false);
+      }
       return !open;
     });
   }, []);
 
   const onSave = useCallback(() => {
     playClickSound();
-    writeConsent({ analytics: analyticsChoice });
+    writeConsent({
+      analytics: analyticsChoice,
+      advertising: advertisingChoice,
+    });
     setVisible(false);
-  }, [analyticsChoice]);
+  }, [analyticsChoice, advertisingChoice]);
 
   if (!ready || !visible) return null;
 
@@ -110,9 +119,9 @@ export default function CookieBanner() {
 
       <p className="cb-text">
         Operational cookies keep the site working (your language choice, small
-        preferences) and are always on. Analytics cookies are optional — they
-        load Google Analytics so I can see rough visitor numbers. Full details
-        are in the{" "}
+        preferences) and are always on. The optional ones are analytics (Google
+        Analytics, for rough visitor numbers) and advertising (Google AdSense,
+        non-personalized only). Full details are in the{" "}
         <a className="cb-link" href={privacyHref}>
           Privacy &amp; Cookies
         </a>{" "}
@@ -145,6 +154,24 @@ export default function CookieBanner() {
               checked={analyticsChoice}
               aria-label="Allow analytics cookies"
               onChange={(event) => setAnalyticsChoice(event.target.checked)}
+            />
+          </div>
+
+          <div className="cb-row">
+            <div className="cb-row-main">
+              <span className="cb-row-label">Advertising</span>
+              <span className="cb-row-desc">
+                Google AdSense, non-personalized only. Still uses cookies for
+                frequency capping and fraud prevention. Loads only if you allow
+                it here.
+              </span>
+            </div>
+            <input
+              type="checkbox"
+              className="cb-toggle"
+              checked={advertisingChoice}
+              aria-label="Allow advertising cookies"
+              onChange={(event) => setAdvertisingChoice(event.target.checked)}
             />
           </div>
         </div>

@@ -4,14 +4,16 @@
  * See LICENCE.md in the project root for full licence information.
  */
 /*
- * Cookie-consent state, shared by the banner (CookieBanner.tsx) and the
- * analytics loader (Analytics.tsx).
+ * Cookie-consent state, shared by the banner (CookieBanner.tsx), the analytics
+ * loader (Analytics.tsx) and the ad loader (AdSense.tsx / AdUnit.tsx).
  *
- * Two categories:
- *   - operational : always on, cannot be declined (language cookie, the small
- *                   localStorage keys the widgets use, the honeypot/Turnstile
- *                   on the guestbook). No script is gated on it.
- *   - analytics   : optional. Google Analytics only loads once this is granted.
+ * Three categories:
+ *   - operational  : always on, cannot be declined (language cookie, the small
+ *                    localStorage keys the widgets use, the honeypot/Turnstile
+ *                    on the guestbook). No script is gated on it.
+ *   - analytics    : optional. Google Analytics only loads once this is granted.
+ *   - advertising  : optional. Google AdSense only loads once this is granted,
+ *                    and only ever in non-personalized mode.
  *
  * The decision lives in a first-party cookie so the edge (and a fresh page
  * load) can read it too. `null` from readConsent() means "not decided yet" —
@@ -19,7 +21,9 @@
  */
 
 const COOKIE_NAME = "dough-consent";
-const COOKIE_VERSION = 1;
+// Bumped to 2 when the `advertising` category was added: v1 records don't
+// carry a choice for it, so they read back as null and the banner asks again.
+const COOKIE_VERSION = 2;
 
 // Six months. The ICO guidance is to re-ask for consent periodically rather
 // than treat it as permanent; a browser year would be too long.
@@ -33,11 +37,13 @@ export const OPEN_SETTINGS_EVENT = "dough-open-cookie-settings";
 
 export interface ConsentState {
   analytics: boolean;
+  advertising: boolean;
 }
 
 interface StoredConsent {
   v: number;
   analytics: boolean;
+  advertising: boolean;
 }
 
 function isBrowser(): boolean {
@@ -61,7 +67,10 @@ export function readConsent(): ConsentState | null {
 
     if (parsed.v !== COOKIE_VERSION) return null;
 
-    return { analytics: parsed.analytics === true };
+    return {
+      analytics: parsed.analytics === true,
+      advertising: parsed.advertising === true,
+    };
   } catch {
     return null;
   }
@@ -79,6 +88,7 @@ export function writeConsent(state: ConsentState): void {
   const payload: StoredConsent = {
     v: COOKIE_VERSION,
     analytics: state.analytics === true,
+    advertising: state.advertising === true,
   };
 
   const value = encodeURIComponent(JSON.stringify(payload));
@@ -91,12 +101,12 @@ export function writeConsent(state: ConsentState): void {
 
 /** Accept every category. */
 export function acceptAll(): void {
-  writeConsent({ analytics: true });
+  writeConsent({ analytics: true, advertising: true });
 }
 
 /** Keep only the operational cookies; decline the optional ones. */
 export function rejectOptional(): void {
-  writeConsent({ analytics: false });
+  writeConsent({ analytics: false, advertising: false });
 }
 
 /** Ask the banner to show itself again so the visitor can change their mind. */
