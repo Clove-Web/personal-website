@@ -138,7 +138,7 @@ export default function DevInfoPage() {
                 className={`tech-icon ${color}`}
                 style={
                   {
-                    "--si": `url('https://m.doughmination.gay/img/icons/${slug}.svg')`,
+                    "--si": `url('https://m.doughmination.gay/img/icons/${slug}.png')`,
                   } as CSSProperties
                 }
                 role="img"
