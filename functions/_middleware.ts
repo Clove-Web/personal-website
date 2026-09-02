@@ -35,12 +35,9 @@ export const onRequest = async (
   const search = url.search;
 
   const lastSegment = pathname.split("/").pop() ?? "";
-  const isAsset =
-    pathname.startsWith("/_next") ||
-    pathname.startsWith("/api") ||
-    lastSegment.includes(".");
+  const hasExtension = lastSegment.includes(".");
 
-  if (isAsset) {
+  if (pathname.startsWith("/_next") || pathname.startsWith("/api")) {
     return next();
   }
 
@@ -52,12 +49,20 @@ export const onRequest = async (
 
     const rewritten = await next(new Request(flatUrl.toString(), request));
 
+    if (hasExtension) {
+      return rewritten;
+    }
+
     const response = new Response(rewritten.body, rewritten);
     response.headers.append(
       "Set-Cookie",
       `${LANG_COOKIE}=${language}; Path=/; Max-Age=${COOKIE_MAX_AGE}; SameSite=Lax`,
     );
     return response;
+  }
+
+  if (hasExtension) {
+    return next();
   }
 
   const savedLang = readCookie(request.headers.get("cookie"), LANG_COOKIE);
