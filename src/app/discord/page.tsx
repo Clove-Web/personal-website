@@ -9,7 +9,7 @@ import PresenceDashboard from "@scripts/presenceDashboard";
 import { Tr } from "@components/chrome/i18nText";
 import * as s from "@styles/presenceDashboard.css";
 
-const MY_DISCORD_USER_ID = "1464890289922641993";
+const MY_DISCORD_USER_ID = "1025770042245251122";
 
 export const metadata: Metadata = {
   title: "Clove Nytrix Doughmination Twilight",

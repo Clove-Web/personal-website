@@ -74,11 +74,10 @@ const FRIENDS: Group[] = [
         discordId: "526626867973849123"
       },
       {
-        name: "estrogenhrt",
-        user: "estrogenhrt",
-        img: "https://m.doughmination.gay/img/old-pfps/estrogenhrt.png",
+        name: "Doughmination SSO Account",
+        user: "clove_doughmination",
         tier: "active-alt",
-        discordId: "1025770042245251122"
+        discordId: "1464890289922641993"
       },
       {
         name: "Clove Nytrix Doughmination Twilight",

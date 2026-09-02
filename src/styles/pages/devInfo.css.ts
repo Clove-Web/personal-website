@@ -6,7 +6,7 @@
 
 /**
  * dev-info.css.ts — the /dev-info page: tech-stack icons, hardware list,
- * WakaTime stats cards, and the GitHub contribution heatmap.
+ * and the GitHub contribution heatmap.
  *
  * Ported from public/css/pages/dev-info.css.
  *
@@ -15,33 +15,25 @@
  *       plus `.about-badges .badge` and `.about-setup #pokeball-secret`, which
  *       referenced the badge stack and the pokeball easter egg — both already
  *       removed from the site.
- *   .waka-setup, .waka-setup-btn, .waka-steps (+ .waka-steps code)
- *       the "how to set up WakaTime" empty state, no longer rendered.
- *
- * Kept carefully: the source had `.waka-steps a, .waka-empty a, .waka-credit a`
- * as one selector. Only the .waka-steps part is dead, so the rule survives with
- * that fragment removed rather than being dropped wholesale.
+ *   the whole .waka-* family — the WakaTime stats cards, removed from the site.
  */
 import { globalStyle, globalKeyframes } from "@vanilla-extract/css";
 import { vars } from "../themes.css";
 
 const POINTER = 'url("https://m.doughmination.gay/img/cursor/pointer_0.png"), pointer';
-const ELLIPSIS = {
-  whiteSpace: "nowrap",
-  overflow: "hidden",
-  textOverflow: "ellipsis",
-} as const;
-
 /* ---- page shell ----------------------------------------------------------- */
 
 /** Only this page scrolls; the link hub stays locked. */
-globalStyle("html:has(.dev-info), body:has(.dev-info), html:has(.waka), body:has(.waka)", {
-  height: "auto",
-  minHeight: "100dvh",
-  overflowY: "auto",
-});
+globalStyle(
+  "html:has(.dev-info), body:has(.dev-info), html:has(.dev-info-page), body:has(.dev-info-page)",
+  {
+    height: "auto",
+    minHeight: "100dvh",
+    overflowY: "auto",
+  },
+);
 
-globalStyle("body:has(.dev-info), body:has(.waka)", {
+globalStyle("body:has(.dev-info), body:has(.dev-info-page)", {
   alignItems: "flex-start",
 });
 
@@ -55,6 +47,32 @@ globalStyle(".dev-info", {
   margin: "0 auto",
   paddingBottom: "4.5rem",
 });
+
+globalStyle(".dev-info-page", {
+  position: "relative",
+  zIndex: 1,
+  width: "100%",
+  maxWidth: 640,
+  margin: "0 auto",
+  paddingBottom: "4.5rem",
+});
+
+globalStyle(".dev-info-page .hub-header", { marginBottom: "1.5rem" });
+
+globalStyle(".info-section", {
+  background: vars.surface,
+  border: `1px solid ${vars.surfaceHi}`,
+  borderRadius: 0,
+  padding: "0.85rem 1.25rem 0.95rem",
+  marginBottom: "0.7rem",
+});
+
+globalStyle(".info-section .section-title", {
+  textAlign: "left",
+  fontSize: "0.82rem",
+  marginBottom: "1rem",
+});
+
 
 /* ---- tech-stack icons ------------------------------------------------------
    Simple Icons rendered via CSS mask so the colour is theme-driven. The markup
@@ -130,198 +148,15 @@ globalStyle(".tech-stack .dev-info", {
   justifyContent: "flex-start",
 });
 
-/* ---- WakaTime cards ------------------------------------------------------- */
-
-globalStyle(".waka", {
-  position: "relative",
-  zIndex: 1,
-  width: "100%",
-  maxWidth: 640,
-  margin: "0 auto",
-  paddingBottom: "4.5rem",
-});
-
-globalStyle(".waka .hub-header", { marginBottom: "1.5rem" });
-
-globalStyle(".waka-meta", {
-  margin: "0.5rem 0 0",
-  fontSize: "0.72rem",
-  letterSpacing: "0.03em",
-  color: vars.textMuted,
-});
-
-globalStyle(".waka-section", {
-  background: vars.surface,
-  border: `1px solid ${vars.surfaceHi}`,
-  borderRadius: 0,
-  padding: "0.85rem 1.25rem 0.95rem",
-  marginBottom: "0.7rem",
-});
-
-globalStyle(".waka-section .section-title", {
-  textAlign: "left",
-  fontSize: "0.82rem",
-  marginBottom: "1rem",
-});
-
-/* headline total + weekly chart */
-
-globalStyle(".waka-total", { textAlign: "center" });
-
-globalStyle(".waka-total-num", {
-  fontSize: "2.1rem",
-  fontWeight: 700,
-  color: vars.accent,
-  lineHeight: 1.1,
-});
-
-globalStyle(".waka-total-sub", {
-  fontSize: "0.78rem",
-  textTransform: "uppercase",
-  letterSpacing: "0.05em",
-  color: vars.textMuted,
-  marginBottom: "1.1rem",
-});
-
-globalStyle(".waka-week", {
-  display: "flex",
-  alignItems: "flex-end",
-  justifyContent: "space-between",
-  gap: "0.5rem",
-  height: 120,
-});
-
-globalStyle(".waka-day", {
-  flex: "1 1 0",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  gap: "0.4rem",
-  height: "100%",
-});
-
-globalStyle(".waka-day-track", {
-  flex: 1,
-  width: "100%",
-  maxWidth: 34,
-  display: "flex",
-  alignItems: "flex-end",
-  background: vars.surfaceHi,
-  borderRadius: 0,
-  overflow: "hidden",
-});
-
-globalStyle(".waka-day-fill", {
-  width: "100%",
-  minHeight: 3,
-  background: vars.accent,
-  borderRadius: 0,
-  transition: "height 0.5s ease",
-});
-
-globalStyle(".waka-day-label", {
-  fontSize: "0.66rem",
-  color: vars.textMuted
-});
-
-/* ranked horizontal bars (languages / projects / editors / os) */
-
-globalStyle(".waka-bars", {
-  display: "flex",
-  flexDirection: "column",
-  gap: "0.6rem",
-});
-
-globalStyle(".waka-bar-row", {
-  display: "grid",
-  gridTemplateColumns: "7.5rem 1fr auto",
-  alignItems: "center",
-  gap: "0.7rem",
-  "@media": {
-    "(max-width: 560px)": { gridTemplateColumns: "5.5rem 1fr auto" },
-  },
-});
-
-globalStyle(".waka-bar-name", {
-  fontSize: "0.82rem",
-  color: vars.text,
-  ...ELLIPSIS,
-});
-
-globalStyle(".waka-bar-track", {
-  height: 9,
-  background: vars.surfaceHi,
-  borderRadius: 0,
-  overflow: "hidden",
-});
-
-globalStyle(".waka-bar-fill", {
-  display: "block",
-  height: "100%",
-  width: 0,
-  background: vars.accent,
-  borderRadius: 0,
-  transition: "width 0.6s ease",
-});
-
-globalStyle(".waka-bar-val", {
-  fontSize: "0.74rem",
-  color: vars.textMuted,
-  whiteSpace: "nowrap",
-  fontVariantNumeric: "tabular-nums",
-});
-
-/* two-up grid for editors + OS on wider screens */
-
-globalStyle(".waka-grid2", {
-  display: "grid",
-  gridTemplateColumns: "1fr 1fr",
-  gap: "1.1rem",
-  "@media": {
-    "(max-width: 560px)": {
-      gridTemplateColumns: "1fr",
-      gap: 0
-    },
-  },
-});
-
-globalStyle(".waka-grid2 .waka-section", {
-  marginBottom: 0,
-  "@media": { "(max-width: 560px)": { marginBottom: "1.1rem" } },
-});
-
-globalStyle(".waka-empty", {
-  fontSize: "0.85rem",
-  color: vars.textMuted,
-  lineHeight: 1.5,
-  margin: 0,
-});
-
-globalStyle(".waka-credit", {
-  textAlign: "center",
-  fontSize: "0.72rem",
-  color: vars.textMuted,
-  margin: "1.4rem 0 0",
-});
-
-globalStyle(".waka-empty a, .waka-credit a", {
-  color: vars.accent,
-  textDecoration: "none",
-});
-
-globalStyle(".waka-empty a:hover, .waka-credit a:hover", {
-  textDecoration: "underline",
-});
-
 /* ---- collapsible sections (details/summary) ------------------------------- */
 
-globalStyle("details.waka-section", {
+globalStyle("details.info-section", {
   // tight when collapsed; [open] below expands it
   paddingBottom: "0.85rem",
   transition: "padding-bottom 0.15s ease",
 });
 
-globalStyle("details.waka-section[open]", { paddingBottom: "1.15rem" });
+globalStyle("details.info-section[open]", { paddingBottom: "1.15rem" });
 
 globalStyle("summary.section-title", {
   display: "flex",
@@ -360,11 +195,11 @@ globalStyle("summary.section-title::after", {
   transition: "transform 0.2s ease",
 });
 
-globalStyle("details.waka-section[open] > summary.section-title", {
+globalStyle("details.info-section[open] > summary.section-title", {
   marginBottom: "0.75rem",
 });
 
-globalStyle("details.waka-section[open] > summary.section-title::after", {
+globalStyle("details.info-section[open] > summary.section-title::after", {
   transform: "rotate(-135deg)",
 });
 

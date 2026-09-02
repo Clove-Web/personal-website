@@ -20,7 +20,7 @@ import type { Dictionary } from "@/i18n/locales/en";
    React expects animation/scroll sync to be done. */
 
 // ---- config ---------------------------------------------------------------
-const DISCORD_ID = "1464890289922641993";
+const DISCORD_ID = "1025770042245251122";
 const LFM_USER = "Real_AlexTLM";
 const LFM_KEY = "768e8bd0d366f4d6c7874740ca6610ad";
 const LFM_OK = !!(LFM_USER && LFM_KEY);

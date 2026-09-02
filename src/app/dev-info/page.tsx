@@ -14,13 +14,12 @@ import "@styles/pages/devInfo.css";
 export const metadata: Metadata = {
   title: "Clove Nytrix Doughmination Twilight",
   description:
-    "What Clove Nytrix Doughmination Twilight has been coding lately — a live contribution heatmap and WakaTime coding stats.",
+    "What Clove Nytrix Doughmination Twilight has been coding lately — a live contribution heatmap, tech stack, and hardware.",
   keywords: [
     "Clove Nytrix Doughmination Twilight",
     "doughmination.gay",
     "dev info",
     "coding stats",
-    "WakaTime",
     "contributions",
     "developer",
   ],
@@ -30,7 +29,7 @@ export const metadata: Metadata = {
     siteName: "doughmination.gay",
     title: "Clove Nytrix Doughmination Twilight",
     description:
-      "What Clove Nytrix Doughmination Twilight has been coding lately — a live contribution heatmap and WakaTime coding stats.",
+      "What Clove Nytrix Doughmination Twilight has been coding lately — a live contribution heatmap, tech stack, and hardware.",
     url: "https://doughmination.gay/dev-info",
     locale: "en_GB",
     images: [
@@ -113,10 +112,8 @@ export default function DevInfoPage() {
       {/* Warm up the origins this page's JS fetches on load */}
       <link rel="preconnect" href="https://doughmination.uk" crossOrigin="" />
       <link rel="dns-prefetch" href="https://doughmination.uk" />
-      <link rel="preconnect" href="https://wakatime.com" />
-      <link rel="dns-prefetch" href="https://wakatime.com" />
 
-      <main className="waka">
+      <main className="dev-info-page">
         <header className="hub-header">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -129,7 +126,7 @@ export default function DevInfoPage() {
           <p className="tagline"><Tr k="devInfo.tagline" /></p>
         </header>
 
-        <details className="waka-section tech-stack" id="tech-stack">
+        <details className="info-section tech-stack" id="tech-stack">
           <summary className="section-title"><Tr k="devInfo.techStack" /></summary>
           <div className="dev-info" role="region" aria-label="Tech stack">
             {TECH.map(([color, slug, label]) => (
@@ -148,7 +145,7 @@ export default function DevInfoPage() {
           </div>
         </details>
 
-        <details className="waka-section hardware" id="waka-section-hardware">
+        <details className="info-section hardware" id="hardware">
           <summary className="section-title"><Tr k="devInfo.hardware" /></summary>
           <p className="hw-intro"><Tr k="devInfo.hardwareIntro" /></p>
           <dl className="hw-list">

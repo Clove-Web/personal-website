@@ -463,23 +463,6 @@ globalStyle(".section + .section", {
   "@media": { [MOBILE]: { marginTop: "1.5rem" } },
 });
 
-/* ---- dev-info waka bars --------------------------------------------------- */
-
-/** Narrow the label column so the bars aren't crushed. */
-globalStyle(".waka-bar-row", {
-  "@media": {
-    [MOBILE]: { gridTemplateColumns: "5rem 1fr auto" },
-    "(max-width: 380px)": {
-      gridTemplateColumns: "4rem 1fr auto",
-      gap: "0.4rem"
-    },
-  },
-});
-
-globalStyle(".waka-bar-val", {
-  "@media": { "(max-width: 380px)": { fontSize: "0.66rem" } },
-});
-
 /* ---- very narrow phones --------------------------------------------------- */
 
 globalStyle(".project-grid", {
