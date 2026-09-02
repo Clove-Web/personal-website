@@ -40,21 +40,8 @@ export const metadata: Metadata = {
   },
 };
 
-/** My Genshin UID — live owned/level data comes from Doughmination Restful
- *  (Enka.Network passthrough), see GenshinGallery. */
 const GENSHIN_UID = "691386457";
 
-// Models converted from MMD (.pmx) to .glb via scripts/pmx2glb.py.
-// Attribution handled separately — names only here.
-//
-// `avatarId` is Enka's numeric character id — set it and owned/level status
-// comes live from the API instead of the `tier`/`level` fields below (which
-// then only serve as a fallback while that loads, or if it ever errors).
-// Leave `avatarId` unset for characters not in Enka's current catalog —
-// Prune and Sandrone aren't turning up there yet, so those two stay manual
-// for now.
-// Kept alphabetical by name; display order (want first) is derived in
-// GenshinGallery.
 const CHARACTERS: Character[] = [
   {
     name: "Aino",

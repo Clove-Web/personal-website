@@ -19,33 +19,14 @@ import {
   OPEN_SETTINGS_EVENT,
 } from "@scripts/consent";
 
-/*
- * The consent banner. Shows on the first visit (no decision cookie yet) and
- * again whenever `openCookieSettings()` fires — the privacy page uses that so
- * people can change their mind.
- *
- * Three top-level choices, as asked for: Accept All, Reject Optional, Customise.
- * Customise opens a panel with the two categories: operational (always on, no
- * toggle) and analytics (a real toggle), plus a Save button.
- *
- * NOTE (i18n): these strings are hard-coded English for now. The rest of the
- * site resolves display text through the locale dictionaries, but adding a
- * `cookies` block to en.ts breaks `satisfies Dictionary` in the other 12
- * locale files until they are all filled in. Tracked as a follow-up — move
- * these into src/i18n/locales/*.ts then.
- */
-
 export default function CookieBanner() {
   const { lang } = useLanguage();
   const privacyHref = localizedPath("/privacy", lang);
 
-  // null until we have read the cookie on the client, so the first paint
-  // matches the server (nothing) and there is no hydration flash.
   const [ready, setReady] = useState(false);
   const [visible, setVisible] = useState(false);
   const [customising, setCustomising] = useState(false);
 
-  // Local state for the toggles inside the Customise panel.
   const [analyticsChoice, setAnalyticsChoice] = useState(false);
   const [advertisingChoice, setAdvertisingChoice] = useState(false);
 
@@ -54,7 +35,6 @@ export default function CookieBanner() {
     setVisible(readConsent() === null);
 
     const unsubscribe = subscribeConsent(() => {
-      // A decision landed (this tab or another). Hide unless we are mid-edit.
       if (readConsent() !== null) setVisible(false);
     });
 

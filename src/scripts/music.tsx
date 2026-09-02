@@ -14,12 +14,6 @@ import { dmListening } from "./presenceShared";
 import { useLanguage } from "@/i18n/languageProvider";
 import type { Dictionary } from "@/i18n/locales/en";
 
-/* Ported from music.js — now-playing hero, synced lyrics (LRCLIB) with a
-   follow/lock scroll, recent plays + top artists (Last.fm). The per-frame
-   progress bar and active-lyric highlight stay imperative (refs), which is how
-   React expects animation/scroll sync to be done. */
-
-// ---- config ---------------------------------------------------------------
 const DISCORD_ID = "1025770042245251122";
 const LFM_USER = "Real_AlexTLM";
 const LFM_KEY = "768e8bd0d366f4d6c7874740ca6610ad";
@@ -37,7 +31,6 @@ const LRCLIB_HOSTS = [
 const BLANK_ART =
   "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
-// ---- types ----------------------------------------------------------------
 type Track = {
   song?: string;
   artist?: string;
@@ -68,7 +61,6 @@ type RecentItem = {
 };
 type TopArtist = { name: string; url: string; playcount: string };
 
-// ---- helpers --------------------------------------------------------------
 function mmss(ms: number): string {
   if (!isFinite(ms) || ms < 0) ms = 0;
   const s = Math.floor(ms / 1000);
@@ -137,7 +129,6 @@ function lyricsView(data: Lyrics | null, noLyricsMsg: string): LyricsView {
   };
 }
 
-// ---- LRCLIB ---------------------------------------------------------------
 async function lrclibGet(params: Record<string, string>) {
   const qs = new URLSearchParams(params).toString();
   for (const host of LRCLIB_HOSTS) {
@@ -147,7 +138,6 @@ async function lrclibGet(params: Record<string, string>) {
       });
       if (res.ok) return res.json();
     } catch {
-      /* try next mirror */
     }
   }
   return null;
@@ -165,13 +155,11 @@ async function lrclibSearch(track_name: string, artist_name: string) {
       if (!Array.isArray(arr) || !arr.length) continue;
       return arr.find((r) => r.syncedLyrics) || arr.find((r) => r.plainLyrics) || arr[0];
     } catch {
-      /* next */
     }
   }
   return null;
 }
 
-// ---- Last.fm --------------------------------------------------------------
 function lfmImg(images: { "#text"?: string }[]): string {
   if (!Array.isArray(images)) return "";
   const big = images[images.length - 1] || images[0] || {};
@@ -200,7 +188,6 @@ async function lfm(method: string, extra?: Record<string, string>) {
   return res.json();
 }
 
-// ---- artist images (TheAudioDB) --------------------------------------------
 const TADB_ROOT = "https://www.theaudiodb.com/api/v1/json/123";
 const ART_CACHE_PREFIX = "dough:artimg:";
 const ART_TTL_HIT = 30 * 864e5;
@@ -239,7 +226,6 @@ function artCacheSet(name: string, url: string) {
       }),
     );
   } catch {
-    /* skip */
   }
 }
 async function artistImg(name: string): Promise<string> {
@@ -251,7 +237,6 @@ async function artistImg(name: string): Promise<string> {
   return url;
 }
 
-// ===========================================================================
 export default function Music() {
   const { t, dict } = useLanguage();
   const [track, setTrack] = useState<Track | null>(null);
@@ -264,7 +249,6 @@ export default function Music() {
   const [top, setTop] = useState<TopArtist[] | null>(null);
   const [topImg, setTopImg] = useState<Record<string, string>>({});
 
-  // refs used by the imperative ticker so it needn't re-subscribe each frame
   const trackRef = useRef<Track | null>(null);
   const lyRef = useRef<LyricsView>(ly);
   const lockedRef = useRef(true);
@@ -290,7 +274,6 @@ export default function Music() {
     setTimeout(() => (selfScrollRef.current = false), smooth && !reduceMotion.current ? 600 : 50);
   }, []);
 
-  // ---- lyrics loading ----
   const loadLyrics = useCallback(async (t: Track | null) => {
     const myReq = ++lyricsReqRef.current;
     activeLineRef.current = -1;
@@ -341,7 +324,6 @@ export default function Music() {
     [loadLyrics],
   );
 
-  // ---- idle fallback: last scrobble as the headline ----
   const showIdle = useCallback(async () => {
     if (!LFM_OK) return;
     try {
@@ -361,7 +343,6 @@ export default function Music() {
         });
       }
     } catch {
-      /* leave hero idle */
     }
   }, [applyTrack]);
 
@@ -373,7 +354,6 @@ export default function Music() {
         spotify?: Record<string, unknown>;
       } | null,
     ) => {
-      // Prefer the self-hosted Doughmination Music player; fall back to Spotify.
       const dm = dmListening(d?.activities);
       const sp = d?.listening_to_spotify && d.spotify ? d.spotify : null;
       const src = (dm ?? sp) as
@@ -412,7 +392,6 @@ export default function Music() {
     [applyTrack, showIdle],
   );
 
-  // ---- recent + top ----
   const loadRecent = useCallback(async () => {
     if (!LFM_OK) {
       setRecent({ note: dict.music.addLastfmNote });
@@ -468,23 +447,19 @@ export default function Music() {
         });
       });
     } catch {
-      /* leave top hidden */
     }
   }, []);
 
-  // ---- effects ----
   useEffect(() => {
     reduceMotion.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }, []);
 
-  // keep the latest values available to the imperative ticker / handlers
   useEffect(() => {
     trackRef.current = track;
     lyRef.current = ly;
     lockedRef.current = locked;
   }, [track, ly, locked]);
 
-  // presence: live over the shared socket (was window.DM / poll fallback).
   const livePresence = useUserPresence(DISCORD_ID);
   useEffect(() => {
     onPresence(
@@ -500,7 +475,6 @@ export default function Music() {
     );
   }, [livePresence, onPresence]);
 
-  // boot: idle headline + recent + top; recent refresh
   useEffect(() => {
     void (async () => {
       await showIdle();
@@ -513,7 +487,6 @@ export default function Music() {
     };
   }, [showIdle, loadRecent, loadTop]);
 
-  // per-frame ticker: progress bar + active synced line + follow-scroll
   useEffect(() => {
     let raf = 0;
     const tick = () => {
@@ -548,7 +521,6 @@ export default function Music() {
     return () => cancelAnimationFrame(raf);
   }, [centerLine]);
 
-  // user scroll releases the lock (programmatic scrolls don't)
   const onUserScroll = () => {
     if (!selfScrollRef.current && lockedRef.current) setLocked(false);
   };
@@ -562,7 +534,6 @@ export default function Music() {
         <p>{t("music.subtitle")}</p>
       </header>
 
-      {/* now playing */}
       <a
         className="mdc"
         id="dc-link"
@@ -611,7 +582,6 @@ export default function Music() {
         </div>
       </a>
 
-      {/* lyrics */}
       <div className="sec-row" id="lyrics-section">
         <h2 className="sec-title">{t("music.lyricsHeading")}</h2>
         <button
@@ -682,7 +652,6 @@ export default function Music() {
         )}
       </div>
 
-      {/* recently played */}
       <h2 className="sec-title" id="recently-played">
         {t("music.recentlyPlayed")}
       </h2>
@@ -716,7 +685,6 @@ export default function Music() {
         )}
       </ul>
 
-      {/* top artists */}
       <div id="top" hidden={!top}>
         {top ? (
           <>

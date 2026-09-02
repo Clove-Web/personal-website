@@ -40,7 +40,6 @@ function levelClass(lvl: number | null): string {
   if (lvl <= 50) return "dev-mid";
   return "dev-ok";
 }
-/* Accessory flags may arrive as booleans or the strings "true"/"false". */
 function isConnected(v: unknown): boolean {
   return v === true || v === 1 || String(v).trim().toLowerCase() === "true";
 }
@@ -106,11 +105,8 @@ function DeviceRow({ d, t, time }: { d: DeviceRecord; t: (key: TranslationKey) =
 export default function Devices() {
   const { t, dict } = useLanguage();
 
-  // Seeds from GET /v2/devices, then stays live via the socket's device_update
-  // event (report merges the record, delete removes the key).
   const { data, isPending } = useDevices();
 
-  // Render the shell while the feed is in flight — see the note in Fronting.tsx.
   const loading = isPending;
 
   const list = !data

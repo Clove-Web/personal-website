@@ -9,15 +9,6 @@ import CookiePreferencesButton from "@components/chrome/cookiePreferencesButton"
 import "@styles/cookieBanner.css";
 import "@styles/pages/privacy.css";
 
-/*
- * Privacy & Cookies.
- *
- * The live disclosure. English only on purpose: it is legal text, not chrome,
- * so it is not run through the locale dictionaries. When the wording changes
- * materially, bump LAST_UPDATED so the "as of" line moves — the consent banner
- * re-appears on its own six-month cycle.
- */
-
 const LAST_UPDATED = "1 September 2026";
 
 export const metadata: Metadata = {

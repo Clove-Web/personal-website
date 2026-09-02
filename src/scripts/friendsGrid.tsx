@@ -11,12 +11,6 @@ import PresenceCard from "./presenceCard";
 import { useLanguage } from "@/i18n/languageProvider";
 import type { TranslationKey } from "@/i18n/translate";
 
-/* /cool-people — the friends/alts grid. React renders the section/heading/grid
-   structure; each member slot is a full-but-mini presence card. Each card
-   fetches its own /discord/users/:id (then rides the site socket for live
-   presence) — the batched ?ids= call was dropped because it double-requested
-   and choked the API. */
-
 type Member = {
   name: string;
   user?: string;
@@ -25,9 +19,6 @@ type Member = {
   discordId?: string | null;
   link?: string | null;
 };
-/** `id` is the stable anchor slug (kept language-independent so hash links
- *  don't break when the display title is translated); `titleKey`/`subtitleKey`
- *  point at the active locale's label. */
 type Group = {
   id: string;
   titleKey: TranslationKey;
@@ -110,8 +101,6 @@ const FRIENDS: Group[] = [
 ];
 
 function FriendSlot({ m }: { m: Member }) {
-  // No batching → each card loads its own /discord/users/:id, then rides the
-  // socket (or polls at pollMs when there's no socket).
   return (
     <PresenceCard
       userId={m.discordId || null}

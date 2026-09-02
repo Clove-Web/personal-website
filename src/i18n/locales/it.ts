@@ -23,10 +23,6 @@ const it = {
   },
   settings: {
     title: "Impostazioni",
-    catCollection: "Collezione di gatti",
-    openCatCollection: "Apri la collezione di gatti",
-    showCat: "Mostra il gatto",
-    hideCat: "Nascondi il gatto",
     playMusic: "Riproduci musica di sottofondo",
     pauseMusic: "Metti in pausa la musica di sottofondo",
     language: "Lingua",
@@ -102,11 +98,6 @@ const it = {
     ariaLabel: "Conteggio visitatori",
     label: "visitatori",
     error: "?? visitatori",
-  },
-  catPicker: {
-    dialogLabel: "Scegli un gatto",
-    close: "Chiudi",
-    hint: "Scegli il tuo gatto · premi C per alternare",
   },
   presence: {
     status: {

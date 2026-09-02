@@ -9,12 +9,6 @@
 import { playClickSound } from "@lib/sound";
 import { openCookieSettings } from "@scripts/consent";
 
-/*
- * Re-opens the consent banner. Lives on the privacy page so a visitor who has
- * already accepted or rejected can come back and change the choice — a client
- * island in an otherwise server-rendered page.
- */
-
 export default function CookiePreferencesButton() {
   return (
     <button

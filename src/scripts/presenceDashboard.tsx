@@ -25,7 +25,6 @@ import { localizedPath } from "@/i18n/config";
 import type { TranslationKey } from "@/i18n/translate";
 import * as s from "@styles/presenceDashboard.css";
 
-/** Status → the theme token used for its dot and label. */
 const STATUS_VAR: Record<string, string> = {
   online: "var(--success)",
   idle: "var(--warning)",
@@ -34,7 +33,6 @@ const STATUS_VAR: Record<string, string> = {
   streaming: "var(--accent-alt)",
 };
 
-/** <img> that removes itself on error (replaces the old onerror="this.remove()"). */
 function SafeImg(props: React.ImgHTMLAttributes<HTMLImageElement>) {
   const src = typeof props.src === "string" ? props.src : null;
   const [failed, setFailed] = useState<string | null>(null);
@@ -43,16 +41,6 @@ function SafeImg(props: React.ImgHTMLAttributes<HTMLImageElement>) {
   return <img {...props} onError={() => setFailed(src)} />;
 }
 
-/**
- * A panel whose heading toggles its body. Used for Connections and Wishlist,
- * which can both run long.
- *
- * Starts collapsed once the list passes `collapseAbove`, so a big list doesn't
- * dominate the grid on load, but a short one stays visible with no interaction.
- * The count sits in the heading so it reads as useful while closed. Open state
- * is React state rather than <details open>, because a socket presence push
- * re-renders this whole tree and would fight an uncontrolled element.
- */
 function CollapsiblePanel({
   title, count, collapseAbove = 8, wide = false, children,
 }: {
@@ -84,19 +72,12 @@ function CollapsiblePanel({
         />
       </button>
       <div id={bodyId} hidden={!open}>
-        {/* Long lists scroll inside the panel instead of stretching the page. */}
         <div className={count > collapseAbove ? s.scrollArea : undefined}>{children}</div>
       </div>
     </section>
   );
 }
 
-/**
- * The equipped nameplate, as the backdrop behind the username — which is how
- * Discord itself uses it ("Make your name stand out"). Prefers the .webm since
- * these are animated, falls back to the static PNG when the user asks for
- * reduced motion or no video is offered.
- */
 function Nameplate({ np }: { np: Collectible }) {
   const reduced = useReducedMotion();
   const still = np.static_image_url || np.animated_image_url || null;
@@ -113,7 +94,6 @@ function Nameplate({ np }: { np: Collectible }) {
           loop
           muted
           playsInline
-          // A decorative loop should never grab the media session or controls.
           disablePictureInPicture
           tabIndex={-1}
         />
@@ -123,8 +103,6 @@ function Nameplate({ np }: { np: Collectible }) {
     </div>
   );
 }
-
-/* ---- masthead pieces ------------------------------------------------------ */
 
 function Clock({ offsetMin, tzName }: { offsetMin: number; tzName: string | null }) {
   const now = useTicker(true);
@@ -144,16 +122,6 @@ function Clock({ offsetMin, tzName }: { offsetMin: number; tzName: string | null
   );
 }
 
-/* ---- now playing ---------------------------------------------------------- */
-
-/**
- * `sp` is null when nothing is playing — the panel still renders, with a
- * placeholder, so the grid keeps a stable shape. `accent` is the "r, g, b"
- * triplet sampled off the album art; the bar falls back to the theme accent
- * from CSS when there's nothing to sample.
- *
- * The hook runs before the null check so hook order stays constant either way.
- */
 function NowPlaying({
   sp,
   accent,
@@ -196,9 +164,6 @@ function NowPlaying({
         )}
         {source === "doughmination" ? t("presence.listeningOnDoughminationMusic") : t("presence.listeningToSpotify")}
       </h2>
-      {/* Points at the site's own /music page rather than out to Spotify.
-          next/link so it routes client-side and the bg-music audio in the
-          persistent layout isn't torn down by a full page load. */}
       <Link className={s.npRow} href={localizedPath("/music", lang)} onClick={playClickSound}>
         {sp.album_art_url ? (
           <SafeImg className={s.npArt} src={String(sp.album_art_url)} alt="" />
@@ -226,8 +191,6 @@ function NowPlaying({
     </section>
   );
 }
-
-/* ---- activities ----------------------------------------------------------- */
 
 function ActivityRow({ a, t }: { a: Dict; t: (key: TranslationKey) => string }) {
   const isCode = /visual studio code|vscode/i.test((a.name as string) || "");
@@ -314,8 +277,6 @@ function StreamRow({ a, t }: { a: Dict; t: (key: TranslationKey) => string }) {
   );
 }
 
-/* ---- connections ---------------------------------------------------------- */
-
 function ConnIcon({ type }: { type: string }) {
   const def = CONNECTION_ICON[String(type || "").toLowerCase()] || { Ic: Globe };
   if (def.img) {
@@ -324,8 +285,6 @@ function ConnIcon({ type }: { type: string }) {
   const Ic = def.Ic ?? Globe;
   return <Ic className={s.connIcon} title={type} role="img" aria-label={type} />;
 }
-
-/* ---- the dashboard -------------------------------------------------------- */
 
 export default function PresenceDashboard({ userId }: { userId: string }) {
   const { t } = useLanguage();
@@ -340,8 +299,6 @@ export default function PresenceDashboard({ userId }: { userId: string }) {
   const accent = useAlbumAccent(nowPlaying?.album_art_url as string | undefined);
 
   const bioRaw = apiUser.bio == null ? "" : String(apiUser.bio).trim();
-  // Bios are Discord-flavoured Markdown, not plain text — **bold**, __underline__,
-  // ||spoilers||, > quotes, and \ escapes all have to be interpreted.
   const bioContent = useMemo(
     () =>
       bioRaw
@@ -383,7 +340,6 @@ export default function PresenceDashboard({ userId }: { userId: string }) {
       ? `https://cdn.discordapp.com/avatar-decoration-presets/${deco.asset}.png`
       : null;
 
-  // Equipped nameplate — rendered as art behind the username, Discord-style.
   const nameplate = collectibleForSlot(data?.collectibles, "nameplate");
 
   const banner = bannerUrl((apiUser.id as string) || userId, apiUser.banner as string);
@@ -423,7 +379,6 @@ export default function PresenceDashboard({ userId }: { userId: string }) {
           <div className={s.bannerFallback} aria-hidden="true" />
         )}
 
-        {/* Pinned to the masthead's far bottom-right corner, opposite the name. */}
         {nameplate ? <Nameplate np={nameplate} /> : null}
 
         <div className={s.identity}>

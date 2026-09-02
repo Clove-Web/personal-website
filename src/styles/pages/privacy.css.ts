@@ -4,13 +4,6 @@
  * See LICENCE.md in the project root for full licence information.
  */
 
-/**
- * privacy.css.ts — the /privacy (Privacy & Cookies) page.
- *
- * A long text page: it renders a `.privacy-wrap` container, which
- * scroll-wrap.css.ts lists so html/body switch to scrollable + top-aligned.
- * Everything else here is plain prose styling.
- */
 import { globalStyle } from "@vanilla-extract/css";
 import { vars } from "../themes.css";
 

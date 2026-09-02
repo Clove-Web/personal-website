@@ -3,14 +3,6 @@
  * Licensed under the DASL-1.0 Licence.
  * See LICENCE.md in the project root for full licence information.
  */
-/*
- * Tiny client helpers that let server-component pages (the ones exporting
- * `metadata`) show translated text without themselves becoming client
- * components. `<Tr>` renders one dictionary string; `<TrLink>` renders a
- * sentence with a single embedded link, splitting the translated string on a
- * "{link}" placeholder so the anchor lands in the right spot regardless of
- * the target language's word order.
- */
 
 "use client";
 
@@ -18,7 +10,6 @@ import type { ReactNode } from "react";
 import { useLanguage } from "@/i18n/languageProvider";
 import type { TranslationKey } from "@/i18n/translate";
 
-/** Renders a single translated string. Optional `{token}` replacements. */
 export function Tr({
   k,
   vars,
@@ -36,11 +27,6 @@ export function Tr({
   return <>{text}</>;
 }
 
-/**
- * Renders a translated sentence containing exactly one link. The dictionary
- * string must include a literal "{link}" marker where the anchor goes; the
- * surrounding text is kept as-is so translations control word order.
- */
 export function TrLink({
   k,
   href,

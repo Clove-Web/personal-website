@@ -4,21 +4,12 @@
  * See LICENCE.md in the project root for full licence information.
  */
 
-/**
- * guestbook.css.ts — the sign form and entry list on /guestbook.
- *
- * Ported from public/css/pages/guestbook.css. Nothing dropped — a grep called
- * .gb-status, .gb-turnstile and .guestbook-wrap unused, but the rendered DOM
- * shows all three.
- */
 import { globalStyle } from "@vanilla-extract/css";
 import { vars } from "../themes.css";
 
 globalStyle(".guestbook-wrap", {
   maxWidth: 640,
 });
-
-/* ---- sign form ------------------------------------------------------------ */
 
 globalStyle(".gb-form", {
   display: "flex",
@@ -35,7 +26,6 @@ globalStyle(".gb-field", {
   display: "flex",
   flexDirection: "column",
   gap: "0.3rem",
-  // Anchors the absolutely-positioned honeypot below.
   position: "relative",
 });
 
@@ -74,7 +64,6 @@ globalStyle(".gb-counter", {
   color: vars.textFaint,
 });
 
-/** Collapses the Turnstile slot until the widget actually renders into it. */
 globalStyle(".gb-turnstile:empty", {
   display: "none",
 });
@@ -114,7 +103,6 @@ globalStyle(".gb-status", {
 globalStyle(".gb-status.gb-err", { color: vars.danger });
 globalStyle(".gb-status.gb-ok", { color: vars.success });
 
-/** Honeypot: visually hidden but still in the DOM for bots to fill in. */
 globalStyle(".gb-hp", {
   position: "absolute",
   left: -9999,
@@ -122,8 +110,6 @@ globalStyle(".gb-hp", {
   height: 1,
   overflow: "hidden",
 });
-
-/* ---- entries -------------------------------------------------------------- */
 
 globalStyle(".gb-entries", {
   display: "flex",
@@ -174,7 +160,6 @@ globalStyle(".gb-entry-name a:hover", {
   borderBottomColor: vars.accent,
 });
 
-/** margin-left: auto pushes the timestamp to the far right of the head row. */
 globalStyle(".gb-entry-time", {
   fontSize: "0.72rem",
   color: vars.textFaint,

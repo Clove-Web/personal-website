@@ -4,22 +4,9 @@
  * See LICENCE.md in the project root for full licence information.
  */
 
-/**
- * index.css.ts — the homepage: About card, plus the Fronting / Devices /
- * Location status cards beneath it.
- *
- * Ported from public/css/pages/index.css.
- *
- * Dropped as dead:
- *   .links / .link-card / .link-text / .link-title / .link-sub / .icon
- *       the old link-hub grid, no longer rendered anywhere
- *   .terminal (in the 640px media query)
- *       removed along with the terminal widget
- */
 import { globalStyle, globalKeyframes } from "@vanilla-extract/css";
 import { vars } from "../themes.css";
 
-/** Shared chrome for the three status cards, which are visually identical. */
 const STATUS_CARD = {
   position: "relative",
   zIndex: 1,
@@ -32,7 +19,6 @@ const STATUS_CARD = {
   boxShadow: "5px 5px 0 rgba(0, 0, 0, 0.5)",
 } as const;
 
-/** Shared header row for the three status cards. */
 const CARD_HEAD = {
   display: "flex",
   alignItems: "center",
@@ -44,9 +30,6 @@ const CARD_HEAD = {
   color: vars.textMuted,
 } as const;
 
-/* ---- About ---------------------------------------------------------------- */
-
-/** A touch more room for the About card + status cards than the default hub. */
 globalStyle("body:has(.about) .hub", {
   maxWidth: "min(94vw, 560px)",
   width: "100%",
@@ -95,8 +78,6 @@ globalStyle(".about-source:hover, .about-source:focus-visible", {
 });
 
 globalStyle(".about-source .bi", { fontSize: "1.05rem" });
-
-/* ---- Fronting card -------------------------------------------------------- */
 
 globalStyle(".fronting-card", STATUS_CARD);
 globalStyle(".fronting-card[hidden]", { display: "none" });
@@ -183,22 +164,13 @@ globalStyle(".fr-empty", {
   fontStyle: "italic",
 });
 
-/* ---- Loading placeholders (CLS) ------------------------------------------
-   Fronting and Devices used to render nothing until their API replied, so the
-   cards popped in from zero height and shoved the page down — the bulk of the
-   homepage's 0.131 CLS. The shells now render immediately and these min-heights
-   hold the body open at roughly its settled size, so filling in barely moves. */
-
-/** One .fr-member row = 38px avatar + 0.5rem*2 padding + 2px border. */
 globalStyle(".fr-members.is-fetching", {
   minHeight: 56,
   alignItems: "center",
 });
 
-/** Tune --dev-rows-reserve to however many devices you normally have online. */
 globalStyle(".dev-rows.is-fetching", {
   vars: { "--dev-rows-reserve": "2" },
-  // per row: ~28px content + 0.45rem*2 padding + 2px border, + 0.55rem gaps
   minHeight:
     "calc(var(--dev-rows-reserve) * 44px + (var(--dev-rows-reserve) - 1) * 0.55rem)",
 });
@@ -220,8 +192,6 @@ globalStyle(
   },
 );
 
-/* ---- Devices card --------------------------------------------------------- */
-
 globalStyle(".devices-card", STATUS_CARD);
 globalStyle(".devices-card[hidden]", { display: "none" });
 
@@ -230,7 +200,6 @@ globalStyle(".dev-head", {
   marginBottom: "0.7rem"
 });
 
-/** Little battery glyph drawn with borders, so it needs no asset. */
 globalStyle(".dev-icon", {
   position: "relative",
   width: 18,
@@ -239,7 +208,6 @@ globalStyle(".dev-icon", {
   borderRadius: 0,
 });
 
-/** The battery's positive terminal nub. */
 globalStyle(".dev-icon::after", {
   content: '""',
   position: "absolute",
@@ -271,7 +239,6 @@ globalStyle(".dev-row", {
   color: vars.text,
 });
 
-/** Battery level recolours the accent, which the bar and percentage inherit. */
 globalStyle(".dev-row.dev-ok", { vars: { "--dev-accent": vars.success } });
 globalStyle(".dev-row.dev-mid", { vars: { "--dev-accent": vars.warning } });
 globalStyle(".dev-row.dev-low", { vars: { "--dev-accent": vars.danger } });
@@ -283,7 +250,6 @@ globalStyle(".dev-main", {
   alignItems: "center",
   gap: "0.6rem",
   "@media": {
-    // Tighten the name column so bars stay wide on narrow screens.
     "(max-width: 640px)": { gridTemplateColumns: "3.5rem 1fr auto" },
   },
 });
@@ -318,7 +284,6 @@ globalStyle(".dev-fill", {
   transition: "width 0.5s ease",
 });
 
-/** Gentle pulse on the fill while a device is charging. */
 globalStyle(".dev-row.is-charging .dev-fill", {
   animation: "dev-pulse 1.8s ease-in-out infinite",
 });
@@ -336,7 +301,6 @@ globalStyle(".dev-pct", {
 
 globalStyle(".dev-bolt", { color: vars.warning });
 
-/** Meta line: charging / low-power / wifi chips plus the timestamp. */
 globalStyle(".dev-meta", {
   display: "flex",
   flexWrap: "wrap",
@@ -379,8 +343,6 @@ globalStyle(".dev-empty", {
   color: vars.textMuted,
   fontStyle: "italic",
 });
-
-/* ---- Location card (iPhone location, from the devices feed) --------------- */
 
 globalStyle(".location-card", STATUS_CARD);
 globalStyle(".location-card[hidden]", { display: "none" });

@@ -23,10 +23,6 @@ const ar = {
   },
   settings: {
     title: "الإعدادات",
-    catCollection: "مجموعة القطط",
-    openCatCollection: "افتح مجموعة القطط",
-    showCat: "إظهار القط",
-    hideCat: "إخفاء القط",
     playMusic: "تشغيل موسيقى الخلفية",
     pauseMusic: "إيقاف موسيقى الخلفية مؤقتًا",
     language: "اللغة",
@@ -102,11 +98,6 @@ const ar = {
     ariaLabel: "عدد الزوّار",
     label: "زائر",
     error: "?? زائر",
-  },
-  catPicker: {
-    dialogLabel: "اختر قطًا",
-    close: "إغلاق",
-    hint: "اختر قطك · اضغط C للتبديل",
   },
   presence: {
     status: {

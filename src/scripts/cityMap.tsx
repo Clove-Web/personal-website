@@ -59,7 +59,7 @@ export default function CityMap({
   }, [query]);
 
   if (coords === undefined) return <div className={className} aria-hidden="true" />;
-  if (coords === null) return null; // geocode failed — just fall back to the label/link
+  if (coords === null) return null;
 
   return (
     <MapContainer

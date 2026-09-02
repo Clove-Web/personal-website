@@ -23,10 +23,6 @@ const pl = {
   },
   settings: {
     title: "Ustawienia",
-    catCollection: "Kolekcja kotów",
-    openCatCollection: "Otwórz kolekcję kotów",
-    showCat: "Pokaż kota",
-    hideCat: "Ukryj kota",
     playMusic: "Odtwórz muzykę w tle",
     pauseMusic: "Wstrzymaj muzykę w tle",
     language: "Język",
@@ -102,11 +98,6 @@ const pl = {
     ariaLabel: "Licznik odwiedzin",
     label: "odwiedzających",
     error: "?? odwiedzających",
-  },
-  catPicker: {
-    dialogLabel: "Wybierz kota",
-    close: "Zamknij",
-    hint: "Wybierz swojego kota · naciśnij C, aby przełączyć",
   },
   presence: {
     status: {

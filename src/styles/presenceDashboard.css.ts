@@ -4,18 +4,6 @@
  * See LICENCE.md in the project root for full licence information.
  */
 
-/**
- * presence-dashboard.css.ts — the /discord profile dashboard.
- *
- * SCOPED styles, not globalStyle. presence-card.css.ts has to use globalStyle
- * because the card began life as an imperative module that wrote ~144 class
- * name strings by hand. PresenceDashboard.tsx is a fresh component with no such
- * contract, so class names are generated and can't collide with anything.
- *
- * Layout: a full-bleed masthead, then an auto-flowing panel grid beneath it.
- * Panels are self-sizing — any that has no data isn't rendered at all, so the
- * grid closes up rather than leaving holes.
- */
 import { style, globalStyle, keyframes } from "@vanilla-extract/css";
 import { vars } from "./themes.css";
 
@@ -24,8 +12,6 @@ const ELLIPSIS = {
   overflow: "hidden",
   textOverflow: "ellipsis",
 } as const;
-
-/* ---- page shell ----------------------------------------------------------- */
 
 export const page = style({
   maxWidth: 1100,
@@ -55,8 +41,6 @@ export const introSub = style({
   color: vars.textMuted,
 });
 
-/* ---- masthead ------------------------------------------------------------- */
-
 export const masthead = style({
   position: "relative",
   borderRadius: 0,
@@ -66,7 +50,6 @@ export const masthead = style({
   marginBottom: "1rem",
 });
 
-/** Banner image, or a flat accent-colour band when the user has no banner. */
 export const banner = style({
   display: "block",
   width: "100%",
@@ -85,11 +68,6 @@ export const bannerFallback = style([
   },
 ]);
 
-/* The row itself is NOT pulled up over the banner. Previously it had a negative
-   marginTop, which lifted the avatar and the name together — so the name
-   overlapped the banner, and how badly depended on how tall the text happened to
-   be. Only the avatar overlaps now (see avatarWrap), which keeps the text clear
-   of the banner regardless of font size or how many chips wrap onto the row. */
 export const identity = style({
   display: "flex",
   alignItems: "flex-end",
@@ -104,9 +82,6 @@ export const identity = style({
   },
 });
 
-/* transform lifts the avatar over the banner without affecting layout; the
-   matching negative marginBottom stops it reserving the space it no longer
-   visually occupies, so the text below isn't pushed down by it. */
 export const avatarWrap = style({
   position: "relative",
   width: 104,
@@ -127,7 +102,7 @@ export const avatarWrap = style({
 export const avatar = style({
   width: "100%",
   height: "100%",
-  borderRadius: 0,
+  borderRadius: "50%",
   objectFit: "cover",
   display: "block",
   background: vars.bgDeep,
@@ -145,7 +120,6 @@ export const avatarDeco = style({
   pointerEvents: "none",
 });
 
-/** Status pip on the avatar; colour is set per-status below. */
 export const statusPip = style({
   position: "absolute",
   right: 2,
@@ -172,17 +146,6 @@ export const idBlock = style({
   position: "relative",
 });
 
-/* ---- nameplate collectible ------------------------------------------------
-   Discord renders an equipped nameplate as art behind the username, so that's
-   where it goes here rather than in a panel of its own. Masked to fade out
-   leftward so the name stays legible over it, and pinned behind the text with
-   z-index + pointer-events:none so it can't intercept clicks. */
-
-/* Pinned to the far bottom-right corner of the MASTHEAD — well clear of the
-   name, which sits bottom-left. Sits flush in the corner (the masthead's
-   overflow:hidden + radius clips it), with the art anchored bottom-right and a
-   leftward fade so it dissolves into the surface rather than ending on a hard
-   edge. pointer-events:none so it can't intercept clicks on the chips row. */
 export const nameplate = style({
   position: "absolute",
   right: 0,
@@ -202,8 +165,6 @@ export const nameplate = style({
   },
 });
 
-/** Anchored to the bottom-right corner — Discord composes nameplate art around
-    that corner, so cropping from anywhere else cuts the motif in half. */
 export const nameplateMedia = style({
   width: "100%",
   height: "100%",
@@ -213,8 +174,6 @@ export const nameplateMedia = style({
   opacity: 0.65,
 });
 
-/** Keeps the identity text above the nameplate art, which is pinned to the
-    opposite corner but could still reach it on a narrow viewport. */
 export const aboveNameplate = style({
   position: "relative",
   zIndex: 1
@@ -238,7 +197,6 @@ export const name = style({
   "@media": { "(max-width: 640px)": { fontSize: "1.25rem" } },
 });
 
-/** Discord's gradient display-name styling paints through the text. */
 export const nameGradient = style({
   backgroundClip: "text",
   WebkitBackgroundClip: "text",
@@ -332,8 +290,6 @@ export const platforms = style({
   fontSize: 14,
 });
 
-/* ---- custom status -------------------------------------------------------- */
-
 export const statusBody = style({
   display: "flex",
   alignItems: "center",
@@ -352,8 +308,6 @@ export const customStatusText = style({
   ...ELLIPSIS,
   minWidth: 0
 });
-
-/* ---- panel grid ----------------------------------------------------------- */
 
 export const grid = style({
   display: "grid",
@@ -376,7 +330,6 @@ export const panel = style({
   minWidth: 0,
 });
 
-/** Panels whose content is inherently wide (now-playing, bio) take the row. */
 export const panelWide = style([panel, { gridColumn: "1 / -1" }]);
 
 export const panelTitle = style({
@@ -388,7 +341,6 @@ export const panelTitle = style({
   color: vars.textDim,
 });
 
-/* Now-playing title carrying a brand glyph (DM logo or Spotify) inline. */
 export const npTitle_brand = style([
   panelTitle,
   {
@@ -410,11 +362,6 @@ export const brandSpotify = style({
   color: "#1DB954",
   borderRadius: 0,
 });
-
-/* ---- collapsible panels ---------------------------------------------------
-   Connections and Wishlist can run long, so their heading is a toggle. The
-   whole heading row is the button (not just a chevron) to keep the hit target
-   generous, and it carries aria-expanded + aria-controls for screen readers. */
 
 export const panelToggle = style({
   display: "flex",
@@ -444,7 +391,6 @@ export const panelToggle = style({
   },
 });
 
-/** Collapsed-state margin: no gap below the heading when nothing follows. */
 export const panelToggleClosed = style({ marginBottom: 0 });
 
 export const panelCount = style({
@@ -462,12 +408,10 @@ export const chevron = style({
 
 export const chevronOpen = style({ transform: "rotate(90deg)" });
 
-/** Caps a long list and lets it scroll rather than running the page long. */
 export const scrollArea = style({
   maxHeight: 320,
   overflowY: "auto",
   overscrollBehavior: "contain",
-  // room for the scrollbar so chips don't sit under it
   paddingRight: "0.25rem",
   scrollbarWidth: "thin",
   scrollbarColor: `${vars.surfaceHigher} transparent`,
@@ -481,10 +425,6 @@ globalStyle(`${scrollArea}::-webkit-scrollbar-thumb`, {
 });
 globalStyle(`${scrollArea}::-webkit-scrollbar-thumb:hover`, { background: vars.textFaint });
 
-/* ---- now playing ---------------------------------------------------------- */
-
-/** The whole row is a link to the track. There's no site-wide <a> reset, so it
-    has to clear the UA's underline + blue itself, as .pc-row used to. */
 export const npRow = style({
   display: "flex",
   gap: "1rem",
@@ -543,8 +483,6 @@ export const npAlbum = style({
   marginTop: "0.05rem",
 });
 
-/** The whole point of the rebuild: the bar spans its container, rather than
-    inheriting the 200px cap the compact card needed. */
 export const npBar = style({
   position: "relative",
   height: 6,
@@ -555,9 +493,6 @@ export const npBar = style({
   width: "100%",
 });
 
-/** Defaults to the theme accent. The component overrides `background` inline
-    with the colour sampled off the album art, when there is any — so unlike the
-    old card there's no --dc-accent custom property to leave undefined. */
 export const npFill = style({
   position: "absolute",
   insetBlock: 0,
@@ -575,8 +510,6 @@ export const npTimes = style({
   marginTop: "0.3rem",
   fontVariantNumeric: "tabular-nums",
 });
-
-/* ---- activity rows -------------------------------------------------------- */
 
 export const actList = style({
   display: "flex",
@@ -690,8 +623,6 @@ export const streamThumb = style({
   boxSizing: "border-box",
 });
 
-/* ---- badges --------------------------------------------------------------- */
-
 export const badgeGrid = style({
   display: "flex",
   flexWrap: "wrap",
@@ -712,8 +643,6 @@ export const badgeLink = style({
   display: "block",
   lineHeight: 0,
   borderRadius: 0,
-  // No site-wide <a> reset exists; clear the UA underline/blue so a badge whose
-  // image 404s falls back to plain alt text rather than a blue underlined link.
   color: "inherit",
   textDecoration: "none",
   selectors: {
@@ -723,8 +652,6 @@ export const badgeLink = style({
     },
   },
 });
-
-/* ---- connections ---------------------------------------------------------- */
 
 export const connGrid = style({
   display: "flex",
@@ -768,8 +695,6 @@ export const connCheck = style({
   flexShrink: 0
 });
 
-/* ---- bio ------------------------------------------------------------------ */
-
 export const bio = style({
   fontSize: "0.88rem",
   lineHeight: 1.6,
@@ -791,10 +716,6 @@ globalStyle(`${bio} a`, {
   textDecoration: "none",
 });
 globalStyle(`${bio} a:hover`, { textDecoration: "underline" });
-
-/* ---- Discord markdown inside the bio --------------------------------------
-   discordMarkdown.tsx emits plain semantic tags, styled here. Note __x__ is
-   UNDERLINE in Discord's dialect, not bold — <u> carries that. */
 
 globalStyle(`${bio} strong`, {
   fontWeight: 700,
@@ -855,7 +776,6 @@ globalStyle(`${bio} li`, {
   marginLeft: "1.1rem"
 });
 
-/** Spoiler: blacked out until clicked, matching Discord's behaviour. */
 export const spoiler = style({
   background: vars.surfaceHigher,
   borderRadius: 0,
@@ -875,10 +795,7 @@ export const spoiler = style({
   },
 });
 
-/** Hide anything nested inside an unrevealed spoiler (emoji, links). */
 globalStyle(`${spoiler}[data-revealed="false"] *`, { visibility: "hidden" });
-
-/* ---- wishlist ------------------------------------------------------------- */
 
 export const wlGrid = style({
   display: "flex",
@@ -928,12 +845,6 @@ export const wlPrice = style({
   fontVariantNumeric: "tabular-nums",
 });
 
-/* ---- empty / loading ------------------------------------------------------ */
-
-/** Every panel renders whether or not it has data, so the page keeps a stable
-    landmark structure — panels blinking in and out between presence pushes is
-    disorienting with a screen reader, and shifts the grid under the cursor.
-    This is the placeholder each empty panel shows instead. */
 export const empty = style({
   margin: 0,
   padding: "0.3rem 0 0.1rem",

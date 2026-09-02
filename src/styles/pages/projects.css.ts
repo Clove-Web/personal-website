@@ -4,30 +4,15 @@
  * See LICENCE.md in the project root for full licence information.
  */
 
-/**
- * projects.css.ts — the /projects card grid.
- *
- * Ported from public/css/pages/projects.css. Nothing dropped: .project-card-status
- * looked unused to a grep, but the rendered DOM confirms it (and `.closed`) are
- * live — they're applied conditionally from the project's status.
- *
- * Note the html/body:has(.friend-grid) rules here also serve /cool-people. They
- * were written as a shared "grid pages scroll" fix and are kept together rather
- * than split, since duplicating them risks the two copies drifting.
- */
 import { globalStyle } from "@vanilla-extract/css";
 import { vars } from "../themes.css";
 
-/* ---- page shell ----------------------------------------------------------- */
-
-/** On this page the header sits closer to the sections below it. */
 globalStyle("body:has(.project-grid) .hub-header", {
   position: "relative",
   zIndex: 1,
   marginBottom: "0.25rem",
 });
 
-/** Grid pages need to scroll — the default layout pins body to the viewport. */
 globalStyle("html:has(.project-grid), html:has(.friend-grid)", {
   height: "auto",
   minHeight: "100dvh",
@@ -42,8 +27,6 @@ globalStyle("body:has(.project-grid), body:has(.friend-grid)", {
   overflowX: "hidden",
   overflowY: "visible",
 });
-
-/* ---- cards ---------------------------------------------------------------- */
 
 globalStyle(".project-grid", {
   marginBottom: "1.5rem",
@@ -75,7 +58,6 @@ globalStyle(".project-card:hover, .project-card:has(:focus-visible)", {
   boxShadow: `4px 4px 0 ${vars.accent}`,
 });
 
-/** The repo link fills the card body (avatar + title/status + bio). */
 globalStyle(".project-card-main", {
   display: "flex",
   alignItems: "flex-start",
@@ -85,7 +67,6 @@ globalStyle(".project-card-main", {
   textDecoration: "none",
 });
 
-/** Separate call-to-action link to the live/deployed version. */
 globalStyle(".project-card-live", {
   alignSelf: "flex-end",
   fontSize: "0.72rem",
@@ -162,7 +143,6 @@ globalStyle(".project-card-bio", {
   color: vars.textMuted,
 });
 
-/** Italic + dimmed until a real description replaces it. */
 globalStyle(".project-card-bio.is-placeholder", {
   fontStyle: "italic",
   opacity: 0.65,

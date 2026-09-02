@@ -118,8 +118,6 @@ const PERSONAL: Project[] = [
 function ProjectCard({ p }: { p: Project }) {
   return (
     <div className="project-card">
-      {/* Main body links to the repo; the Live button is a separate link
-          (anchors can't be nested inside another anchor). */}
       <a
         className="project-card-main"
         href={p.href}

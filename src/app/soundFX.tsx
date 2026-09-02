@@ -16,8 +16,6 @@ const INTERACTIVE = 'a,button,[role="button"],summary,input[type="submit"]';
 
 const TOGGLEABLE = 'input[type="checkbox"],input[type="radio"],[role="switch"]';
 
-// UI sounds: hover, click, toggle. On by default, muteable (persisted),
-// silenced under prefers-reduced-motion. Audio comes from the shared CDN.
 export default function SoundFX() {
   useEffect(() => {
     const reduce =
@@ -55,7 +53,6 @@ export default function SoundFX() {
           attempt.catch(() => {});
         }
       } catch {
-        // Ignore autoplay / decode errors.
       }
     };
 
@@ -106,7 +103,6 @@ export default function SoundFX() {
       try {
         localStorage.setItem("sfx-muted", muted ? "1" : "0");
       } catch {
-        // localStorage may be unavailable; state still applies for the session.
       }
       button.textContent = glyph();
       button.setAttribute("aria-label", label());

@@ -6,32 +6,6 @@
 
 "use client";
 
-/* PresenceCard.tsx — the COMPACT Discord presence card, as a React component.
- *
- * Replaces the old imperative createPresenceCard() factory. Sole consumer is
- * FriendsGrid.tsx (/cool-people), which renders ~23 of these as mini cards.
- *
- * /discord used to render this too, scaled up by ~150 lines of
- * `.presence-stage .pc-*` descendant overrides. It now has its own
- * PresenceDashboard.tsx — a widget and a full page want genuinely different
- * markup, and fighting this component's compact constraints (max-width 280px,
- * 200px caps on row text) with CSS specificity is what kept the Spotify
- * progress bar from filling its container. Both components share every hook and
- * helper in presenceShared.ts, so no data logic is duplicated.
- *
- * Every class name, data-attribute and CSS custom property the old factory
- * toggled is preserved exactly — presence-card.css.ts keys off ~144 of them, so
- * the markup contract here is load-bearing. Notably:
- *   data-status / data-real-status, and the state classes has-banner,
- *   has-banner-color, has-accent, has-custom, has-sections, has-profile-grad,
- *   show-wishlist, is-gradient, is-mini, tier-*.
- *
- * Timers are scoped rather than global: the old card re-rendered everything on
- * a single 1s interval, whereas Clock / SpotifyProgress / ElapsedLabel each own
- * their tick, so an idle card does no work. Icons are react-bootstrap-icons
- * components (the old `bi` webfont markup rendered nothing once that CSS went).
- */
-
 import { useEffect, useMemo, useState } from "react";
 import {
   Clock as ClockIcon, Gem, GeoAltFill, Globe, PatchCheckFill, Spotify, StarFill, Stars,
@@ -49,10 +23,6 @@ import { playClickSound } from "@lib/sound";
 import { useLanguage } from "@/i18n/languageProvider";
 import type { TranslationKey } from "@/i18n/translate";
 
-/* ---- small shared bits ---------------------------------------------------- */
-
-/** <img> that removes itself on error, replacing onerror="this.remove()".
-    Tracks *which* src failed, so a new src retries without needing an effect. */
 function SelfHidingImg(props: React.ImgHTMLAttributes<HTMLImageElement>) {
   const src = typeof props.src === "string" ? props.src : null;
   const [failed, setFailed] = useState<string | null>(null);
@@ -79,8 +49,6 @@ function Clock({ offsetMin, tzName }: { offsetMin: number; tzName: string | null
   );
 }
 
-/* ---- head ----------------------------------------------------------------- */
-
 function PlatformIcons({ d, t }: { d: Dict; t: (key: TranslationKey) => string }) {
   const keys: string[] = [];
   if (d.active_on_discord_desktop) keys.push("desktop");
@@ -100,8 +68,6 @@ function PlatformIcons({ d, t }: { d: Dict; t: (key: TranslationKey) => string }
 function Badges({
   flags, doughBadges, clientBadges,
 }: { flags: number; doughBadges: Dict[] | null; clientBadges: Dict[] | null }) {
-  // Custom badges from the API replace the Discord flag set entirely, exactly
-  // as the old paintBadges() did.
   const primary = doughBadges?.length
     ? doughBadges.map((b) => {
       const img = (
@@ -183,11 +149,6 @@ function Premium({ prem, t }: { prem: Dict | undefined; t: (key: TranslationKey)
   );
 }
 
-/* ---- bio ------------------------------------------------------------------ */
-
-/** Bios are Discord-flavoured Markdown, not plain text — **bold**,
-    __underline__, ||spoilers||, > quotes and \ escapes all need interpreting.
-    Shared with the dashboard so the two can't drift. */
 function Bio({ text }: { text: unknown }) {
   const raw = text == null ? "" : String(text).trim();
   const nodes = useMemo(
@@ -205,8 +166,6 @@ function Bio({ text }: { text: unknown }) {
   if (!raw) return <div className="pc-bio" hidden />;
   return <div className="pc-bio">{nodes}</div>;
 }
-
-/* ---- connections ---------------------------------------------------------- */
 
 function ConnIcon({ type }: { type: string }) {
   const def = CONNECTION_ICON[String(type || "").toLowerCase()] || { Ic: Globe };
@@ -257,8 +216,6 @@ function Connections({ accounts, t }: { accounts: Dict[] | undefined; t: (key: T
   );
 }
 
-/* ---- wishlist ------------------------------------------------------------- */
-
 function Wishlist({ items, t }: { items: Dict[] | null; t: (key: TranslationKey) => string }) {
   const list = Array.isArray(items) ? items : [];
   return (
@@ -297,8 +254,6 @@ function Wishlist({ items, t }: { items: Dict[] | null; t: (key: TranslationKey)
     </div>
   );
 }
-
-/* ---- activity rows -------------------------------------------------------- */
 
 function RowText({
   kind, title, sub, children,
@@ -445,8 +400,6 @@ function ActivityRow({ a, t }: { a: Dict; t: (key: TranslationKey) => string }) 
   );
 }
 
-/** The stream thumbnail degrades to a plain dot, matching the old inline
-    onerror that swapped in a .pc-row-ic.pc-dot span. */
 function StreamThumb({ src }: { src: string }) {
   const [dead, setDead] = useState(false);
   if (dead) return <span className="pc-row-ic pc-dot" aria-hidden="true" />;
@@ -486,8 +439,6 @@ function StreamRow({ a, t }: { a: Dict; t: (key: TranslationKey) => string }) {
   );
 }
 
-/* ---- the card ------------------------------------------------------------- */
-
 export default function PresenceCard(opts: PresenceOpts) {
   const { t } = useLanguage();
   const userId = opts.userId || null;
@@ -505,7 +456,6 @@ export default function PresenceCard(opts: PresenceOpts) {
   const nowPlaying = listening?.s ?? null;
   const accent = useAlbumAccent(nowPlaying?.album_art_url as string | undefined);
 
-  // Nothing to show at all — same guard the factory had.
   if (!userId && !opts.fallbackName) return null;
 
   const u = (d?.discord_user as Dict) || {};
@@ -523,7 +473,6 @@ export default function PresenceCard(opts: PresenceOpts) {
   const streams = acts.filter((a) => a.type === 1);
   const hasSections = !!nowPlaying || games.length > 0 || streams.length > 0;
 
-  // Before the first payload lands, fall back to the props the grid passed.
   const displayName = d
     ? (u.display_name as string) || (u.global_name as string) || (u.username as string) || t("presence.discordUser")
     : opts.fallbackName || "";

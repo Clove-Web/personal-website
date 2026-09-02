@@ -23,10 +23,6 @@ const ko = {
   },
   settings: {
     title: "설정",
-    catCollection: "고양이 컬렉션",
-    openCatCollection: "고양이 컬렉션 열기",
-    showCat: "고양이 표시",
-    hideCat: "고양이 숨기기",
     playMusic: "배경 음악 재생",
     pauseMusic: "배경 음악 일시정지",
     language: "언어",
@@ -102,11 +98,6 @@ const ko = {
     ariaLabel: "방문자 수",
     label: "방문자",
     error: "?? 방문자",
-  },
-  catPicker: {
-    dialogLabel: "고양이 선택",
-    close: "닫기",
-    hint: "고양이를 골라보세요 · C 키로 전환",
   },
   presence: {
     status: {

@@ -4,21 +4,9 @@
  * See LICENCE.md in the project root for full licence information.
  */
 
-/**
- * 88x31.css.ts — the /88x31 button wall.
- *
- * Ported from public/css/pages/88x31.css. Nothing dropped; every selector is
- * rendered.
- *
- * Imported from app/88x31/page.tsx, so Vanilla Extract code-splits it into that
- * route's chunk automatically — no <link precedence="page"> needed any more.
- */
 import { globalStyle } from "@vanilla-extract/css";
 import { vars } from "../themes.css";
 
-/* ---- page shell ----------------------------------------------------------- */
-
-/** This page scrolls, like the other long content pages. */
 globalStyle("html:has(.button-page), body:has(.button-page)", {
   height: "auto",
   minHeight: "100dvh",
@@ -29,7 +17,6 @@ globalStyle("body:has(.button-page)", {
   alignItems: "flex-start",
 });
 
-/** Wider than the default hub so more buttons fit per row. */
 globalStyle("body:has(.button-page) .hub", {
   maxWidth: 560,
 });
@@ -39,8 +26,6 @@ globalStyle(".button-page", {
   justifyContent: "center",
   paddingBottom: "4.5rem",
 });
-
-/* ---- the wall ------------------------------------------------------------- */
 
 globalStyle(".button-wall", {
   display: "flex",
@@ -53,7 +38,6 @@ globalStyle(".button-wall", {
   },
 });
 
-/** line-height: 0 stops the anchor adding descender space under each button. */
 globalStyle(".button-wall a", {
   display: "block",
   lineHeight: 0,

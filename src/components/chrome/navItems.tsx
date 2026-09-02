@@ -3,7 +3,6 @@
  * Licensed under the DASL-1.0 Licence.
  * See LICENCE.md in the project root for full licence information.
  */
-/* The site nav, in TS (was public/nav.json). Icons from react-bootstrap-icons. */
 
 import type { ComponentType } from "react";
 import {
@@ -29,9 +28,6 @@ interface IconProps {
 }
 
 export interface NavItem {
-  // A translation key rather than a literal string — NavMenu resolves it
-  // through useLanguage()'s t() at render time, so the label follows the
-  // active language. See src/i18n/locales/en.ts for the English text.
   labelKey: TranslationKey;
   href: string;
   Icon: ComponentType<IconProps>;

@@ -23,10 +23,6 @@ const tr = {
   },
   settings: {
     title: "Ayarlar",
-    catCollection: "Kedi koleksiyonu",
-    openCatCollection: "Kedi koleksiyonunu aç",
-    showCat: "Kediyi göster",
-    hideCat: "Kediyi gizle",
     playMusic: "Arka plan müziğini çal",
     pauseMusic: "Arka plan müziğini duraklat",
     language: "Dil",
@@ -102,11 +98,6 @@ const tr = {
     ariaLabel: "Ziyaretçi sayısı",
     label: "ziyaretçi",
     error: "?? ziyaretçi",
-  },
-  catPicker: {
-    dialogLabel: "Bir kedi seç",
-    close: "Kapat",
-    hint: "Kedini seç · değiştirmek için C'ye bas",
   },
   presence: {
     status: {

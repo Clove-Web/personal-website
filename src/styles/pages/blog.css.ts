@@ -4,19 +4,8 @@
  * See LICENCE.md in the project root for full licence information.
  */
 
-/**
- * blog.css.ts — the /blog card grid and the individual post layout.
- *
- * Ported from public/css/pages/blog.css. Nothing dropped.
- *
- * Imported by BOTH app/blog/page.tsx (the index, which renders #blog-cards) and
- * app/blog/[post]/page.tsx (which renders .blog-contents). Vanilla Extract
- * dedupes, so importing from both is correct and costs nothing.
- */
 import { globalStyle } from "@vanilla-extract/css";
 import { vars } from "../themes.css";
-
-/* ---- index: card grid ----------------------------------------------------- */
 
 globalStyle("#blog-cards", {
   display: "grid",
@@ -33,7 +22,6 @@ globalStyle("#blog-cards", {
   },
 });
 
-/** Reserves height while the cards are being fetched, so the page doesn't jump. */
 globalStyle("#blog-cards.is-loading", {
   minHeight: 120,
 });
@@ -98,7 +86,6 @@ globalStyle(".blog-card-title", {
   color: vars.text,
 });
 
-/** Clamped to 3 lines so cards stay a uniform height. */
 globalStyle(".blog-card-excerpt", {
   margin: 0,
   fontSize: "0.92rem",
@@ -117,8 +104,6 @@ globalStyle(".blog-empty", {
   color: vars.textMuted,
   fontSize: "0.95rem",
 });
-
-/* ---- individual post ------------------------------------------------------ */
 
 globalStyle("body:has(.blog-contents)", {
   height: "auto",
@@ -178,13 +163,6 @@ globalStyle(".blog-contents h2, .blog-contents h3", {
 globalStyle(".blog-contents a", { color: vars.info });
 globalStyle(".blog-contents a:hover", { textDecoration: "underline" });
 
-/* ---- sensitive-content warning callout ------------------------------------ */
-
-/**
- * A high-visibility content warning shown before sensitive posts. Uses the
- * danger token, a thick left rule, and a tinted panel so it clearly reads as a
- * "stop and read this first" block rather than body copy.
- */
 globalStyle(".warning", {
   width: "100%",
   maxWidth: 680,
@@ -198,7 +176,6 @@ globalStyle(".warning", {
   fontSize: "0.95rem",
   lineHeight: 1.6,
   boxShadow: "0 4px 16px rgba(209, 95, 140, 0.2)",
-  /* Keeps the callout clear of the sticky header when linked via #content-warning. */
   scrollMarginTop: "2rem",
 });
 
@@ -234,12 +211,6 @@ globalStyle(".warning-proceed:focus-visible", {
   outlineOffset: 2,
 });
 
-/* ---- blurred gate for sensitive post bodies ------------------------------- */
-
-/**
- * The post body is blurred and non-interactive until the reader clicks
- * "proceed" in the content warning, at which point `.is-revealed` clears it.
- */
 globalStyle(".blog-gate-body", {
   filter: "blur(12px)",
   pointerEvents: "none",
@@ -253,12 +224,6 @@ globalStyle(".blog-gate-body.is-revealed", {
   userSelect: "auto",
 });
 
-/* ---- GitHub-style "note" disclaimer callout ------------------------------- */
-
-/**
- * A low-key informational callout in the style of GitHub's `> [!NOTE]` blocks:
- * a tinted panel with a coloured left rule and a small label above the text.
- */
 globalStyle(".disclaimer", {
   width: "100%",
   maxWidth: 680,

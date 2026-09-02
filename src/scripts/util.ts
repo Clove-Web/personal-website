@@ -4,9 +4,6 @@
  * See LICENCE.md in the project root for full licence information.
  */
 
-/* Shared helpers for the homepage status widgets (ported from the vanilla JS). */
-
-/** Real null/undefined AND the literal strings "null"/"undefined"/blank -> "". */
 export function realText(v: unknown): string {
   if (v == null) return "";
   const s = String(v).trim();
@@ -14,9 +11,6 @@ export function realText(v: unknown): string {
   return l === "" || l === "null" || l === "undefined" ? "" : s;
 }
 
-/** Format strings relTime() needs, sourced from the active language's
- * dictionary (`dict.time`, via useLanguage()). "{n}" is replaced with the
- * numeric value. */
 export type RelTimeStrings = {
   justNow: string;
   minutesAgo: string;
@@ -24,7 +18,6 @@ export type RelTimeStrings = {
   daysAgo: string;
 };
 
-/** "3m ago" / "2h ago" / "just now" from an ISO timestamp ("" if unparseable). */
 export function relTime(iso: string | undefined, strings: RelTimeStrings): string {
   const t = Date.parse(iso ?? "");
   if (!Number.isFinite(t)) return "";

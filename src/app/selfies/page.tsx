@@ -48,7 +48,6 @@ export default function SelfiesPage() {
           </p>
         </header>
 
-        {/* Grid + lightbox rendered client-side from selfies.json. */}
         <SelfiesGallery />
       </div>
     </>

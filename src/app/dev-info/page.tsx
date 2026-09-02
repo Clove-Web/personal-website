@@ -41,7 +41,6 @@ export const metadata: Metadata = {
   },
 };
 
-// [catppuccin color class, simpleicons slug, aria-label]
 const TECH: [string, string, string][] = [
   ["red", "python", "Python"],
   ["mauve", "openjdk", "Java"],
@@ -90,7 +89,6 @@ const TECH: [string, string, string][] = [
   ["red", "raspberrypi", "Raspberry Pi"],
 ];
 
-// [label, JSX value] — hardware rows
 function HardwareRow({
   term,
   children,
@@ -109,7 +107,6 @@ function HardwareRow({
 export default function DevInfoPage() {
   return (
     <>
-      {/* Warm up the origins this page's JS fetches on load */}
       <link rel="preconnect" href="https://doughmination.uk" crossOrigin="" />
       <link rel="dns-prefetch" href="https://doughmination.uk" />
 

@@ -7,12 +7,11 @@
 import { globalStyle } from "@vanilla-extract/css";
 import { vars } from "../themes.css";
 
-/** Discord brand colours for role pills — deliberately not themed. */
 const ROLE = {
-  default: "#5865f2", // blurple
-  owner: "#f5a623", // gold
-  admin: "#ed4245", // red
-  mod: "#43b581", // green, matches the online dot
+  default: "#5865f2",
+  owner: "#f5a623",
+  admin: "#ed4245",
+  mod: "#43b581",
   member: "#5865f2",
 } as const;
 
@@ -35,7 +34,7 @@ globalStyle(".guild-card", {
   color: "inherit",
   border: `1px solid ${CARD_BORDER}`,
   transition: "transform 0.15s ease, box-shadow 0.15s ease",
-  fontFamily: "'DDN gg sans', sans-serif", // matches the presence cards
+  fontFamily: "'DDN gg sans', sans-serif",
 });
 
 globalStyle(".guild-card:hover, .guild-card:focus-visible", {
@@ -57,7 +56,6 @@ globalStyle(".gc-head", {
   padding: "0 0.75rem 0.75rem",
 });
 
-/** Only the icon overlaps the banner, Discord-style. */
 globalStyle(".gc-icon", {
   width: 56,
   height: 56,
@@ -94,12 +92,11 @@ globalStyle(".guild-card.gc-banner-fallback .gc-banner", {
   display: "none",
 });
 
-/** Solid colour block standing in for a missing banner. */
 globalStyle(".guild-card.gc-banner-fallback::before", {
   content: '""',
   display: "block",
   width: "100%",
-  height: 80, // matches .gc-banner's height so layout doesn't shift
+  height: 80,
   background: vars.accent,
 });
 
@@ -108,7 +105,7 @@ globalStyle(".gc-id", {
   flexDirection: "column",
   gap: "0.15rem",
   minWidth: 0,
-  paddingTop: "0.75rem", // keeps the name clear of the banner edge above
+  paddingTop: "0.75rem",
 });
 
 globalStyle(".gc-name", {
@@ -140,7 +137,6 @@ globalStyle(".gc-desc", {
   opacity: 0.85,
 });
 
-/** Role badge — small pill pinned to the card's top-right corner. */
 globalStyle(".gc-role", {
   position: "absolute",
   top: "0.5rem",

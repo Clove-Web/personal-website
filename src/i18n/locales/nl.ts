@@ -3,11 +3,6 @@
  * Licensed under the DASL-1.0 Licence.
  * See LICENCE.md in the project root for full licence information.
  */
-/*
- * The Dutch strings. Mirrors the canonical shape defined in locales/en.ts —
- * same keys, translated values. Placeholders ({n}, {name}, {date}, …) and
- * proper nouns (Discord, Genshin, Minecraft, Last.fm, …) are kept verbatim.
- */
 
 import type { Dictionary } from "./en";
 
@@ -28,10 +23,6 @@ const nl: Dictionary = {
   },
   settings: {
     title: "Instellingen",
-    catCollection: "Kattencollectie",
-    openCatCollection: "Kattencollectie openen",
-    showCat: "Kat tonen",
-    hideCat: "Kat verbergen",
     playMusic: "Achtergrondmuziek afspelen",
     pauseMusic: "Achtergrondmuziek pauzeren",
     language: "Taal",
@@ -107,11 +98,6 @@ const nl: Dictionary = {
     ariaLabel: "Aantal bezoekers",
     label: "bezoekers",
     error: "?? bezoekers",
-  },
-  catPicker: {
-    dialogLabel: "Kies een kat",
-    close: "Sluiten",
-    hint: "Kies je kat · druk op C om te wisselen",
   },
   presence: {
     status: {

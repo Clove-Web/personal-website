@@ -9,14 +9,9 @@
 import { useEffect, useState } from "react";
 import { useLanguage } from "@/i18n/languageProvider";
 
-/* Ported from visitor-counter.js — a pixel-digit hit counter (via Abacus).
-   Caches per tab-session so a refresh doesn't re-increment the count. */
-
 type Props = {
   namespace?: string;
-  /** Abacus key (named hitKey since `key` is reserved in React). */
   hitKey?: string;
-  /** Overrides the translated default ("visitors" / "訪問者" / "visitantes"). */
   label?: string;
   imgPath?: string;
   imgExt?: string;
@@ -26,8 +21,6 @@ function storeKey(ns: string, key: string) {
   return `${ns}:${key}`;
 }
 
-/* Cached count for this tab-session, or null. A refresh keeps the same
-   sessionStorage token; a new tab starts fresh. */
 function getCached(ns: string, key: string): number | null {
   try {
     const raw = window.localStorage.getItem(storeKey(ns, key));
@@ -52,7 +45,6 @@ function setCached(ns: string, key: string, count: number) {
       session: token
     }));
   } catch {
-    /* storage unavailable — just skip caching */
   }
 }
 

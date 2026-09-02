@@ -7,7 +7,6 @@
 import type { Metadata } from "next";
 import ServersGuilds from "@scripts/serversGuilds";
 import { Tr } from "@components/chrome/i18nText";
-// Shared card styles first, page overrides second — that's the cascade order.
 import "@styles/stage.css";
 import "@styles/pages/guilds.css";
 
@@ -45,7 +44,6 @@ export const metadata: Metadata = {
 export default function ServersPage() {
   return (
     <>
-      {/* Warm up the origins this page's JS fetches on load */}
       <link rel="preconnect" href="https://doughmination.uk" crossOrigin="" />
       <link rel="dns-prefetch" href="https://doughmination.uk" />
       <link rel="preconnect" href="https://cdn.discordapp.com" />

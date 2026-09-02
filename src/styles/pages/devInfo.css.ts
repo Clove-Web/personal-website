@@ -4,26 +4,11 @@
  * See LICENCE.md in the project root for full licence information.
  */
 
-/**
- * dev-info.css.ts — the /dev-info page: tech-stack icons, hardware list,
- * and the GitHub contribution heatmap.
- *
- * Ported from public/css/pages/dev-info.css.
- *
- * Dropped as dead (nothing renders them):
- *   .about-badges, .about-list, .about-setup
- *       plus `.about-badges .badge` and `.about-setup #pokeball-secret`, which
- *       referenced the badge stack and the pokeball easter egg — both already
- *       removed from the site.
- *   the whole .waka-* family — the WakaTime stats cards, removed from the site.
- */
 import { globalStyle, globalKeyframes } from "@vanilla-extract/css";
 import { vars } from "../themes.css";
 
 const POINTER = 'url("https://m.doughmination.gay/img/cursor/pointer_0.png"), pointer';
-/* ---- page shell ----------------------------------------------------------- */
 
-/** Only this page scrolls; the link hub stays locked. */
 globalStyle(
   "html:has(.dev-info), body:has(.dev-info), html:has(.dev-info-page), body:has(.dev-info-page)",
   {
@@ -73,13 +58,6 @@ globalStyle(".info-section .section-title", {
   marginBottom: "1rem",
 });
 
-
-/* ---- tech-stack icons ------------------------------------------------------
-   Simple Icons rendered via CSS mask so the colour is theme-driven. The markup
-   supplies the icon URL inline:
-     <span class="tech-icon pink" style="--si:url('https://cdn.simpleicons.org/SLUG')">
-   ------------------------------------------------------------------------- */
-
 globalStyle(".tech-icon", {
   position: "relative",
   width: 30,
@@ -88,7 +66,6 @@ globalStyle(".tech-icon", {
   transition: "transform 0.15s ease, filter 0.15s ease",
 });
 
-/** The icon shape itself — masked, so the ::after label stays visible. */
 globalStyle(".tech-icon::before", {
   content: '""',
   position: "absolute",
@@ -103,7 +80,6 @@ globalStyle(".tech-icon:hover", {
   filter: "drop-shadow(0 4px 8px currentColor)",
 });
 
-/** Hover label — pulls its text from aria-label, tinted to match the icon. */
 globalStyle(".tech-icon::after", {
   content: "attr(aria-label)",
   position: "absolute",
@@ -129,29 +105,14 @@ globalStyle(".tech-icon:hover::after", {
   transform: "translateX(-50%) translateY(0)",
 });
 
-/**
- * Tech icons are a single colour now, so no per-icon accent classes.
- *
- * The mask in ::before paints with currentColor, so setting it here colours
- * every icon — and the hover drop-shadow, which also uses currentColor, follows
- * along for free.
- *
- * dev-info/page.tsx still passes a colour name into `className={`tech-icon
- * ${color}`}`. Those extra classes now match nothing and are harmless; strip
- * them from the data whenever you next touch that file.
- */
 globalStyle(".tech-icon", { color: vars.text });
 
-/** Inside the collapsible card, drop the standalone block's bottom padding. */
 globalStyle(".tech-stack .dev-info", {
   paddingBottom: 0,
   justifyContent: "flex-start",
 });
 
-/* ---- collapsible sections (details/summary) ------------------------------- */
-
 globalStyle("details.info-section", {
-  // tight when collapsed; [open] below expands it
   paddingBottom: "0.85rem",
   transition: "padding-bottom 0.15s ease",
 });
@@ -170,7 +131,6 @@ globalStyle("summary.section-title", {
   transition: "margin-bottom 0.15s ease, color 0.15s ease",
 });
 
-/** Hide the native disclosure triangle in both engines. */
 globalStyle("summary.section-title::-webkit-details-marker", { display: "none" });
 globalStyle("summary.section-title::marker", { content: '""' });
 
@@ -182,7 +142,6 @@ globalStyle("summary.section-title:focus-visible", {
   borderRadius: 0,
 });
 
-/** Custom chevron that flips when the section opens. */
 globalStyle("summary.section-title::after", {
   content: '""',
   flex: "none",
@@ -202,8 +161,6 @@ globalStyle("details.info-section[open] > summary.section-title", {
 globalStyle("details.info-section[open] > summary.section-title::after", {
   transform: "rotate(-135deg)",
 });
-
-/* ---- hardware spec list --------------------------------------------------- */
 
 globalStyle(".hw-item", {
   textDecoration: "none",
@@ -243,12 +200,6 @@ globalStyle(".hw-row dd", {
   fontSize: "0.88rem",
   color: vars.text
 });
-
-/* ---- contribution heatmap (.ch-*) -----------------------------------------
-   Deliberately NOT themed: --contrib-0..4 are GitHub's own green scale, so the
-   heatmap stays recognisable regardless of the site flavour. --ch-cell / --ch-gap
-   / --ch-weekday-w drive the grid geometry from one place.
-   ------------------------------------------------------------------------- */
 
 globalStyle(".ch-root", {
   vars: {
@@ -298,7 +249,6 @@ globalStyle(".ch-months", {
   gridAutoFlow: "column",
   gridAutoColumns: "var(--ch-cell)",
   gap: "var(--ch-gap)",
-  // offset past the weekday gutter so month labels line up with their columns
   marginLeft: "calc(var(--ch-weekday-w) + var(--ch-gap))",
   marginBottom: 6,
   height: 14,
@@ -355,7 +305,6 @@ globalStyle(".ch-day", {
 
 globalStyle(".ch-day:hover", { outline: "1px solid var(--ch-text)" });
 
-/** Contribution intensity, 0–4. DevInfo builds the class as `l${level}`. */
 for (let i = 0; i <= 4; i++) {
   globalStyle(`.ch-day.l${i}`, { background: `var(--contrib-${i})` });
 }
@@ -369,7 +318,6 @@ globalStyle(".ch-legend", {
   color: "var(--ch-muted)",
 });
 
-/** Legend swatches are static — no pop-in animation. */
 globalStyle(".ch-legend .ch-day", {
   animation: "none",
   opacity: 1

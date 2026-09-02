@@ -10,9 +10,6 @@ import { useGuild } from "@doughmination/react-api";
 import { useLanguage } from "@/i18n/languageProvider";
 import type { TranslationKey } from "@/i18n/translate";
 
-/* Ported from guilds.js — Discord server cards, each resolved live via the
-   Doughmination API through the wrapper's useGuild hook. */
-
 type GuildCfg = { name: string; invite: string; role?: string };
 
 const GUILDS: GuildCfg[] = [
@@ -45,7 +42,6 @@ const ROLE_LABEL_KEYS: Record<string, TranslationKey> = {
   member: "serversPage.roleMember",
 };
 
-/* Discord CDN accepts ?size=<power of 2>; ensure a resolution big enough. */
 function withSize(url: string, size: number): string {
   if (!url) return url;
   if (/[?&]size=\d+/.test(url)) return url.replace(/([?&])size=\d+/, `$1size=${size}`);
@@ -54,7 +50,6 @@ function withSize(url: string, size: number): string {
 
 function GuildCard({ cfg }: { cfg: GuildCfg }) {
   const { t } = useLanguage();
-  // Resolves the invite via the shared REST client; cached for 5 min.
   const { data: d } = useGuild(cfg.invite);
 
   const name = d?.name || cfg.name;

@@ -10,7 +10,6 @@ import type { CSSProperties } from "react";
 import { useFronters } from "@doughmination/react-api";
 import { useLanguage } from "@/i18n/languageProvider";
 
-// member.color is a 6-char hex with no leading #, and may be null.
 function colorHex(color?: string | null): string | undefined {
   return /^[0-9a-fA-F]{6}$/.test(color || "") ? "#" + color : undefined;
 }
@@ -18,12 +17,8 @@ function colorHex(color?: string | null): string | undefined {
 export default function Fronting() {
   const { t } = useLanguage();
 
-  // Seeds from GET /v2/plural/fronters, then stays live via the shared
-  // socket's fronters_update event. Replaces the old useDMFeed path.
   const { data, isPending } = useFronters();
 
-  // Keep the card shell mounted while loading — collapsing to null shoves
-  // everything below down when data lands (~half the homepage CLS).
   const loading = isPending;
 
   const members = Array.isArray(data?.members) ? data.members : [];

@@ -4,25 +4,6 @@
  * See LICENCE.md in the project root for full licence information.
  */
 
-/**
- * presence-card.css.ts — the shared Discord-style presence card, used full-size
- * on /discord and /servers and in mini form on /cool-people, plus the stage
- * layout those pages sit on.
- *
- * Ported from public/css/shared/presence-card.css.
- *
- * globalStyle throughout: the card was built imperatively by presenceCard.ts
- * with ~93 hardcoded class strings. That module is now a React component
- * (PresenceCard.tsx), but it still writes these same class names literally, so
- * scoped style() names would break it. Converting to scoped styles is possible
- * now — it just means changing both files together, class by class.
- *
- * Dropped as dead: .api-stage, .api-body, .api-empty and
- * `html[data-theme] body.api-body` — the standalone /api embed page they styled
- * doesn't exist in this app (and data-theme is never set; see the note that was
- * at the top of the source file).
- * Also dropped: .pc-conn-type, which nothing renders.
- */
 import { globalStyle } from "@vanilla-extract/css";
 import { vars } from "./themes.css";
 
@@ -32,11 +13,7 @@ const ELLIPSIS = {
   textOverflow: "ellipsis",
 } as const;
 
-/* ---- card shell ----------------------------------------------------------- */
-
 globalStyle(".presence-card", {
-  // RGB triplet, not a hex — it feeds rgba() below and is overwritten at
-  // runtime by PresenceCard.tsx from the album-art accent (--dc-accent).
   vars: { "--dc-accent": "245, 194, 231" },
   position: "fixed",
   top: "1rem",
@@ -59,8 +36,6 @@ globalStyle(".presence-card.has-accent", {
   boxShadow: "5px 5px 0 rgba(var(--dc-accent), 0.55)",
 });
 
-/* ---- header (always visible) ---------------------------------------------- */
-
 globalStyle(".pc-head", {
   display: "flex",
   alignItems: "center",
@@ -81,12 +56,9 @@ globalStyle(".pc-av-img", {
   borderRadius: 0,
   objectFit: "cover",
   display: "block",
-  // Solid fill behind the avatar: many PFPs are partly transparent, and Discord
-  // shows a solid backdrop rather than letting the banner through.
   background: vars.bgDeep,
 });
 
-/** Avatar decoration / frame overlay (a Discord cosmetic). */
 globalStyle(".pc-av-deco", {
   position: "absolute",
   top: "50%",
@@ -95,6 +67,10 @@ globalStyle(".pc-av-deco", {
   height: 54,
   transform: "translate(-50%, -50%)",
   pointerEvents: "none",
+});
+
+globalStyle(".presence-card:not(.is-mini) .pc-av-img", {
+  borderRadius: "50%",
 });
 
 globalStyle(".pc-av-deco[hidden]", { display: "none" });
@@ -110,14 +86,6 @@ globalStyle(".pc-status", {
   background: vars.textFaint,
 });
 
-/**
- * Status colouring, driven by [data-status] on the card.
- *
- * "streaming" is not an online/idle/dnd state — Discord's own client shows the
- * purple live indicator in place of the regular dot whenever the user has an
- * active stream (a type:1 activity), whatever their underlying status. It
- * matches the .pc-stream-thumb ring and the .pc-stream dot further down.
- */
 const STATUS_COLOURS = {
   online: {
     dot: vars.success,
@@ -169,10 +137,8 @@ globalStyle(".pc-user", {
   whiteSpace: "nowrap",
 });
 
-/** Collapse when the API returns no value, rather than leaving a gap. */
 globalStyle(".pc-user:empty", { display: "none" });
 
-/** Status word (Online / Idle / Do Not Disturb / Offline / Streaming). */
 globalStyle(".pc-status-text", {
   fontSize: "0.7rem",
   fontWeight: 600,
@@ -193,8 +159,6 @@ globalStyle(".pc-status-text::before", {
   background: vars.textFaint,
 });
 
-/* ---- expandable sections -------------------------------------------------- */
-
 globalStyle(".pc-sections", {
   display: "flex",
   flexDirection: "column",
@@ -203,7 +167,6 @@ globalStyle(".pc-sections", {
   transition: "opacity 0.2s ease",
 });
 
-/** has-sections is set by PresenceCard.tsx once there's something to show. */
 globalStyle(".presence-card:not(.has-sections) .pc-sections", { display: "none" });
 
 globalStyle(".pc-row", {
@@ -213,7 +176,6 @@ globalStyle(".pc-row", {
   padding: "0.4rem 0.5rem",
   borderRadius: 0,
   background: vars.bgRaised,
-  // transparent so the hover border doesn't shift layout
   border: "1px solid transparent",
   color: vars.text,
   textDecoration: "none",
@@ -242,8 +204,6 @@ globalStyle(".pc-row-kind", {
   color: vars.textMuted,
 });
 
-/* Brand glyph in the listening row's kind label: DM logo (png) or the
-   Spotify glyph, sized to sit inline with the uppercase caption. */
 globalStyle(".pc-brand-logo", {
   width: 12,
   height: 12,
@@ -281,8 +241,6 @@ globalStyle(".pc-row-elapsed", {
 
 globalStyle(".pc-row-elapsed:empty", { display: "none" });
 
-/* ---- artwork / icons ------------------------------------------------------ */
-
 globalStyle(".pc-art, .pc-row-ic-img", {
   width: 38,
   height: 38,
@@ -291,11 +249,6 @@ globalStyle(".pc-art, .pc-row-ic-img", {
   flexShrink: 0,
 });
 
-/**
- * Twitch/YouTube live preview thumbnail (streamRow's assets.large_image_url).
- * Wider than the square game/app icons since it's a 16:9-ish video preview; the
- * slim mauve ring ties it to the streaming status dot.
- */
 globalStyle(".pc-stream-thumb", {
   width: 56,
   height: 38,
@@ -314,15 +267,12 @@ globalStyle(".pc-row-ic.pc-dot", {
   background: vars.accent,
 });
 
-/** Activity kind recolours (and reshapes) the dot. */
 globalStyle(".pc-dev .pc-row-ic.pc-dot", {
   background: vars.info,
   borderRadius: 0
 });
 globalStyle(".pc-game .pc-row-ic.pc-dot", { background: vars.success });
 globalStyle(".pc-stream .pc-row-ic.pc-dot", { background: vars.accentAlt });
-
-/* ---- custom status -------------------------------------------------------- */
 
 globalStyle(".pc-custom", {
   position: "relative",
@@ -333,12 +283,10 @@ globalStyle(".pc-custom", {
   gap: "0.4rem",
   alignItems: "flex-start",
   borderRadius: 0,
-  // squared-off top-left corner where the bubble tail attaches
   borderTopLeftRadius: 4,
   marginTop: "0.3rem",
 });
 
-/** Discord-style thought-bubble tail: two shrinking circles above the bubble. */
 globalStyle(".pc-custom::before, .pc-custom::after", {
   content: '""',
   position: "absolute",
@@ -360,7 +308,6 @@ globalStyle(".pc-custom::after", {
   left: 9
 });
 
-/** It's a bubble, not a link — cancel the .pc-row hover treatment. */
 globalStyle(".pc-custom:hover", {
   transform: "none",
   borderColor: "transparent"
@@ -381,8 +328,6 @@ globalStyle(".pc-custom-text", {
   overflowWrap: "anywhere",
   lineHeight: 1.35,
 });
-
-/* ---- Spotify progress ----------------------------------------------------- */
 
 globalStyle(".pc-spotify .pc-row-title", { color: vars.success });
 
@@ -423,8 +368,6 @@ globalStyle(".presence-card", {
   },
 });
 
-/* ---- extended Lanyard fields ---------------------------------------------- */
-
 globalStyle(".pc-name-row", {
   display: "flex",
   alignItems: "center",
@@ -434,7 +377,6 @@ globalStyle(".pc-name-row", {
 
 globalStyle(".pc-name-row .pc-name", { minWidth: 0 });
 
-/** Gradient display name (display_name_styles); the gradient is set inline. */
 globalStyle(".pc-name.is-gradient", {
   WebkitBackgroundClip: "text",
   backgroundClip: "text",
@@ -442,7 +384,6 @@ globalStyle(".pc-name.is-gradient", {
   WebkitTextFillColor: "transparent",
 });
 
-/** Server tag chip (primary_guild). */
 globalStyle(".pc-tag", {
   display: "inline-flex",
   alignItems: "center",
@@ -465,17 +406,12 @@ globalStyle(".pc-tag-badge", {
   display: "block"
 });
 
-/** Username + active-platform indicators. */
 globalStyle(".pc-sub-row", {
   display: "flex",
   alignItems: "center",
   gap: "0.35rem",
 });
 
-/** Shared base for the inline SVG icons emitted by presenceIcons.ts (core.ts).
-    <svg> sits on the text baseline, which a webfont glyph did not — nudge it
-    back so icons sitting in a text run (timezone clock, wishlist empty state)
-    stay optically centred. */
 globalStyle("svg.pc-ic", {
   verticalAlign: "-0.125em",
   flex: "none",
@@ -495,7 +431,6 @@ globalStyle(".pc-plat", {
   lineHeight: 1,
 });
 
-/** KV meta line (location, etc). */
 globalStyle(".pc-meta", {
   display: "flex",
   alignItems: "center",
@@ -512,7 +447,6 @@ globalStyle(".pc-pin", {
   lineHeight: 1
 });
 
-/** Stacked rows — activity rows that carry buttons underneath. */
 globalStyle(".pc-row--stack", {
   flexDirection: "column",
   alignItems: "stretch",
@@ -528,7 +462,6 @@ globalStyle(".pc-row-link", {
   textDecoration: "none",
 });
 
-/** Activity icon with a small corner badge (assets.small_image). */
 globalStyle(".pc-ic-wrap", {
   position: "relative",
   flexShrink: 0,
@@ -548,12 +481,10 @@ globalStyle(".pc-ic-badge", {
   width: 16,
   height: 16,
   borderRadius: 0,
-  // ring in the row's own background so the badge reads as separate
   border: `2px solid ${vars.bgRaised}`,
   objectFit: "cover",
 });
 
-/** Activity buttons (labels come from the presence payload). */
 globalStyle(".pc-buttons", {
   display: "flex",
   flexWrap: "wrap",
@@ -576,8 +507,6 @@ globalStyle(".pc-btn:hover", {
   background: vars.surfaceHigher,
 });
 
-/* ---- profile badges ------------------------------------------------------- */
-
 globalStyle(".pc-badges", {
   display: "inline-flex",
   alignItems: "center",
@@ -599,8 +528,6 @@ globalStyle(".pc-badge-link", {
   lineHeight: 0
 });
 
-/* ---- wishlist star + panel ------------------------------------------------ */
-
 globalStyle(".pc-star", {
   marginLeft: "auto",
   alignSelf: "flex-start",
@@ -619,7 +546,6 @@ globalStyle(".pc-star:hover", {
   transform: "scale(1.12)"
 });
 
-/** `on` is set by PresenceCard.tsx when the panel is open. */
 globalStyle(".pc-star.on", { color: vars.warning });
 
 globalStyle(".pc-wishlist", { display: "none" });
@@ -682,7 +608,6 @@ globalStyle(".pc-wl-price", {
   whiteSpace: "nowrap",
 });
 
-/** Already-owned games are dimmed rather than hidden. */
 globalStyle(".pc-wl-item.is-owned", { opacity: 0.5 });
 
 globalStyle(".pc-wl-empty", {
@@ -690,8 +615,6 @@ globalStyle(".pc-wl-empty", {
   color: vars.textMuted,
   margin: 0,
 });
-
-/* ---- Discord profile gradient (the Catppuccin surface is the fallback) ----- */
 
 globalStyle(".presence-card.has-profile-grad", {
   background:
@@ -702,12 +625,9 @@ globalStyle(".presence-card.has-profile-grad:not(.has-accent)", {
   borderColor: "rgba(var(--pc-grad-1-rgb), 0.6)",
 });
 
-/** Rows need their own scrim so text stays legible over the gradient. */
 globalStyle(".presence-card.has-profile-grad .pc-row", {
   background: "rgba(17, 17, 27, 0.55)",
 });
-
-/* ---- extras: banner, bio, connected accounts (the /discord page) ---------- */
 
 globalStyle(".pc-banner", {
   display: "block",
@@ -719,7 +639,6 @@ globalStyle(".pc-banner", {
 
 globalStyle(".pc-banner[hidden]", { display: "none" });
 
-/** Solid/accent banner fallback when there's no Nitro banner image. */
 globalStyle(".presence-card.has-banner-color::before", {
   content: '""',
   display: "block",
@@ -727,28 +646,16 @@ globalStyle(".presence-card.has-banner-color::before", {
   background: "var(--pc-banner-color, var(--surface-hi))",
 });
 
-/** With a banner present, lift the avatar up over it. */
-/* The head is no longer pulled up over the banner as a whole — a negative
-   marginTop here lifted the avatar AND the name together, so the name overlapped
-   the banner art. Only the avatar rides up now (below), which keeps the name
-   clear no matter how tall the text runs. */
 globalStyle(
   ".presence-card.has-banner .pc-head, .presence-card.has-banner-color .pc-head",
   { paddingTop: "0.7rem" },
 );
 
-/** With a banner, the avatar grows and gains a ring against the artwork.
-    transform lifts it over the banner without affecting layout; the matching
-    negative marginBottom stops it reserving space it no longer occupies. */
 globalStyle(
   ".presence-card.has-banner .pc-avatar, .presence-card.has-banner-color .pc-avatar",
   {
     width: 56,
     height: 56,
-    // .pc-head centres its children, so without this the avatar's height — and
-    // therefore how far it rode into the banner — drifted with each card's
-    // content (bios, chip rows). Pinning it to the top makes the overlap
-    // identical on every card.
     alignSelf: "flex-start",
     transform: "translateY(-26px)",
     marginBottom: -26,
@@ -772,8 +679,6 @@ globalStyle(
   },
 );
 
-/* ---- bio ------------------------------------------------------------------ */
-
 globalStyle(".pc-bio", {
   margin: "0 0.7rem 0.5rem",
   padding: "0.5rem 0.6rem",
@@ -782,24 +687,20 @@ globalStyle(".pc-bio", {
   fontSize: "0.74rem",
   lineHeight: 1.25,
   color: vars.textSoft,
-  // preserves the line breaks Discord bios use
   whiteSpace: "pre-wrap",
   overflowWrap: "anywhere",
 });
 
 globalStyle(".pc-bio[hidden]", { display: "none" });
 
-/** Custom Discord emoji rendered inline in the bio. */
 globalStyle(".pc-bio-emoji", {
   width: "1.2em",
   height: "1.2em",
-  // nudges the image onto the text baseline
   verticalAlign: "-0.22em",
   objectFit: "contain",
   margin: 0,
 });
 
-/** Linkified URLs in the bio. */
 globalStyle(".pc-bio-link", {
   color: vars.info,
   textDecoration: "none",
@@ -807,8 +708,6 @@ globalStyle(".pc-bio-link", {
 });
 
 globalStyle(".pc-bio-link:hover", { textDecoration: "underline" });
-
-/* ---- connected accounts --------------------------------------------------- */
 
 globalStyle(".pc-connections", {
   display: "flex",
@@ -843,8 +742,6 @@ globalStyle(".pc-conn-check", {
   fontWeight: 700
 });
 
-/** Connection brand logos. Moved here from pages/music.css, which renders no
-    presence card — see the note in music.css.ts. */
 globalStyle(".pc-conn-ic", {
   width: 14,
   height: 14,
@@ -852,9 +749,6 @@ globalStyle(".pc-conn-ic", {
   flex: "none",
 });
 
-/** Inline-SVG variant (presenceIcons.ts). The <svg> carries width/height 1em
-    and fill:currentColor, so it inherits sizing and colour the way the old
-    Bootstrap Icons glyph did — the base .pc-conn-ic box above still applies. */
 globalStyle("svg.pc-conn-ic", {
   width: 14,
   height: 14,
@@ -863,9 +757,6 @@ globalStyle("svg.pc-conn-ic", {
   color: "currentColor",
 });
 
-/* ---- sub-row chips: pronouns, timezone, Nitro ----------------------------- */
-
-/** Pronouns and timezone share a chip treatment. */
 const CHIP = {
   padding: "0.05rem 0.4rem",
   borderRadius: 0,
@@ -879,7 +770,6 @@ const CHIP = {
 globalStyle(".pc-pronouns", CHIP);
 globalStyle(".pc-pronouns[hidden]", { display: "none" });
 
-/** Live local-time chip — tabular figures stop it jittering as it ticks. */
 globalStyle(".pc-timezone", {
   ...CHIP,
   fontVariantNumeric: "tabular-nums",
@@ -888,7 +778,6 @@ globalStyle(".pc-timezone", {
 
 globalStyle(".pc-timezone[hidden]", { display: "none" });
 
-/** Nitro / boosting indicators. */
 globalStyle(".pc-premium", {
   display: "inline-flex",
   alignItems: "center",
@@ -897,7 +786,6 @@ globalStyle(".pc-premium", {
 
 globalStyle(".pc-premium[hidden]", { display: "none" });
 
-/** Nitro purple, blended toward the theme so it doesn't clash outright. */
 globalStyle(".pc-nitro", {
   padding: "0.05rem 0.4rem",
   borderRadius: 0,
@@ -915,16 +803,6 @@ globalStyle(".pc-boost", {
   cursor: "default"
 });
 
-/* ---- /discord page stage --------------------------------------------------
-   MOVED. `.presence-stage` / `.presence-intro` now live in stage.css.ts, and
-   the ~150 lines of `.presence-stage .pc-*` overrides that re-scaled this
-   compact card into a full-page hero are GONE — /discord renders
-   PresenceDashboard (presence-dashboard.css.ts) instead of blowing this one up.
-   ------------------------------------------------------------------------- */
-
-/* ---- mini card (/cool-people) --------------------------------------------- */
-
-/** Connection icons shrink in the mini card. */
 globalStyle(".presence-card.is-mini .pc-conn-ic", {
   width: 13,
   height: 13
@@ -935,10 +813,6 @@ globalStyle(".presence-card.is-mini svg.pc-conn-ic", {
   height: 13,
   fontSize: 13,
 });
-
-/* ---- Discord markdown inside the mini-card bio -----------------------------
-   discordMarkdown.tsx emits plain semantic tags; these style them at mini-card
-   scale. __x__ is UNDERLINE in Discord's dialect, not bold — <u> carries that. */
 
 globalStyle(".pc-bio strong", {
   fontWeight: 700,
@@ -996,7 +870,6 @@ globalStyle(".pc-bio li", {
   marginLeft: "0.9rem"
 });
 
-/** Spoiler: blacked out until clicked, as Discord does. */
 globalStyle(".pc-spoiler", {
   background: vars.surfaceHigher,
   borderRadius: 0,

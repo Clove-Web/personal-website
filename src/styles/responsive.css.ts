@@ -4,36 +4,9 @@
  * See LICENCE.md in the project root for full licence information.
  */
 
-/**
- * responsive.css.ts — cross-page responsive overrides.
- *
- * Ported from public/css/shared/responsive.css, minus a large amount of dead
- * weight. These blocks targeted features that no longer exist and were dropped
- * rather than carried forward:
- *
- *   .links / .link-card / .link-text / .icon  — the old link-hub grid
- *   .topbar (+ .topbar .presence-card,
- *             .topbar .beta-bar)              — the mobile top-bar reflow
- *   .beta-bar                                 — the old vanilla theme switcher
- *   .badges                                   — the badge stack
- *   .terminal                                 — removed with the terminal widget
- *
- * globalStyle throughout: these are cross-cutting overrides on html/body and on
- * classes owned by several different components.
- *
- * Mobile nav: mirrors the desktop hamburger + JARVIS bloom/telescope from
- * nav.css.ts almost exactly (same checkbox, same per-item nth-child stagger),
- * just re-scoped to MOBILE instead of DESKTOP, plus:
- *   - the opened menu is a fixed, centred overlay panel (not an in-flow row)
- *   - a dark backdrop (body::before) fades in behind it via body:has()
- * so it reads as a deliberate mobile treatment, not a leftover desktop rule.
- */
 import { globalStyle } from "@vanilla-extract/css";
 import { vars } from "./themes.css";
 
-/* ---- narrow / short screens ---------------------------------------------- */
-
-/** Shrink the header so the hub never needs to scroll on small viewports. */
 const NARROW_OR_SHORT = "(max-width: 420px), (max-height: 640px)";
 
 globalStyle(".hub-header", {
@@ -57,12 +30,9 @@ globalStyle(".pfp", {
   },
 });
 
-/** Cat picker drops to 2 columns on very narrow screens. */
 globalStyle(".cat-grid", {
   "@media": { "(max-width: 420px)": { gridTemplateColumns: "repeat(2, 1fr)" } },
 });
-
-/* ---- mobile: single vertical scroll, stacked widgets ---------------------- */
 
 const MOBILE = "(max-width: 640px)";
 
@@ -70,8 +40,6 @@ globalStyle("html", {
   "@media": {
     [MOBILE]: {
       height: "auto",
-      // Single vertical scroll root on mobile; clip horizontal overflow so
-      // absolutely-positioned children can't pan the page sideways.
       overflowX: "hidden",
       overflowY: "auto",
     },
@@ -110,26 +78,6 @@ globalStyle(
   },
 );
 
-/* ==========================================================================
- * Mobile nav: burger lives in normal flow; the links panel is a fixed,
- * centred overlay (opened/closed via the same .nav-toggle checkbox NavMenu
- * already renders), with a dark backdrop behind it.
- * ======================================================================== */
-
-/**
- * Page nav container: no mobile override needed here anymore. It stays fixed
- * top-left (from nav.css.ts's base rule) same as desktop — the burger just
- * sits there; the links panel below is its own fixed, centred overlay.
- */
-
-/* ---- dark backdrop, faded in behind the open panel ------------------------
- * Deliberately NOT body::before — base.css.ts already uses that pseudo for
- * the sitewide estrogen watermark, and since responsive.css.ts loads last,
- * reusing it here would silently replace the watermark on mobile at all
- * times, not just while the menu's open. .nav is already a fixed, empty
- * element, so its own ::before can be position:fixed + inset:0 as a
- * viewport-covering backdrop without any of that collision. */
-
 globalStyle(".nav::before", {
   "@media": {
     [MOBILE]: {
@@ -153,8 +101,6 @@ globalStyle(".nav:has(.nav-toggle:checked)::before", {
     },
   },
 });
-
-/* ---- burger button (same bars/X-morph as desktop) ------------------------- */
 
 globalStyle(".nav-burger", {
   "@media": {
@@ -219,8 +165,6 @@ globalStyle(".nav-toggle:checked ~ .nav-burger span:nth-child(3)", {
   "@media": { [MOBILE]: { transform: "translateY(-6px) rotate(-45deg)" } },
 });
 
-/* ---- links panel: fixed + centred, hidden until toggled ------------------- */
-
 globalStyle(".nav-links", {
   "@media": {
     [MOBILE]: {
@@ -252,10 +196,6 @@ globalStyle(".nav-toggle:checked ~ .nav-links", {
   },
 });
 
-/**
- * The selected-item pointer triangle and its indent only make sense in the
- * vertical desktop nav.
- */
 globalStyle(".nav-link.selected", {
   "@media": { [MOBILE]: { marginLeft: 0 } },
 });
@@ -264,9 +204,6 @@ globalStyle(".nav-link.selected::before", {
   "@media": { [MOBILE]: { display: "none" } },
 });
 
-/* ---- bloom / telescope, mirrored from nav.css.ts's DESKTOP block ---------- */
-
-/* Phase 1 — hidden icon dot. */
 globalStyle(".nav-links .nav-link", {
   "@media": {
     [MOBILE]: {
@@ -312,7 +249,6 @@ globalStyle(".nav-label", {
   },
 });
 
-/* Phase 1 result: dots bloom in. */
 globalStyle(".nav-toggle:checked ~ .nav-links .nav-link", {
   "@media": {
     [MOBILE]: {
@@ -324,7 +260,6 @@ globalStyle(".nav-toggle:checked ~ .nav-links .nav-link", {
   },
 });
 
-/* Phase 2: icon fades, label reveals, ~1s after the dots have bloomed. */
 globalStyle(".nav-toggle:checked ~ .nav-links .nav-ico", {
   "@media": { [MOBILE]: { opacity: 0, transitionDelay: "0.95s" } },
 });
@@ -332,7 +267,6 @@ globalStyle(".nav-toggle:checked ~ .nav-links .nav-label", {
   "@media": { [MOBILE]: { opacity: 1, transitionDelay: "1s" } },
 });
 
-/* Per-item stagger, opening. Same delay ladder as desktop. */
 globalStyle(".nav-toggle:checked ~ .nav-links .nav-link:nth-child(1)", {
   "@media": { [MOBILE]: { transitionDelay: "0.05s, 0.05s, 1s, 1s, 0s, 0s, 0s" } },
 });
@@ -373,8 +307,6 @@ globalStyle(".nav-toggle:checked ~ .nav-links .nav-link:nth-child(13)", {
   "@media": { [MOBILE]: { transitionDelay: "0.65s, 0.65s, 1s, 1s, 0s, 0s, 0s" } },
 });
 
-/* Per-item stagger, closing (reverse telescope). Sits on the UNCHECKED state
- * so it only applies when closing. Delay = 0.4s + (13 - index) * 0.05s. */
 globalStyle(".nav-links .nav-link:nth-child(1)", {
   "@media": { [MOBILE]: { transitionDelay: "1s, 1s, 0s, 0s, 0s, 0s, 0s" } },
 });
@@ -415,13 +347,10 @@ globalStyle(".nav-links .nav-link:nth-child(13)", {
   "@media": { [MOBILE]: { transitionDelay: "0.40s, 0.40s, 0s, 0s, 0s, 0s, 0s" } },
 });
 
-/* Label collapses back with the pill (no per-item delay) as it closes. */
 globalStyle(".nav-label", {
   "@media": { [MOBILE]: { transitionDelay: "0s" } },
 });
 
-/* Reduced motion: skip the bloom/telescope + backdrop fade, just show the
- * labelled pills. */
 globalStyle(
   ".nav-links, .nav-links .nav-link, .nav-ico, .nav-label, .nav-burger span, body::before",
   {
@@ -433,16 +362,6 @@ globalStyle(
   },
 );
 
-/* ---- visitor counter: drop out of the fixed corner on mobile -------------- */
-
-/**
- * Desktop pins this to the fixed top-right corner (see visitor-counter.css.ts).
- * On mobile it should just sit in normal flow at the bottom of .hub, below
- * Location (it's already the last element there in page.tsx's JSX). Dropping
- * `position: fixed` is also what fixes it poking through the nav backdrop —
- * a fixed, z-indexed element paints above normal in-flow content no matter
- * what, so once this is static it's naturally covered by the fixed overlay.
- */
 globalStyle("#visitor-counter", {
   "@media": {
     [MOBILE]: {
@@ -454,7 +373,6 @@ globalStyle("#visitor-counter", {
   },
 });
 
-/** Keep long-form content from butting up against the nav below it. */
 globalStyle(".dev-info, .project-grid, .friend-grid", {
   "@media": { [MOBILE]: { paddingBottom: "1rem" } },
 });
@@ -462,8 +380,6 @@ globalStyle(".dev-info, .project-grid, .friend-grid", {
 globalStyle(".section + .section", {
   "@media": { [MOBILE]: { marginTop: "1.5rem" } },
 });
-
-/* ---- very narrow phones --------------------------------------------------- */
 
 globalStyle(".project-grid", {
   "@media": { "(max-width: 380px)": { gridTemplateColumns: "1fr" } },

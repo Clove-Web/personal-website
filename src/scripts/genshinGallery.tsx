@@ -13,39 +13,15 @@ import { useLanguage } from "@/i18n/languageProvider";
 export type Character = {
   name: string;
   model: string;
-  /**
-   * Enka avatarId for this character — used to pull live owned/level status
-   * from the API. Omit for characters not present in Enka's current
-   * catalog (e.g. not yet added there); those fall back to `tier`/`level`
-   * below and are tracked manually until they show up live.
-   */
   avatarId?: string;
-  /**
-   * Fallback tier, used only while live data is loading/unavailable, or for
-   * characters with no `avatarId` at all. Once matched against the live
-   * roster, owned/not-owned status comes from the API instead.
-   */
   tier: "owned" | "want";
-  /** Fallback level (1-90), same caveat as `tier` above. */
   level?: number;
-  /**
-   * Live-derived: true when the API's roster still sees this character in the
-   * pinned showcase / "Display all" list, false when it's owned only per the
-   * API's persistent ledger (unpinned since — level below is last-known),
-   * undefined for manual/fallback entries with no live match. Owned either
-   * way; drives the "not tracked" cue in the UI.
-   */
   tracked?: boolean;
 };
 
-/** Genshin ascension level caps. 90 is the ceiling. */
 const ASCENSION_CAPS = [20, 40, 50, 60, 70, 80, 90] as const;
 const MAX_LEVEL = 90;
 
-/**
- * Where a level sits within its current ascension phase.
- * Returns the phase bounds and a 0–1 fill for the progress bar.
- */
 function ascensionProgress(level: number) {
   const clamped = Math.min(Math.max(level, 1), MAX_LEVEL);
   if (clamped >= MAX_LEVEL) {
@@ -67,10 +43,6 @@ function ascensionProgress(level: number) {
   };
 }
 
-/**
- * Display order: want tier first, then owned sorted by level (highest
- * first), with same-level/tier characters ordered alphabetically by name.
- */
 const TIER_ORDER: Record<Character["tier"], number> = { want: 0, owned: 1 };
 function orderCharacters(characters: Character[]): Character[] {
   return [...characters].sort((a, b) => {
@@ -92,8 +64,6 @@ export default function GenshinGallery({
   characters: Character[];
 }) {
   const { t } = useLanguage();
-  // The API caches per-UID on Enka's own ttl, so this is cheap to leave on
-  // its default staleTime — no need to poll aggressively for a gallery page.
   const { data: roster } = useGenshinRoster(uid);
 
   const merged = characters.map((c): Character => {
@@ -127,8 +97,6 @@ export default function GenshinGallery({
         {ordered.map((c) => {
           const showLevel = c.tier === "owned" && typeof c.level === "number";
           const progress = showLevel ? ascensionProgress(c.level!) : null;
-          // Owned, but the API only knows it from its persistent ledger (no
-          // longer in the live showcase) — level shown is last-known.
           const untracked = c.tier === "owned" && c.tracked === false;
 
           return (

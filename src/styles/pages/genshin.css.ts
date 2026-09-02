@@ -4,20 +4,6 @@
  * See LICENCE.md in the project root for full licence information.
  */
 
-/**
- * genshin.css.ts — the /genshin 3D render gallery.
- *
- * Ported from public/css/pages/genshin.css.
- *
- * Dropped: .genshin-hint — nothing renders it.
- *
- * BROKEN TOKEN, deliberately preserved: the source said
- * `color: var(--subtext, var(--text))`. There is no --subtext token (the
- * contract has --subtext-0 and --subtext-1), so it has always resolved to
- * --text. Mapping to vars.text keeps the current appearance exactly; switch to
- * vars.textMuted if you want the dimmer secondary colour that was clearly
- * intended.
- */
 import { globalStyle } from "@vanilla-extract/css";
 import { vars } from "../themes.css";
 
@@ -38,17 +24,12 @@ globalStyle(".genshin-intro h1", {
 });
 
 globalStyle(".genshin-intro p", {
-  color: vars.text, // see the --subtext note above
+  color: vars.text,
   opacity: 0.85,
   maxWidth: "44ch",
   margin: "0 auto",
 });
 
-/**
- * Desktop-only. Below the breakpoint the grid is hidden entirely — which also
- * means the heavy <model-viewer> instances never load — and a short notice is
- * shown instead.
- */
 globalStyle(".genshin-grid", {
   display: "grid",
   gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
@@ -86,8 +67,6 @@ globalStyle(".genshin-partial-note, .genshin-stale-note", {
   lineHeight: 1.5,
 });
 
-/** The stale banner (live Enka data unavailable) reads as a warning rather
- *  than a neutral note. */
 globalStyle(".genshin-stale-note", {
   color: vars.warning,
   opacity: 0.85,
@@ -109,10 +88,6 @@ globalStyle(".genshin-card:hover", {
   boxShadow: "6px 6px 0 rgba(0, 0, 0, 0.35)",
 });
 
-/**
- * The 3D viewport. model-viewer fills it; the poster shows while loading.
- * Taller ratio gives the (portrait) character models more room.
- */
 globalStyle(".genshin-viewer", {
   position: "relative",
   width: "100%",
@@ -121,7 +96,6 @@ globalStyle(".genshin-viewer", {
   background: `radial-gradient(circle at 50% 30%, ${vars.surface}, ${vars.bgDeep})`,
 });
 
-/** Owned / Want badge, top-right corner of each viewer. */
 globalStyle(".genshin-tag", {
   position: "absolute",
   top: "0.6rem",
@@ -141,11 +115,6 @@ globalStyle(".genshin-tag", {
 globalStyle(".genshin-tag.owned", { background: vars.success });
 globalStyle(".genshin-tag.want", { background: vars.warning });
 
-/**
- * Owned, but only known from the API's persistent ledger — no longer in the
- * live showcase, so the level shown is last-known. Rendered as a hollow/dashed
- * version of the owned badge so it reads as "owned, just not tracked live".
- */
 globalStyle(".genshin-tag.owned.untracked", {
   background: "transparent",
   color: vars.success,
@@ -164,7 +133,6 @@ globalStyle(".genshin-meta h2", {
   fontSize: "1.15rem",
 });
 
-/** Level readout + ascension progress bar, owned characters only. */
 globalStyle(".genshin-level", {
   marginTop: "0.5rem",
 });

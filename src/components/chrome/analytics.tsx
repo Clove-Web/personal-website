@@ -10,22 +10,6 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { readConsent, subscribeConsent } from "@scripts/consent";
 
-/*
- * Google Analytics 4 (gtag.js), gated on consent.
- *
- *   - The Measurement ID comes from NEXT_PUBLIC_GA_ID (set it in the Cloudflare
- *     Pages project settings). With no ID this component does nothing, so local
- *     builds and forks stay analytics-free.
- *   - The gtag.js <script> is injected only after the visitor has allowed
- *     analytics cookies in the banner. Nothing about Google loads before that.
- *   - Page views are sent manually on route change: the site navigates via the
- *     client router (NavBridge), so gtag's automatic first-load page_view is
- *     turned off and every view — including the first — is reported here.
- *   - Withdrawing consent sets the `ga-disable-<ID>` flag so gtag stops sending
- *     immediately; the _ga cookies are cleared best-effort and fully clear on
- *     the next load.
- */
-
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 declare global {
@@ -55,7 +39,6 @@ function loadGtag(id: string): void {
 }
 
 function disableGtag(id: string): void {
-  // Recognised by gtag.js — stops all further hits for this property.
   (window as unknown as Record<string, boolean>)[`ga-disable-${id}`] = true;
 
   const stamp = "Thu, 01 Jan 1970 00:00:00 GMT";
@@ -70,7 +53,6 @@ export default function Analytics() {
   const pathname = usePathname();
   const [enabled, setEnabled] = useState(false);
 
-  // Track consent.
   useEffect(() => {
     if (!GA_ID) return;
 
@@ -80,7 +62,6 @@ export default function Analytics() {
     return subscribeConsent(sync);
   }, []);
 
-  // Load or disable gtag as consent flips.
   useEffect(() => {
     if (!GA_ID) return;
 
@@ -88,7 +69,6 @@ export default function Analytics() {
     else if (window.__gaLoaded) disableGtag(GA_ID);
   }, [enabled]);
 
-  // One page_view per route change (and on first grant).
   useEffect(() => {
     if (!GA_ID || !enabled || !window.gtag) return;
 

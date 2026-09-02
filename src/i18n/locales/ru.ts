@@ -23,10 +23,6 @@ const ru = {
   },
   settings: {
     title: "Настройки",
-    catCollection: "Коллекция котиков",
-    openCatCollection: "Открыть коллекцию котиков",
-    showCat: "Показать котика",
-    hideCat: "Скрыть котика",
     playMusic: "Включить фоновую музыку",
     pauseMusic: "Приостановить фоновую музыку",
     language: "Язык",
@@ -102,11 +98,6 @@ const ru = {
     ariaLabel: "Счётчик посетителей",
     label: "посетителей",
     error: "?? посетителей",
-  },
-  catPicker: {
-    dialogLabel: "Выберите котика",
-    close: "Закрыть",
-    hint: "Выберите котика · нажмите C для переключения",
   },
   presence: {
     status: {

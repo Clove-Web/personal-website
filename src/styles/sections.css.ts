@@ -4,18 +4,6 @@
  * See LICENCE.md in the project root for full licence information.
  */
 
-/**
- * sections.css.ts — the shared .section / .section-title / .section-subtitle trio.
- *
- * Ported from public/css/shared/sections.css. These originally lived in
- * pages/projects.css, but /cool-people (FriendsGrid) and /dev-info use them too,
- * so route-splitting projects.css would have dropped their headings.
- *
- * globalStyle (not style) keeps the literal class names, because this markup is
- * written by hand across several components rather than owned by one of them.
- * Colours come from the typed theme contract, so `vars.accentAlt` is checked at
- * compile time where `var(--mauve)` was just a string.
- */
 import { globalStyle } from "@vanilla-extract/css";
 import { vars } from "./themes.css";
 

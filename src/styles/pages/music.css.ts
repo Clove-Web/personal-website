@@ -4,22 +4,6 @@
  * See LICENCE.md in the project root for full licence information.
  */
 
-/**
- * music.css.ts — the /music page: now-playing hero, lyrics panel, recently
- * played, and top artists.
- *
- * Ported from public/css/pages/music.css.
- *
- * Dropped as dead: .music-back — nothing renders it.
- *
- * Moved out: the .pc-conn-ic rules that lived here. They style connection brand
- * logos drawn by PresenceCard.tsx on /discord and /cool-people — neither of which
- * loads this file — so they now live in presence-card.css alongside the markup
- * that uses them.
- *
- * `.top-chip a { align-items }` was declared twice in the source (baseline, then
- * center further down). The later won, so only `center` is carried forward.
- */
 import { globalStyle, globalKeyframes } from "@vanilla-extract/css";
 import { vars } from "../themes.css";
 
@@ -30,9 +14,6 @@ const ELLIPSIS = {
   textOverflow: "ellipsis",
 } as const;
 
-/* ---- page shell ----------------------------------------------------------- */
-
-/** The music page scrolls; the default layout pins body to the viewport. */
 globalStyle("html:has(.music-wrap), body:has(.music-wrap)", {
   height: "auto",
   minHeight: "100dvh",
@@ -64,8 +45,6 @@ globalStyle(".music-head p", {
   fontSize: "0.95rem",
 });
 
-/* ---- now-playing hero ----------------------------------------------------- */
-
 globalStyle(".mdc", {
   display: "grid",
   gridTemplateColumns: "132px 1fr",
@@ -87,7 +66,6 @@ globalStyle(".mdc", {
   },
 });
 
-/** A wash of the album accent behind the hero, revealed only when live. */
 globalStyle(".mdc::before", {
   content: '""',
   position: "absolute",
@@ -115,7 +93,6 @@ globalStyle(".mdc-art", {
   },
 });
 
-/** No artwork: fall back to a centred ♪ glyph. */
 globalStyle(".mdc-art:not(.has-art)", { display: "grid" });
 
 globalStyle(".mdc-art:not(.has-art)::after", {
@@ -202,8 +179,6 @@ globalStyle(".mdc-time", {
   fontVariantNumeric: "tabular-nums",
 });
 
-/* ---- section headings ----------------------------------------------------- */
-
 globalStyle(".sec-title", {
   fontSize: "0.78rem",
   textTransform: "uppercase",
@@ -223,8 +198,6 @@ globalStyle(".sec-row", {
 
 globalStyle(".sec-row .sec-title", { margin: 0 });
 
-/* ---- lyrics --------------------------------------------------------------- */
-
 globalStyle(".ly-lock", {
   fontFamily: "inherit",
   fontSize: "0.72rem",
@@ -241,12 +214,6 @@ globalStyle(".ly-lock", {
   transition: "color 0.15s ease, border-color 0.15s ease, background 0.15s ease",
 });
 
-/**
- * Locked state. The background was a 10% pink tint via the broken
- * rgba(var(--pink), .1); it is solid pink now, so the text has to flip to a dark
- * token or it would be pink-on-pink and unreadable. This mirrors the site's own
- * convention for pink fills (see .nav-link.selected).
- */
 globalStyle(".ly-lock.is-locked", {
   color: vars.bgDeep,
   borderColor: vars.accent,
@@ -258,7 +225,6 @@ globalStyle(".ly-lock:not(.is-locked):hover", {
   borderColor: vars.surfaceHi,
 });
 
-/** Spotify-style equaliser bars. */
 globalStyle(".ly-bars", {
   display: "inline-flex",
   alignItems: "flex-end",
@@ -294,13 +260,11 @@ globalStyle(".ly-lock.is-locked .ly-bars i", {
   },
 });
 
-/** Staggered so the bars ripple rather than pulse in unison. */
 globalStyle(".ly-lock.is-locked .ly-bars i:nth-child(2)", { animationDelay: "0.15s" });
 globalStyle(".ly-lock.is-locked .ly-bars i:nth-child(3)", { animationDelay: "0.3s" });
 globalStyle(".ly-lock.is-locked .ly-bars i:nth-child(4)", { animationDelay: "0.45s" });
 
 globalStyle(".lyrics", {
-  // position anchors offsetTop for the follow-scroll calculation
   position: "relative",
   height: 340,
   overflowY: "auto",
@@ -312,7 +276,6 @@ globalStyle(".lyrics", {
   padding: "1.4rem",
   scrollbarWidth: "thin",
   scrollbarColor: `${vars.surfaceHi} transparent`,
-  // fade top + bottom so lines drift in and out
   WebkitMaskImage:
     "linear-gradient(180deg, transparent, #000 14%, #000 86%, transparent)",
   maskImage:
@@ -327,7 +290,6 @@ globalStyle(".lyrics::-webkit-scrollbar-thumb", {
   borderRadius: 0,
 });
 
-/** Short states (loading / instrumental / empty) centre their message instead. */
 globalStyle(".lyrics.is-instrumental, .lyrics.is-empty, .lyrics.is-loading", {
   display: "grid",
   placeContent: "center",
@@ -349,7 +311,6 @@ globalStyle(".ly-line", {
   },
 });
 
-/** Synced lyrics dim every line except the active one. */
 globalStyle(".is-synced .ly-line", { opacity: 0.55 });
 
 globalStyle(".is-synced .ly-line.is-active", {
@@ -377,8 +338,6 @@ globalStyle(".lyrics.is-instrumental .ly-note", {
   color: vars.accent,
   fontSize: "1.2rem",
 });
-
-/* ---- recently played ------------------------------------------------------ */
 
 globalStyle(".recent", {
   listStyle: "none",
@@ -442,7 +401,6 @@ globalStyle(".rc-now", {
   fontWeight: 700
 });
 
-/** Highlights the track that's playing right now. */
 globalStyle(".is-now", {
   background: vars.accent,
   borderRadius: 0
@@ -463,8 +421,6 @@ globalStyle(".rc-note code", {
   fontSize: "0.9em",
 });
 
-/* ---- top artists ---------------------------------------------------------- */
-
 globalStyle(".top-chips", {
   listStyle: "none",
   margin: 0,
@@ -476,7 +432,6 @@ globalStyle(".top-chips", {
 
 globalStyle(".top-chip a", {
   display: "inline-flex",
-  // `center` not `baseline` — the later of two declarations in the source won.
   alignItems: "center",
   gap: "0.45rem",
   background: vars.bgRaised,

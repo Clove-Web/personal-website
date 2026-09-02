@@ -6,44 +6,17 @@
 
 "use client";
 
-/* discordMarkdown.tsx — Discord-flavoured Markdown → React nodes.
- *
- * Shared by PresenceCard (mini, /cool-people) and PresenceDashboard (/discord);
- * both previously had their own cut-down parser that only did URLs and custom
- * emoji, so bios rendered `**bold**` and `\>` literally.
- *
- * Discord's dialect is NOT CommonMark. The differences that matter here:
- *   __underline__   is UNDERLINE, not bold (this is the big one)
- *   *italic*        and _italic_ both italicise
- *   ***both***      bold + italic
- *   ||spoiler||     click to reveal
- *   > quote         line-level; >>> makes everything after it a quote
- *   -# subtext      small muted text
- *   \x              escapes any punctuation, so `\>` prints a literal >
- *
- * No raw HTML is ever produced — everything is React elements, so a bio can't
- * inject markup. Emits plain semantic tags (<strong>, <em>, <u>, <s>, <code>,
- * <blockquote>, <h1-3>) which each consumer styles in its own stylesheet.
- */
-
 import { useState } from "react";
 import { playClickSound } from "@lib/sound";
 
 export interface MarkdownOpts {
-  /** Resolves <:name:id> to an <img>; return null to leave the text as-is. */
   emojiUrl?: (e: { id: string; animated: boolean }) => string | null;
-  /** Class for custom-emoji images. */
   emojiClass?: string;
-  /** Class for the spoiler span. */
   spoilerClass?: string;
-  /** Class applied to links. */
   linkClass?: string;
-  /** Skip block-level parsing (quotes/headers/lists) — used for one-line
-      contexts like the custom status, where a leading "# " isn't a heading. */
   inlineOnly?: boolean;
 }
 
-/** Click-to-reveal spoiler, as Discord does it. */
 function Spoiler({ cls, children }: { cls?: string; children: React.ReactNode }) {
   const [shown, setShown] = useState(false);
   return (
@@ -71,12 +44,10 @@ function Spoiler({ cls, children }: { cls?: string; children: React.ReactNode })
   );
 }
 
-/** Matches a bare URL. Trailing punctuation is trimmed by the caller. */
 const URL_RE = /https?:\/\/[^\s<>()[\]]+/;
 const EMOJI_RE = /^<(a)?:(\w+):(\d+)>/;
 const MASKED_RE = /^\[([^\]\n]+)\]\((https?:\/\/[^\s)]+)\)/;
 
-/** Delimiters, longest first so ** is never mistaken for two *. */
 const DELIMS: { open: string; tag: "strong" | "em" | "u" | "s" | "spoiler"; both?: boolean }[] = [
   {
     open: "***",
@@ -118,10 +89,6 @@ function isWordChar(c: string | undefined): boolean {
   return !!c && /[\w]/.test(c);
 }
 
-/**
- * Parse inline markup. Recurses into delimiter bodies, so **bold *and italic***
- * nests correctly. `code` spans are opaque — no formatting is parsed inside.
- */
 function parseInline(text: string, opts: MarkdownOpts, k: { n: number }): React.ReactNode[] {
   const out: React.ReactNode[] = [];
   let buf = "";
@@ -137,17 +104,12 @@ function parseInline(text: string, opts: MarkdownOpts, k: { n: number }): React.
   while (i < text.length) {
     const c = text[i];
 
-    // --- escape: \x renders a literal x -------------------------------------
-    // Deliberately [^a-zA-Z0-9\s] rather than [^\w\s]: \w INCLUDES underscore,
-    // so the latter silently refused to escape \_ — and `_` is a delimiter, so
-    // `\_\_not underline\_\_` still came out italicised.
     if (c === "\\" && i + 1 < text.length && /[^a-zA-Z0-9\s]/.test(text[i + 1])) {
       buf += text[i + 1];
       i += 2;
       continue;
     }
 
-    // --- inline code: opaque, no nested formatting ---------------------------
     if (c === "`") {
       const fence = text.startsWith("```", i) ? "```" : "`";
       const close = text.indexOf(fence, i + fence.length);
@@ -155,7 +117,6 @@ function parseInline(text: string, opts: MarkdownOpts, k: { n: number }): React.
         flush();
         let body = text.slice(i + fence.length, close);
         if (fence === "```") {
-          // drop an optional language tag on the first line
           body = body.replace(/^[a-zA-Z0-9+#-]*\n/, "").replace(/\n$/, "");
           out.push(<pre key={k.n++}><code>{body}</code></pre>);
         } else {
@@ -166,7 +127,6 @@ function parseInline(text: string, opts: MarkdownOpts, k: { n: number }): React.
       }
     }
 
-    // --- custom emoji <:name:id> / <a:name:id> ------------------------------
     if (c === "<") {
       const m = EMOJI_RE.exec(text.slice(i));
       if (m) {
@@ -192,7 +152,6 @@ function parseInline(text: string, opts: MarkdownOpts, k: { n: number }): React.
       }
     }
 
-    // --- masked link [label](url) -------------------------------------------
     if (c === "[") {
       const m = MASKED_RE.exec(text.slice(i));
       if (m) {
@@ -207,11 +166,9 @@ function parseInline(text: string, opts: MarkdownOpts, k: { n: number }): React.
       }
     }
 
-    // --- bare URL ------------------------------------------------------------
     if ((c === "h" || c === "H") && /^https?:\/\//i.test(text.slice(i))) {
       const m = URL_RE.exec(text.slice(i));
       if (m) {
-        // don't swallow sentence-ending punctuation
         const raw = m[0].replace(/[.,;:!?]+$/, "");
         flush();
         out.push(
@@ -224,12 +181,10 @@ function parseInline(text: string, opts: MarkdownOpts, k: { n: number }): React.
       }
     }
 
-    // --- emphasis delimiters -------------------------------------------------
     let matched = false;
     for (const d of DELIMS) {
       if (!text.startsWith(d.open, i)) continue;
 
-      // `_` only delimits at word boundaries, so snake_case_names survive.
       if (d.open === "_" || d.open === "___") {
         if (isWordChar(text[i - 1])) continue;
       }
@@ -245,7 +200,6 @@ function parseInline(text: string, opts: MarkdownOpts, k: { n: number }): React.
       if (d.tag === "spoiler") {
         out.push(<Spoiler key={k.n++} cls={opts.spoilerClass}>{inner}</Spoiler>);
       } else if (d.both) {
-        // ***x*** is bold+italic; ___x___ is underline+italic
         out.push(
           d.tag === "strong"
             ? <strong key={k.n++}><em>{inner}</em></strong>
@@ -269,13 +223,6 @@ function parseInline(text: string, opts: MarkdownOpts, k: { n: number }): React.
   return out;
 }
 
-/**
- * Full render, including line-level constructs.
- *
- * Handled per line: `# `/`## `/`### ` headings, `-# ` subtext, `> ` quotes
- * (and `>>> ` which quotes everything after it), and `- `/`* ` list items.
- * Everything else falls through to inline parsing.
- */
 export function renderDiscordMarkdown(
   raw: string,
   opts: MarkdownOpts = {},
@@ -286,8 +233,6 @@ export function renderDiscordMarkdown(
 
   if (opts.inlineOnly) return parseInline(text, opts, k);
 
-  // Fenced code blocks are pulled out first so their contents aren't treated
-  // as block markup (a "# " inside a code fence is not a heading).
   const out: React.ReactNode[] = [];
   const segments = text.split(/(```[\s\S]*?```)/g);
 
@@ -331,7 +276,6 @@ export function renderDiscordMarkdown(
       }
 
       out.push(node);
-      // Bios are whitespace-sensitive; keep the author's line breaks.
       if (li < lines.length - 1) out.push(<br key={k.n++} />);
     }
   }

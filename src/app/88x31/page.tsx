@@ -47,7 +47,6 @@ type Button = {
 };
 
 const BUTTONS: Button[] = [
-  // Personal Buttons
   {
     href: "https://www.monsterenergy.com/",
     img: "monster.png",
@@ -59,7 +58,6 @@ const BUTTONS: Button[] = [
     alt: "Doughmination",
     eager: true
   },
-  // coding / web
   {
     href: "https://claude.ai",
     img: "claude.png",
@@ -97,7 +95,6 @@ const BUTTONS: Button[] = [
     img: "nowebp.png",
     alt: "No WEBp"
   },
-  // software / os
   {
     href: "https://www.linux.org/",
     img: "linux.png",
@@ -145,7 +142,6 @@ const BUTTONS: Button[] = [
     img: "dark-mode.png",
     alt: "Made for dark mode"
   },
-  // pride / identity
   {
     href: "https://valerie.vg/",
     img: "estrogen.png",
@@ -179,7 +175,6 @@ const BUTTONS: Button[] = [
     img: "cutesocks.png",
     alt: "I wear cute socks!"
   },
-  // causes
   {
     href: "https://archive.org/details/zines-anti-fascism",
     img: "antifa.png",
@@ -200,7 +195,6 @@ const BUTTONS: Button[] = [
     img: "ukraine.png",
     alt: "Slava Ukraini"
   },
-  // misc
   {
     href: "/discord",
     img: "discord.png",
@@ -225,7 +219,6 @@ const BUTTONS: Button[] = [
     img: "minecraft.png",
     alt: "Minecraft"
   },
-  // anime
   {
     img: "pokemon.png",
     alt: "Pokémon"

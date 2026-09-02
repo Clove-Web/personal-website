@@ -11,17 +11,10 @@ import type { CSSProperties } from "react";
 import { useLanguage } from "@/i18n/languageProvider";
 import type { Dictionary } from "@/i18n/locales/en";
 
-/** Ordered month labels (Jan…Dec) for the given locale. */
 function monthLabels(d: Dictionary): string[] {
   const m = d.devInfo.months;
   return [m.jan, m.feb, m.mar, m.apr, m.may, m.jun, m.jul, m.aug, m.sep, m.oct, m.nov, m.dec];
 }
-
-/* Ported from heatmap.js — the contribution heatmap. */
-
-/* ======================================================================
- * Contribution heatmap
- * ==================================================================== */
 
 type HeatDay = { sources: Record<string, number>; contributions: number; date: string };
 type Week = HeatDay[];

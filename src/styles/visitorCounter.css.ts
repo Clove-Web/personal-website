@@ -4,15 +4,6 @@
  * See LICENCE.md in the project root for full licence information.
  */
 
-/**
- * visitor-counter.css.ts — the #visitor-counter widget, top-right.
- *
- * Ported from public/css/shared/visitor-counter.css.
- *
- * globalStyle because the digit strip is injected imperatively (originally by
- * visitor-counter.js, now by the VisitorCounter component's effect) with
- * hardcoded class strings.
- */
 import { globalStyle } from "@vanilla-extract/css";
 import { vars } from "./themes.css";
 
@@ -30,10 +21,6 @@ globalStyle("#visitor-counter", {
   transition: "opacity 0.6s ease, transform 0.6s ease",
 });
 
-/* A `.topbar #visitor-counter { order: 2 }` rule used to sit here. Nothing
-   renders .topbar any more — the mobile top-bar reflow was removed — so it was
-   dropped rather than carried forward. */
-
 globalStyle("#visitor-counter .vc-label", {
   fontSize: "0.65rem",
   letterSpacing: "0.06em",
@@ -42,7 +29,6 @@ globalStyle("#visitor-counter .vc-label", {
   fontFamily: MONO,
 });
 
-/** Digit strip. */
 globalStyle(".vc-root", {
   fontFamily: MONO,
 });
@@ -51,8 +37,6 @@ globalStyle(".vc-digits", {
   display: "flex",
   alignItems: "center",
   gap: 4,
-  // Reserves the strip's height so the counter doesn't shift the corner when
-  // the digits arrive.
   minHeight: 50,
 });
 

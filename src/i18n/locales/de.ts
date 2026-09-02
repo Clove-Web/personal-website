@@ -23,10 +23,6 @@ const de = {
   },
   settings: {
     title: "Einstellungen",
-    catCollection: "Katzensammlung",
-    openCatCollection: "Katzensammlung öffnen",
-    showCat: "Katze anzeigen",
-    hideCat: "Katze verbergen",
     playMusic: "Hintergrundmusik abspielen",
     pauseMusic: "Hintergrundmusik pausieren",
     language: "Sprache",
@@ -102,11 +98,6 @@ const de = {
     ariaLabel: "Besucherzahl",
     label: "Besucher",
     error: "?? Besucher",
-  },
-  catPicker: {
-    dialogLabel: "Wähle eine Katze",
-    close: "Schließen",
-    hint: "Wähle deine Katze · drücke C zum Umschalten",
   },
   presence: {
     status: {

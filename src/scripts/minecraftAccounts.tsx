@@ -26,22 +26,10 @@ import { playClickSound } from "@lib/sound";
 import { useLanguage } from "@/i18n/languageProvider";
 import type { TranslationKey } from "@/i18n/translate";
 
-/* Ported from minecraft.js — account cards + a detail modal (Overview / 3D
-   Model / Hypixel). The 3D tab uses the lazy-loaded skinview3d WebGL viewer,
-   which is inherently imperative, so it's driven through refs/effects. */
-
 const MC_HEADS = "https://mc-heads.net/";
 const CAPE_W = 60;
 const CAPE_H = 96;
 
-/**
- * Per-account identity colours. `accent` is a CSS custom-property name — it goes
- * straight into `var(--${accent})` below, so these must match the token names in
- * styles/themes.css.ts exactly. A typo here fails silently (the var just doesn't
- * resolve), which is why they're listed against the contract rather than guessed.
- */
-// `labelKey` (when set) is the translated label; `label` is the literal
-// fallback for the ones that are proper names (Furina/Luna/Uzi stay as-is).
 const ROLE_META: Record<string, { label: string; labelKey?: TranslationKey; accent: string }> = {
   main: {
     label: "Main",
@@ -67,7 +55,6 @@ const ROLE_META: Record<string, { label: string; labelKey?: TranslationKey; acce
   },
 };
 
-/** Resolve a role's display label against the active locale. */
 function roleLabel(meta: { label: string; labelKey?: TranslationKey }, t: (k: TranslationKey) => string): string {
   return meta.labelKey ? t(meta.labelKey) : meta.label;
 }
@@ -85,9 +72,6 @@ type ProfileData = {
 type AcctState = { uid: string; cfg: Cfg; data: ProfileData };
 type Cape = { url: string; name: string | null };
 
-// Bridge the wrapper's typed profile onto the local loose ProfileData shape
-// the card/modal already consume (render is read by dynamic key, so it stays
-// a plain string map).
 function toProfileData(profile: UnifiedMinecraftGeneral): ProfileData {
   return {
     uuid: profile.uuid,
@@ -100,9 +84,6 @@ function toProfileData(profile: UnifiedMinecraftGeneral): ProfileData {
   };
 }
 
-// ---- skinview3d (npm package, code-split) ---------------------------------
-// Loaded via dynamic import() so the WebGL viewer stays out of the main bundle
-// and only downloads when someone opens the 3D tab. Types come from the package.
 type Skinview3d = typeof import("skinview3d");
 type SkinViewerInstance = InstanceType<Skinview3d["SkinViewer"]>;
 
@@ -110,7 +91,6 @@ let skinviewPromise: Promise<Skinview3d> | null = null;
 function loadSkinview(): Promise<Skinview3d> {
   if (!skinviewPromise) {
     skinviewPromise = import("skinview3d").catch((err) => {
-      // let a later attempt retry
       skinviewPromise = null;
       throw err;
     });
@@ -118,7 +98,6 @@ function loadSkinview(): Promise<Skinview3d> {
   return skinviewPromise;
 }
 
-// ---- helpers --------------------------------------------------------------
 function shortUuid(uid: string) {
   return String(uid || "").replace(/-/g, "");
 }
@@ -181,7 +160,6 @@ function drawCapeFront(canvas: HTMLCanvasElement, url: string) {
   img.src = url;
 }
 
-// ---- little pieces --------------------------------------------------------
 function Row({ k, v }: { k: string; v: string }) {
   return (
     <div className="mc-row">
@@ -228,7 +206,6 @@ function CapeCanvas({ url }: { url: string }) {
   return <canvas className="mc-cape-cv" ref={ref} />;
 }
 
-// ---- 3D model tab ---------------------------------------------------------
 function Skin3D({ data }: { data: ProfileData }) {
   const { t } = useLanguage();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -242,7 +219,6 @@ function Skin3D({ data }: { data: ProfileData }) {
   const [elytraOn, setElytraOn] = useState(false);
   const [animIdx, setAnimIdx] = useState(0);
 
-  // create the viewer + load the skin (once per mount)
   useEffect(() => {
     let disposed = false;
     loadSkinview()
@@ -273,14 +249,12 @@ function Skin3D({ data }: { data: ProfileData }) {
         try {
           viewerRef.current.dispose();
         } catch {
-          /* already gone */
         }
         viewerRef.current = null;
       }
     };
   }, [data]);
 
-  // apply cape / elytra
   useEffect(() => {
     const viewer = viewerRef.current;
     if (!ready || !viewer) return;
@@ -299,7 +273,6 @@ function Skin3D({ data }: { data: ProfileData }) {
       try {
         viewerRef.current.loadCape(img, { backEquipment: back });
       } catch {
-        /* rejected source */
       }
     };
     img.onerror = () => { };
@@ -309,12 +282,10 @@ function Skin3D({ data }: { data: ProfileData }) {
     };
   }, [ready, capeIdx, elytraOn, data]);
 
-  // apply animation
   useEffect(() => {
     const viewer = viewerRef.current;
     const sv = svRef.current;
     if (!ready || !viewer || !sv) return;
-    // Wave is ours, not sv.WaveAnimation — see skinAnimations.ts for why.
     const makers = [
       () => new sv.IdleAnimation(),
       () => new sv.WalkingAnimation(),
@@ -412,7 +383,6 @@ function Skin3D({ data }: { data: ProfileData }) {
   );
 }
 
-// ---- detail modal ---------------------------------------------------------
 function AccountModal({
   cfg,
   uid,
@@ -618,7 +588,6 @@ function AccountModal({
   );
 }
 
-// ---- account card ---------------------------------------------------------
 function AccountCard({ cfg, data, onOpen }: { cfg: Cfg; data: ProfileData; onOpen: () => void }) {
   const { t } = useLanguage();
   const uid = shortUuid(cfg.uid);
@@ -656,13 +625,10 @@ function AccountCard({ cfg, data, onOpen }: { cfg: Cfg; data: ProfileData; onOpe
   );
 }
 
-// ---- root -----------------------------------------------------------------
 export default function MinecraftAccounts({ accounts }: { accounts: Cfg[] }) {
   const [openUid, setOpenUid] = useState<string | null>(null);
   const client = useDoughminationClient();
 
-  // One cached query per account (GET /v2/minecraft/general/:uuid). React
-  // Query dedupes by uuid, so a card and its open modal share one fetch.
   const results = useQueries({
     queries: accounts.map((cfg) => {
       const uid = shortUuid(cfg.uid);

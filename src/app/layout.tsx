@@ -16,22 +16,16 @@ import NavMenu from "@components/chrome/navMenu";
 import { MenusProvider } from "@components/chrome/menusProvider";
 import SiteChrome from "@components/chrome/siteChrome";
 import { LanguageProvider } from "@/i18n/languageProvider";
-// One fixed palette. Importing for side effects emits the :root token block at
-// build time; see src/styles/themes.css.ts.
 import "@styles/themes.css";
-// Global rules migrated from public/css to Vanilla Extract, one file at a time.
-// Import order here IS the cascade order, so keep it matching main.css.
 import "@styles/fonts.css";
 import "@styles/base.css";
 import "@styles/bgMusic.css";
-import "@styles/catPicker.css";
 import "@styles/layout.css";
 import "@styles/nav.css";
 import "@styles/visitorCounter.css";
 import "@styles/sections.css";
 import "@styles/scrollWrap.css";
 import "@styles/cookieBanner.css";
-// Last, so its media queries override the base rules above.
 import "@styles/responsive.css";
 
 export const metadata: Metadata = {
@@ -104,56 +98,29 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Warm up the API origins the client JS fetches on load */}
         <link rel="preconnect" href="https://doughmination.uk" crossOrigin="" />
         <link rel="dns-prefetch" href="https://doughmination.uk" />
         <link rel="preconnect" href="https://abacus.jasoncameron.dev" crossOrigin="" />
         <link rel="dns-prefetch" href="https://abacus.jasoncameron.dev" />
-        {/* Comic Code (and the Discord DDN fonts, cursor/watermark/oneko
-            assets) are served from here (see styles/fonts.css.ts). Warming
-            the connection early matters because the @font-face is only
-            discovered once Next's CSS chunk has parsed. */}
         <link rel="preconnect" href="https://m.doughmination.gay" crossOrigin="" />
         <link rel="dns-prefetch" href="https://m.doughmination.gay" />
       </head>
       <body>
-        {/* Active language (localStorage-persisted, browser-detected on first
-            visit). Wraps everything below, not just Providers' children —
-            NavMenu and SettingsMenu need translations too and both render
-            outside Providers. See src/i18n/languageProvider.tsx. */}
         <LanguageProvider>
-          {/* The two top-left menus share one open/closed state so only one is
-              ever open — opening the cog closes the burger and vice versa. */}
           <MenusProvider>
-            {/* Page nav (React-owned). Desktop shows a hamburger that opens icon
-                dots then telescopes them into labels; mobile is a wrapping row. */}
             <NavMenu />
 
-            {/* Chrome, now in React (cat + music bridge to core.ts). Cog sits
-                beside the burger on desktop. */}
             <SettingsMenu />
           </MenusProvider>
 
-          {/* Routes core.ts's nav clicks through Next's client router so the
-              layout (and bg-music audio) never unloads between pages. */}
           <NavBridge />
 
-          {/* Wrapper data layer: one REST client + socket shared by every
-              migrated widget (Fronting first). See providers.tsx. */}
           <Providers>{children}</Providers>
 
-          {/* Persistent chrome, ported into the bundle: nav builder, oneko cat, and
-              bg music. Runs once, client-only, via SiteChrome. (Realtime now lives
-              in the wrapper's shared socket via Providers, not here.) */}
-          <SiteChrome catSrc="https://m.doughmination.gay/img/oneko/classic.png" />
+          <SiteChrome />
 
           <SoundFX />
 
-          {/* Consent gate + the scripts it unlocks. GA loads only on an
-              analytics opt-in (and only with NEXT_PUBLIC_GA_ID set); AdSense
-              loads only on an advertising opt-in, always non-personalized.
-              Ad slots themselves are placed with <AdUnit slot="…" />.
-              See src/scripts/consent.ts. */}
           <Analytics />
           <AdSense />
           <CookieBanner />

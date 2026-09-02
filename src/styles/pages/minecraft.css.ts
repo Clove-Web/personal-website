@@ -7,8 +7,6 @@
 import { globalStyle } from "@vanilla-extract/css";
 import { vars } from "../themes.css";
 
-/* ---- account grid --------------------------------------------------------- */
-
 globalStyle(".mc-grid", {
   display: "grid",
   gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
@@ -46,7 +44,6 @@ globalStyle(".mc-card:hover, .mc-card:focus-visible", {
   outline: "none",
 });
 
-/** Role pill — the accent colour is set inline per account. */
 globalStyle(".mc-role", {
   alignSelf: "flex-start",
   fontSize: "0.72rem",
@@ -74,8 +71,6 @@ globalStyle(".mc-cape", {
   color: vars.textMuted
 });
 
-/* ---- detail modal --------------------------------------------------------- */
-
 globalStyle(".mc-overlay", {
   position: "fixed",
   inset: 0,
@@ -86,7 +81,6 @@ globalStyle(".mc-overlay", {
   padding: "1.25rem",
   background: "rgba(0, 0, 0, 0.55)",
   backdropFilter: "blur(3px)",
-  // stays mounted but inert until .is-open, so the fade can animate
   opacity: 0,
   pointerEvents: "none",
   transition: "opacity 0.16s ease",
@@ -187,8 +181,6 @@ globalStyle(".mc-hat", {
 
 globalStyle(".mc-hat:hover", { background: vars.surfaceHi });
 
-/* ---- tabs ----------------------------------------------------------------- */
-
 globalStyle(".mc-tabs", {
   display: "flex",
   gap: "0.35rem",
@@ -207,7 +199,6 @@ globalStyle(".mc-tab", {
   background: "none",
   color: vars.textMuted,
   borderBottom: "2px solid transparent",
-  // pulls the active underline over the container's own border
   marginBottom: -1,
   transition: "color 0.12s ease, border-color 0.12s ease",
 });
@@ -221,8 +212,6 @@ globalStyle(".mc-tab.is-active", {
 
 globalStyle(".mc-panel", { display: "none" });
 globalStyle(".mc-panel.is-active", { display: "block" });
-
-/* ---- 3D skin viewer ------------------------------------------------------- */
 
 globalStyle(".mc-ext-hero", {
   display: "flex",
@@ -247,7 +236,6 @@ globalStyle(".mc-3d-canvas", {
   background: vars.surface,
   border: `1px solid ${vars.surfaceHi}`,
   cursor: "grab",
-  // stops the page panning while dragging to rotate the model
   touchAction: "none",
 });
 
@@ -273,8 +261,6 @@ globalStyle(".mc-3d-hint", {
   margin: "0 0 0.75rem",
 });
 
-/* ---- viewer controls (cape / elytra / animation pills) -------------------- */
-
 globalStyle(".mc-ctl-group", {
   display: "flex",
   flexWrap: "wrap",
@@ -283,7 +269,6 @@ globalStyle(".mc-ctl-group", {
   marginBottom: "0.6rem",
 });
 
-/** Zero-height flex item that forces a wrap, splitting a control group. */
 globalStyle(".mc-flex-break", {
   flexBasis: "100%",
   height: 0,
@@ -323,8 +308,6 @@ globalStyle(".mc-pill.is-active", {
   color: vars.bg,
 });
 
-/* ---- data rows ------------------------------------------------------------ */
-
 globalStyle(".mc-rows", {
   display: "flex",
   flexDirection: "column",
@@ -345,7 +328,6 @@ globalStyle(".mc-row", {
 globalStyle(".mc-row-k", { color: vars.textMuted });
 
 globalStyle(".mc-row-v", {
-  // --mono isn't a defined token; the fallback stack is what actually applies
   fontFamily: "var(--mono, ui-monospace, monospace)",
   wordBreak: "break-all",
   textAlign: "right",
@@ -363,8 +345,6 @@ globalStyle(".mc-copy", {
 
 globalStyle(".mc-copy:hover", { color: vars.accentAlt });
 
-/* ---- textures ------------------------------------------------------------- */
-
 globalStyle(".mc-tex", {
   display: "flex",
   gap: "0.75rem",
@@ -379,7 +359,6 @@ globalStyle(".mc-tex figure", {
   gap: "0.3rem",
 });
 
-/** pixelated so the skin/cape textures stay crisp rather than blurring. */
 globalStyle(".mc-tex img, .mc-tex canvas", {
   imageRendering: "pixelated",
   background: vars.surface,

@@ -11,9 +11,6 @@ import { CameraFill } from "react-bootstrap-icons";
 import { playClickSound } from "@lib/sound";
 import { useLanguage } from "@/i18n/languageProvider";
 
-/* Ported from selfies.js — grid + lightbox from /selfies/selfies.json.
-   Manifest is an array of filename strings or { src, alt, caption } objects. */
-
 type Item = { src: string; alt: string; caption: string };
 
 const MANIFEST = "/selfies/selfies.json";

@@ -9,40 +9,16 @@
 import { useEffect, useRef } from "react";
 import type { CSSProperties } from "react";
 
-/**
- * Model3D — drop a rotatable 3D model anywhere an image would go.
- *
- * Wraps Google's <model-viewer> web component. The 3D always loads; the `poster`
- * image is shown only while the model streams in (and as the fallback if WebGL
- * is unavailable), so from the visitor's side an image simply "becomes" 3D.
- *
- * <model-viewer> is a custom element, registered once per page load via a
- * dynamic import() of the npm package. Importing for side effects is what
- * defines the element; the promise is cached across mounts so remounting a
- * model doesn't re-run the import. Code-split, so it only downloads on routes
- * that actually render a model.
- *
- * Usage:
- *   <Model3D src="https://m.doughmination.gay/glb/furina.glb" poster="https://m.doughmination.gay/img/avatars/favicon.png" alt="…" />
- */
-
 let mvPromise: Promise<void> | null = null;
 
-// Register the <model-viewer> element once per page load.
 function loadModelViewer(): Promise<void> {
   if (typeof window !== "undefined" && customElements.get("model-viewer")) {
     return Promise.resolve();
   }
   if (!mvPromise) {
-    // Deliberately the pre-bundled dist build, NOT the package root. The root
-    // resolves to lib/model-viewer.js, which imports three as a bare specifier
-    // and would pick up the hoisted three@0.156 that skinview3d pins — while
-    // model-viewer 4.x peer-requires three@^0.183. This dist build has its own
-    // three compiled in, so the two viewers can't fight over a shared version.
     mvPromise = import("@google/model-viewer/dist/model-viewer.min.js")
       .then(() => undefined)
       .catch(() => {
-        // Swallow: the <poster> image stays visible as the fallback.
         mvPromise = null;
       });
   }
@@ -50,20 +26,12 @@ function loadModelViewer(): Promise<void> {
 }
 
 type Model3DProps = {
-  /** URL of the .glb / .gltf model. */
   src: string;
-  /** Image shown while the model loads / if WebGL is unavailable. */
   poster?: string;
   alt?: string;
-  /** Slowly spin on its own. Default true. */
   autoRotate?: boolean;
-  /** Let the visitor orbit with drag. Default true. */
   interactive?: boolean;
-  /** "lazy" defers loading until scrolled into view (good for galleries);
-   *  "eager" loads immediately. Default "lazy". */
   loading?: "lazy" | "eager";
-  /** Fixed camera-orbit, e.g. "0deg 90deg 50%". A radius under 100% zooms in
-   *  so the model fills more of its box (useful when using a model as a frame). */
   cameraOrbit?: string;
   className?: string;
   style?: CSSProperties;
@@ -86,8 +54,6 @@ export default function Model3D({
     loadModelViewer();
   }, []);
 
-  // model-viewer is a custom element; set its attributes imperatively so we
-  // don't need JSX intrinsic-element typings for it.
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -109,7 +75,6 @@ export default function Model3D({
     }
   }, [src, poster, alt, autoRotate, interactive, loading, cameraOrbit]);
 
-  // Cast the custom tag through `as` so TS accepts it without global JSX augmentation.
   const Tag = "model-viewer" as unknown as React.ElementType;
 
   return (

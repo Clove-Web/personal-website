@@ -8,7 +8,6 @@ import { globalFontFace } from "@vanilla-extract/css";
 
 const CDN = "https://m.doughmination.gay/f";
 
-/** Comic Code — the site's body/mono face, four cuts. */
 const COMIC_CODE = [
   {
     file: "ComicCode-Regular",
@@ -37,7 +36,6 @@ for (const { file, weight, style } of COMIC_CODE) {
     src: `url('${CDN}/Comic-Code/woff2/${file}.woff2') format('woff2'), url('${CDN}/Comic-Code/woff/${file}.woff') format('woff')`,
     fontWeight: weight,
     fontStyle: style,
-    // swap: show fallback text immediately rather than blocking on the webfont.
     fontDisplay: "swap",
   });
 }

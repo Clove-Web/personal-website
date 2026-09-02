@@ -13,14 +13,6 @@ import { playClickSound } from "@lib/sound";
 import { useLanguage } from "@/i18n/languageProvider";
 import type { Dictionary } from "@/i18n/locales/en";
 
-/* Ported from guestbook.js — the sign form (with honeypot + optional Cloudflare
-   Turnstile) and the list of entries. Reads + writes now go through the wrapper
-   (useGuestbook / useGuestbookPost); the honeypot is enforced client-side here
-   because the wrapper's post input doesn't carry the url2 field. */
-
-/* `icon` holds the component itself rather than an icon name. The name-based
-   version built a class string at runtime, so a typo failed silently as a blank
-   glyph and nothing could statically verify it; this way the compiler does. */
 type Status = {
   text: string;
   kind?: "err" | "ok";
@@ -65,16 +57,12 @@ export default function Guestbook({ turnstileKey }: Props) {
   const [status, setStatus] = useState<Status | null>(null);
   const hpRef = useRef<HTMLInputElement | null>(null);
 
-  // Reads: seeded from GET /v2/guestbook, kept fresh by the post mutation's
-  // cache invalidation.
   const { data, isPending, isError } = useGuestbook({ limit: 100 });
   const entries = data?.entries ?? [];
 
-  // Writes: the mutation resolves Turnstile + invalidates the list on success.
   const post = useGuestbookPost();
   const submitting = post.isPending;
 
-  // Load the Cloudflare Turnstile script once (it auto-renders .cf-turnstile).
   useEffect(() => {
     if (!turnstileKey) return;
     if (
@@ -97,7 +85,6 @@ export default function Guestbook({ turnstileKey }: Props) {
         return window.turnstile.getResponse() || "";
       }
     } catch {
-      /* not ready */
     }
     const input = document.querySelector<HTMLInputElement>(
       '[name="cf-turnstile-response"]',
@@ -117,9 +104,6 @@ export default function Guestbook({ turnstileKey }: Props) {
       return;
     }
 
-    // Honeypot: hidden field, filled only by bots. Mirror the server's silent
-    // drop — fake success, never hit the API. The wrapper doesn't forward url2,
-    // so the trap has to be sprung here.
     if (hpRef.current?.value) {
       setStatus({
         text: t("guestbook.thanks"),
@@ -164,7 +148,6 @@ export default function Guestbook({ turnstileKey }: Props) {
       try {
         window.turnstile?.reset?.();
       } catch {
-        /* ignore */
       }
     } catch (err) {
       const text =
@@ -226,7 +209,6 @@ export default function Guestbook({ turnstileKey }: Props) {
           </span>
         </div>
 
-        {/* Honeypot: hidden from humans, bots tend to fill it. */}
         <div className="gb-hp" aria-hidden="true">
           <label htmlFor="gb-url2">{t("guestbook.honeypot")}</label>
           <input

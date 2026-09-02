@@ -4,18 +4,6 @@
  * See LICENCE.md in the project root for full licence information.
  */
 
-/**
- * nav.css.ts — the page nav, pinned top-left.
- *
- * The nav is a React component now (NavMenu.tsx) built from navItems.tsx with
- * react-bootstrap-icons, so these are plain global class rules the component
- * renders against (.nav / .nav-links / .nav-link / .nav-ico / .nav-label).
- *
- * Desktop (min-width 641px): the nav collapses into a hamburger. Opening it
- * blooms the items in as icon dots (staggered), holds ~1s, then telescopes
- * each dot out into its label. Pure CSS off a hidden checkbox — no JS timers.
- * Mobile keeps the centred wrapping row (icons hidden, labels shown).
- */
 import { globalStyle } from "@vanilla-extract/css";
 import { vars } from "./themes.css";
 
@@ -24,7 +12,6 @@ globalStyle(".nav", {
   left: "1rem",
   top: "1rem",
   zIndex: 6,
-  // Side chrome fades on theme/flavor transitions.
   transition: "opacity 0.6s ease, transform 0.6s ease",
 });
 
@@ -62,11 +49,9 @@ globalStyle(".nav-link.selected", {
   borderColor: vars.accent,
   color: vars.bgDeep,
   fontWeight: 700,
-  // Indented to make room for the pointer triangle below.
   marginLeft: 14,
 });
 
-/** Triangle pointing at the selected item. */
 globalStyle(".nav-link.selected::before", {
   content: '""',
   position: "absolute",
@@ -77,18 +62,12 @@ globalStyle(".nav-link.selected::before", {
   borderLeftColor: vars.accent,
 });
 
-/* The icon rides inside each link; hidden on mobile (labels-only row). */
 globalStyle(".nav-ico", {
   display: "none",
 });
 
-/* ==========================================================================
- * Desktop hamburger + JARVIS-style reveal (min-width 641px only).
- * ======================================================================== */
-
 const DESKTOP = "(min-width: 641px)";
 
-/* The checkbox is hidden but stays focusable so keyboard users can toggle it. */
 globalStyle(".nav-toggle", {
   position: "absolute",
   width: 1,
@@ -98,7 +77,6 @@ globalStyle(".nav-toggle", {
   pointerEvents: "none",
 });
 
-/* Burger button: hidden by default, shown only on desktop. */
 globalStyle(".nav-burger", {
   display: "none",
 });
@@ -141,7 +119,6 @@ globalStyle(".nav-toggle:focus-visible ~ .nav-burger", {
   },
 });
 
-/* The three bars. */
 globalStyle(".nav-burger span", {
   "@media": {
     [DESKTOP]: {
@@ -155,7 +132,6 @@ globalStyle(".nav-burger span", {
   },
 });
 
-/* Checked = morph the bars into an X (bar gap 4px + height 2px = 6px shift). */
 globalStyle(".nav-toggle:checked ~ .nav-burger span:nth-child(1)", {
   "@media": { [DESKTOP]: { transform: "translateY(6px) rotate(45deg)" } },
 });
@@ -166,10 +142,6 @@ globalStyle(".nav-toggle:checked ~ .nav-burger span:nth-child(3)", {
   "@media": { [DESKTOP]: { transform: "translateY(-6px) rotate(-45deg)" } },
 });
 
-/* Menu container. No max-height collapse — that snapped shut faster than the
- * items could reverse-animate. Instead the container just toggles interactivity
- * and a subtle group shift; each item's own opacity hides it when closed, so
- * closing reverse-telescopes the pills back into dots and fades them out. */
 globalStyle(".nav-links", {
   "@media": {
     [DESKTOP]: {
@@ -190,8 +162,6 @@ globalStyle(".nav-toggle:checked ~ .nav-links", {
   },
 });
 
-/* Desktop: no selected-triangle/indent — dots stay aligned, selected shows via
- * the accent fill instead. */
 globalStyle(".nav-link.selected", {
   "@media": { [DESKTOP]: { marginLeft: 0 } },
 });
@@ -199,9 +169,6 @@ globalStyle(".nav-link.selected::before", {
   "@media": { [DESKTOP]: { display: "none" } },
 });
 
-/* Phase 1 — each item starts as a hidden icon dot. Per-property transitions so
- * the checked state can delay the "expand" props (max-width/padding) well after
- * the "appear" props (opacity/transform). */
 globalStyle(".nav-links .nav-link", {
   "@media": {
     [DESKTOP]: {
@@ -224,7 +191,6 @@ globalStyle(".nav-links .nav-link:hover", {
   "@media": { [DESKTOP]: { transform: "scale(1.06)" } },
 });
 
-/* The icon, centred in the dot; fades out as the label takes over. */
 globalStyle(".nav-ico", {
   "@media": {
     [DESKTOP]: {
@@ -241,7 +207,6 @@ globalStyle(".nav-ico", {
   },
 });
 
-/* The label, collapsed until the expand phase. */
 globalStyle(".nav-label", {
   "@media": {
     [DESKTOP]: {
@@ -253,22 +218,17 @@ globalStyle(".nav-label", {
   },
 });
 
-/* Phase 1 result: dots bloom in. */
 globalStyle(".nav-toggle:checked ~ .nav-links .nav-link", {
   "@media": {
     [DESKTOP]: {
       opacity: 1,
       transform: "scale(1)",
-      // Phase 2: telescope open to a uniform pill width (delayed ~1s in the
-      // per-item rules below). Animating width (not max-width) is what makes
-      // the pill actually grow from the dot.
       width: "11rem",
       padding: "0 0.8rem",
     },
   },
 });
 
-/* Phase 2: icon fades and label reveals, ~1s after the dots have bloomed. */
 globalStyle(".nav-toggle:checked ~ .nav-links .nav-ico", {
   "@media": { [DESKTOP]: { opacity: 0, transitionDelay: "0.95s" } },
 });
@@ -278,11 +238,6 @@ globalStyle(".nav-toggle:checked ~ .nav-links .nav-label", {
   },
 });
 
-/* Per-item stagger. transition-delay order matches transitionProperty above:
- * opacity, transform, width, padding, background, border-color, color.
- * Appear (opacity/transform) staggers; expand (width/padding) waits ~1s.
- * Explicit rules because Turbopack's vanilla-extract plugin can't instrument a
- * top-level loop in a .css.ts. */
 globalStyle(".nav-toggle:checked ~ .nav-links .nav-link:nth-child(1)", {
   "@media": { [DESKTOP]: { transitionDelay: "0.05s, 0.05s, 1s, 1s, 0s, 0s, 0s" } },
 });
@@ -323,12 +278,6 @@ globalStyle(".nav-toggle:checked ~ .nav-links .nav-link:nth-child(13)", {
   "@media": { [DESKTOP]: { transitionDelay: "0.65s, 0.65s, 1s, 1s, 0s, 0s, 0s" } },
 });
 
-/* Reverse JARVIS on close. These delays sit on the UNCHECKED state, so they
- * only apply when closing (opening uses the :checked delays above). Order
- * matches transitionProperty: opacity, transform, width, padding, ... — so the
- * pills shrink back to dots immediately (width/padding delay 0), then the dots
- * fade + scale out bottom-to-top (opacity/transform delay grows toward item 1).
- * Delay = 0.4s + (13 - index) * 0.05s. */
 globalStyle(".nav-links .nav-link:nth-child(1)", {
   "@media": { [DESKTOP]: { transitionDelay: "1s, 1s, 0s, 0s, 0s, 0s, 0s" } },
 });
@@ -369,12 +318,10 @@ globalStyle(".nav-links .nav-link:nth-child(13)", {
   "@media": { [DESKTOP]: { transitionDelay: "0.40s, 0.40s, 0s, 0s, 0s, 0s, 0s" } },
 });
 
-/* Label collapses back with the pill (no per-item delay) as it closes. */
 globalStyle(".nav-label", {
   "@media": { [DESKTOP]: { transitionDelay: "0s" } },
 });
 
-/* Reduced motion: skip the bloom/telescope, just show the labelled pills. */
 globalStyle(
   ".nav-links, .nav-links .nav-link, .nav-ico, .nav-label, .nav-burger span",
   {

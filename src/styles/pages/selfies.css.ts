@@ -4,28 +4,10 @@
  * See LICENCE.md in the project root for full licence information.
  */
 
-/**
- * selfies.css.ts — the /selfies grid and lightbox.
- *
- * Ported from public/css/pages/selfies.css.
- *
- * Two things changed in the port:
- *
- * 1. The `html:has(.selfies-wrap), body:has(.selfies-wrap)` scroll rules are NOT
- *    repeated here — they already live in styles/scroll-wrap.css.ts, which is
- *    global. Only the align-items tweak, which scroll-wrap doesn't cover for
- *    this wrapper, is kept below.
- *
- * 2. `.lightbox-img` was declared twice in the source, with max-height 86vh and
- *    then 80vh further down. The later won, so 80vh is the real value — merged
- *    into a single rule here rather than carrying the dead 86vh forward.
- */
 import { globalStyle, globalKeyframes } from "@vanilla-extract/css";
 import { vars } from "../themes.css";
 
 const LIGHTBOX_MAX_W = "min(92vw, 1100px)";
-
-/* ---- page shell ----------------------------------------------------------- */
 
 globalStyle("body:has(.selfies-wrap)", {
   alignItems: "flex-start",
@@ -40,8 +22,6 @@ globalStyle("body:has(.selfies-wrap) .hub-header", {
   zIndex: 1,
   marginBottom: "2rem",
 });
-
-/* ---- grid ----------------------------------------------------------------- */
 
 globalStyle(".selfie-grid", {
   display: "grid",
@@ -110,8 +90,6 @@ globalStyle(".selfie-empty", {
   padding: "3rem 1rem",
 });
 
-/* ---- lightbox ------------------------------------------------------------- */
-
 globalKeyframes("lightbox-fade", {
   from: { opacity: 0 },
   to: { opacity: 1 },
@@ -150,7 +128,6 @@ globalStyle(".lightbox-figure", {
 
 globalStyle(".lightbox-img", {
   maxWidth: LIGHTBOX_MAX_W,
-  // 80vh, not 86vh — leaves room beneath the image for the caption line.
   maxHeight: "80vh",
   objectFit: "contain",
   borderRadius: 0,
@@ -221,7 +198,6 @@ globalStyle(".lightbox-nav", {
 globalStyle(".lightbox-nav:hover", {
   transform: "translateY(-50%) scale(1.06)",
   "@media": {
-    // Keep the centring transform, drop only the scale.
     "(prefers-reduced-motion: reduce)": { transform: "translateY(-50%)" },
   },
 });
@@ -230,5 +206,4 @@ globalStyle(".lightbox-prev", { left: "1rem" });
 globalStyle(".lightbox-next", { right: "1rem" });
 globalStyle(".lightbox-nav[hidden]", { display: "none" });
 
-/** Freeze the page behind the lightbox while it's open. */
 globalStyle("body.lightbox-open", { overflow: "hidden" });

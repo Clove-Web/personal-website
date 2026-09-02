@@ -15,10 +15,8 @@ import { useLanguage } from "@/i18n/languageProvider";
 import { BoxArrowUpRight, GeoAltFill } from "react-bootstrap-icons";
 import "leaflet/dist/leaflet.css";
 
-// Leaflet touches `window` at import time — must be client-only, no SSR.
 const CityMap = dynamic(() => import("./cityMap"), { ssr: false });
 
-/* "A,B,C" -> "A, B, C", dropping empty/null-ish parts. */
 function fmtLocation(raw: string): string {
   return raw
     .split(",")
@@ -27,9 +25,6 @@ function fmtLocation(raw: string): string {
     .join(", ");
 }
 
-/* location may be a plain place-name string or a map URL. viewOnMapFallback
-   is passed in (rather than imported/hooked here) since this is a plain
-   function, not a component — it can't call useLanguage() itself. */
 function parseLocation(
   v: unknown,
   viewOnMapFallback: string,
@@ -65,9 +60,6 @@ export default function Location() {
   if (!loc || !loc.label) return null;
 
   const when = relTime(pixel.updated_at, dict.time);
-  // Only offer a link-out for plain place names (no source URL provided).
-  // We don't know what precision a pasted map URL encodes, so we just show
-  // the label as-is rather than treating it as a coordinate source.
   const linkUrl =
     loc.url ||
     (loc.query ? "https://www.openstreetmap.org/search?query=" + encodeURIComponent(loc.query) : "");
@@ -79,7 +71,6 @@ export default function Location() {
         <span className="loc-label">{t("location.heading")}</span>
       </div>
       <div className="loc-body">
-        {/* Only render a map for plain place-name locations, not arbitrary URLs */}
         {!loc.url && loc.query ? (
           <CityMap className="loc-map" query={loc.query} label={loc.label} />
         ) : null}

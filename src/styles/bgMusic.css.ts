@@ -4,22 +4,12 @@
  * See LICENCE.md in the project root for full licence information.
  */
 
-/**
- * bg-music.css.ts — sitewide background audio: the "click to enter" gate that
- * starts it, and the play/pause button it leaves behind in the settings row.
- *
- * Ported from public/css/shared/bg-music.css.
- *
- * globalStyle throughout — core.ts builds the gate imperatively with hardcoded
- * class strings (window.ctpBgm), so these selectors must stay literal.
- */
 import { globalStyle } from "@vanilla-extract/css";
 import { vars } from "./themes.css";
 
 globalStyle(".bgm-gate", {
   position: "fixed",
   inset: 0,
-  // Sits above literally everything — it gates the whole page on first visit.
   zIndex: 2147483647,
   display: "flex",
   alignItems: "center",
@@ -51,7 +41,7 @@ globalStyle(".bgm-gate-panel", {
   borderRadius: 0,
   boxShadow: "6px 6px 0 rgba(0, 0, 0, 0.55)",
   textAlign: "center",
-  pointerEvents: "none", // click passes through to .bgm-gate
+  pointerEvents: "none",
 });
 
 globalStyle(".bgm-gate-note", {
@@ -66,6 +56,3 @@ globalStyle(".bgm-gate-hint", {
   color: vars.textMuted,
   fontSize: "0.75rem",
 });
-
-/* .bgm-icon was dropped in the port: SettingsMenu renders PlayFill/PauseFill
-   from react-bootstrap-icons now, so nothing carried that class. */

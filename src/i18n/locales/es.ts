@@ -23,19 +23,12 @@ const es = {
   },
   settings: {
     title: "Ajustes",
-    catCollection: "Colección de gatos",
-    openCatCollection: "Abrir colección de gatos",
-    showCat: "Mostrar gato",
-    hideCat: "Ocultar gato",
     playMusic: "Reproducir música de fondo",
     pauseMusic: "Pausar música de fondo",
     language: "Idioma",
     volume: "Volumen de la música de fondo",
   },
   home: {
-    // Site owner asked for the display name itself to translate — "Clove"
-    // and "Twilight" are also ordinary words (a spice; dusk), not just a
-    // name. Clavo = clove (the spice); Crepúsculo = twilight/dusk.
     title: "Clavo Crepúsculo",
     bio: "Desarrolladora transfemenina de Southampton, Reino Unido. Hago proyectos, tonterías de sitio personal, y llevo un pequeño rincón de internet bajo la marca «doughmination system». Fan de Linux, Catppuccin y los gatos.",
     viewSource: "Ver código fuente en GitHub",
@@ -105,11 +98,6 @@ const es = {
     ariaLabel: "Contador de visitantes",
     label: "visitantes",
     error: "?? visitantes",
-  },
-  catPicker: {
-    dialogLabel: "Elige un gato",
-    close: "Cerrar",
-    hint: "Elige tu gato · pulsa C para alternar",
   },
   presence: {
     status: {

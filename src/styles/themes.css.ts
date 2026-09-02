@@ -10,7 +10,6 @@ import {
   globalStyle,
 } from "@vanilla-extract/css";
 
-/** Token -> literal CSS custom-property name (accentAlt => var(--accent-alt)). */
 export const vars = createGlobalThemeContract({
   accent: "accent",
   accentAlt: "accent-alt",
@@ -38,14 +37,6 @@ export const vars = createGlobalThemeContract({
   text: "text",
 });
 
-/**
- * One palette, applied globally. The old per-flavor themes (cherry, toxic,
- * estrogen, cyberpunk, lemon) and the flavor switcher were dropped — every site
- * now shares the info site's dark trans palette. Extra shades are derived from
- * info's seven core colours (bg #0a0b10, surface #12141c, surfaceHover #1b1e2a,
- * text #f4f6fb, muted #9aa3c2, border #232838, accent #f5a9b8) so the whole
- * thing reads as one uniform, pink-accented dark theme.
- */
 createGlobalTheme(":root", vars, {
   accent: "#f5a9b8",
   accentAlt: "#d15f8c",

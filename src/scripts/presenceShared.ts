@@ -4,13 +4,6 @@
  * See LICENCE.md in the project root for full licence information.
  */
 
-/* presenceShared.ts — pure helpers, constants and data hooks behind PresenceCard.
- *
- * Split out of the old imperative presenceCard.ts so the component file stays
- * readable. Nothing here touches the DOM: it's URL builders, Discord payload
- * mapping, and the hooks that own the live feed / 1s ticker / accent extraction.
- */
-
 "use client";
 
 import {
@@ -29,7 +22,6 @@ import {
   TwitterX, Xbox, Youtube,
 } from "react-bootstrap-icons";
 
-/** Loose shapes: this consumes a very dynamic third-party (Discord) payload. */
 export type Dict = Record<string, unknown>;
 
 export interface SelfJson {
@@ -51,8 +43,6 @@ export interface PresenceOpts {
 export const g = (o: unknown, k: string): unknown =>
   o && typeof o === "object" ? (o as Dict)[k] : undefined;
 
-/* ---- formatting ----------------------------------------------------------- */
-
 export function fmt(ms: number): string {
   const total = Math.max(0, Math.floor(ms / 1000));
   const m = Math.floor(total / 60);
@@ -60,8 +50,6 @@ export function fmt(ms: number): string {
   return `${m}:${String(s).padStart(2, "0")}`;
 }
 
-/** `now` is passed in (from useTicker) rather than read here, so callers stay
-    pure — reading the clock during render is non-idempotent. */
 export function elapsedStr(start: number, now: number): string {
   const s = Math.max(0, Math.floor((now - start) / 1000));
   const h = Math.floor(s / 3600);
@@ -96,8 +84,6 @@ export function isRealName(v: unknown): boolean {
   const n = String(v).trim().toLowerCase();
   return n !== "" && n !== "null" && n !== "undefined";
 }
-
-/* ---- CDN / proxy URLs ----------------------------------------------------- */
 
 export function proxyImg(url: string, o?: { w?: number }): string {
   if (!url) return url;
@@ -140,13 +126,6 @@ export function bannerUrl(id: string, hash: string): string | null {
   return proxyImg(url, { w: 600 });
 }
 
-/* ---- lookup tables -------------------------------------------------------- */
-
-// Display text for these three lives in the i18n dictionaries now
-// (presence.status.*, presence.platform.*, presence.wishlistType.*) — these
-// arrays are just the valid key sets, so callers (which have a useLanguage()
-// t()) can validate a runtime string before building a dotted lookup key
-// with it, e.g. `presence.status.${status}`.
 export const STATUS_KEYS = ["online", "idle", "dnd", "offline", "streaming"] as const;
 export type StatusKey = (typeof STATUS_KEYS)[number];
 export function isStatusKey(v: string): v is StatusKey {
@@ -179,10 +158,6 @@ export const BADGE_FLAGS: [number, string, string][] = [
   [1 << 22, "Active Developer", "6bdc42827a38498929a4920da12695d9"],
 ];
 
-/** Platform pips in the sub-row. Components now, not `bi` glyph names.
-    Labels come from presence.platform.* in the i18n dictionaries — this map
-    is icons only, keyed the same way so callers can build the lookup key
-    from the same string. */
 export const PLATFORM_ICONS: Record<string, { Ic: Icon }> = {
   desktop: { Ic: Laptop },
   mobile: { Ic: Phone },
@@ -207,8 +182,6 @@ export const CONNECTION_URLS: Record<string, (n: string, id?: string) => string>
   bluesky: (n) => "https://bsky.app/profile/" + n,
 };
 
-/** Connection glyphs: an icon component, or a local SVG file for brands
-    Bootstrap Icons doesn't ship. */
 export const CONNECTION_ICON: Record<string, { Ic?: Icon; img?: string }> = {
   "amazon-music": { Ic: Amazon },
   facebook: { Ic: Facebook },
@@ -280,18 +253,12 @@ export function wlImg(w: Dict): string | null {
   return proxyImg(url, { w: 64 }) || url;
 }
 
-/* ---- payload mapping ------------------------------------------------------ */
-
-/** Flatten the self-hosted API's user/presence split into the flat Lanyard-ish
-    shape the card renders from. */
 export function mapSelfHostToPresence(j: SelfJson, fallbackId: string | null): Dict {
   const data = j.data || {};
   const u = (data.user as Dict) || {};
   const p = (data.presence as Dict) || {};
   const plat = (p.platform as Dict) || {};
   const dec = u.avatar_decoration as { asset?: string } | undefined;
-  // New API: the avatar decoration lives in data.collectibles (slot
-  // "avatar_decoration") with a full image URL, not on user.avatar_decoration.
   const collectibles = data.collectibles as Dict[] | undefined;
   const decoCol = Array.isArray(collectibles)
     ? collectibles.find((c) => c.slot === "avatar_decoration" || c.type === "avatar_decoration")
@@ -335,12 +302,8 @@ export function mapSelfHostToPresence(j: SelfJson, fallbackId: string | null): D
   };
 }
 
-/* ---- Doughmination Music (self-hosted web player) ------------------------- */
-
-/** The rich-presence application name broadcast by the self-hosted web player. */
 export const DM_MUSIC_APP = "Doughmination Music";
 
-/** Find the live "Doughmination Music" listening activity (Discord type 2). */
 export function dmMusicActivity(activities: unknown): Dict | null {
   if (!Array.isArray(activities)) return null;
   return (
@@ -350,13 +313,6 @@ export function dmMusicActivity(activities: unknown): Dict | null {
   );
 }
 
-/**
- * Map a Doughmination Music activity into the same flat shape SpotifyRow /
- * NowPlaying / the /music hero already render from (song, artist, album,
- * album_art_url, timestamps). `state` arrives as "Artist — Title", so the
- * title (from `details`) is stripped off to recover the artist. `track_id`
- * stays null — there's no Spotify track to deep-link to.
- */
 export function dmListening(activities: unknown): Dict | null {
   const a = dmMusicActivity(activities);
   if (!a) return null;
@@ -383,15 +339,12 @@ export function dmListening(activities: unknown): Dict | null {
     track_id: null,
     song,
     artist,
-    // large_text often just repeats the title; only surface a real album.
     album: largeText && largeText !== song ? largeText : "",
     album_art_url,
     timestamps: ts ? { start: ts.start ?? null, end: ts.end ?? null } : null,
   };
 }
 
-/** What the profile is "listening" to, preferring the self-hosted Doughmination
-    Music player over Discord's Spotify integration. */
 export function pickListening(
   d: Dict | null,
 ): { s: Dict; source: "doughmination" | "spotify" } | null {
@@ -402,20 +355,6 @@ export function pickListening(
   return sp ? { s: sp, source: "spotify" } : null;
 }
 
-/* ---- hooks ---------------------------------------------------------------- */
-
-/**
- * The live presence feed for one user.
- *
- * Now composed from the wrapper: useDiscordUser supplies the full record
- * (user, badges, banner, connections + a presence snapshot), and
- * useUserPresence rides the shared socket for live presence. We swap the live
- * presence over the snapshot and re-wrap in the SelfJson envelope the
- * components already read, so PresenceCard/Dashboard stay untouched.
- *
- * `pollMs` is kept for signature compatibility; the socket drives updates now,
- * so there's no polling fallback to tune.
- */
 export function usePresenceFeed(
   userId: string | null,
   pollMs = 20000,
@@ -438,17 +377,6 @@ export function usePresenceFeed(
   }, [record, livePresence]);
 }
 
-/**
- * Current time in ms, re-rendering once a second while `active` — so an idle
- * card does no work at all. Also ticks on tab focus, matching the old
- * visibilitychange handler.
- *
- * The clock is an external mutable source, so this goes through
- * useSyncExternalStore rather than Date.now() in render (which is impure and
- * would make renders non-idempotent). The snapshot is floored to whole seconds
- * so it's referentially stable between ticks — returning raw Date.now() here
- * would loop forever.
- */
 export function useTicker(active: boolean): number {
   const subscribe = useCallback(
     (onChange: () => void) => {
@@ -466,19 +394,10 @@ export function useTicker(active: boolean): number {
   return useSyncExternalStore(
     subscribe,
     () => Math.floor(Date.now() / 1000) * 1000,
-    () => 0, // SSR: no clock; the first client tick fills it in
+    () => 0,
   );
 }
 
-/**
- * True when the user asks for reduced motion. Goes through useSyncExternalStore
- * for the same reason useTicker does — matchMedia is an external mutable source,
- * and reading it during render would be impure.
- *
- * Server snapshot is `false` so SSR matches the common case; if the user does
- * prefer reduced motion, the first client read corrects it before anything
- * animates.
- */
 export function useReducedMotion(): boolean {
   const subscribe = useCallback((onChange: () => void) => {
     if (typeof window === "undefined" || !window.matchMedia) return () => { };
@@ -493,7 +412,6 @@ export function useReducedMotion(): boolean {
   );
 }
 
-/** One equipped collectible (nameplate, avatar decoration, profile effect). */
 export interface Collectible {
   slot?: string;
   type?: string;
@@ -505,7 +423,6 @@ export interface Collectible {
   palette?: string | null;
 }
 
-/** Pull one equipped collectible slot out of the API's `collectibles` array. */
 export function collectibleForSlot(
   collectibles: unknown,
   slot: string,
@@ -564,14 +481,7 @@ function nearestAccent(r: number, gg: number, b: number) {
   return best;
 }
 
-/**
- * Average the album art down to one colour, snapped to the nearest Catppuccin
- * accent in the *current* theme. Returns an "r, g, b" triplet for --dc-accent,
- * or null when there's no art or the read fails (tainted canvas, 404).
- */
 export function useAlbumAccent(url: string | null | undefined): string | null {
-  // Stored with the url it was derived from, so clearing on url change is a
-  // pure render-time comparison rather than a setState inside the effect.
   const [got, setGot] = useState<{ url: string | null; accent: string | null }>({
     url: null,
     accent: null,
@@ -622,10 +532,8 @@ export function useAlbumAccent(url: string | null | undefined): string | null {
     img.src = url;
 
     return () => { cancelled = true; };
-    // setAccent closes over `url`, which is already the dep — stable per url.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url]);
 
-  // Only trust the stored accent if it belongs to the url being asked about.
   return url && got.url === url ? got.accent : null;
 }

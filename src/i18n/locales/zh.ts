@@ -23,10 +23,6 @@ const zh = {
   },
   settings: {
     title: "设置",
-    catCollection: "猫咪收藏",
-    openCatCollection: "打开猫咪收藏",
-    showCat: "显示猫咪",
-    hideCat: "隐藏猫咪",
     playMusic: "播放背景音乐",
     pauseMusic: "暂停背景音乐",
     language: "语言",
@@ -102,11 +98,6 @@ const zh = {
     ariaLabel: "访客数",
     label: "访客",
     error: "?? 访客",
-  },
-  catPicker: {
-    dialogLabel: "选择一只猫",
-    close: "关闭",
-    hint: "选择你的猫 · 按 C 键切换",
   },
   presence: {
     status: {

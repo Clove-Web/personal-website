@@ -6,9 +6,6 @@
 
 import type { Dictionary } from "./en";
 
-// `satisfies Dictionary` (rather than `: Dictionary`) keeps this checked
-// against en.ts's exact key shape while still letting TS infer the literal
-// string types, same trick as en.ts's `as const`.
 const ja = {
   nav: {
     home: "ホーム",
@@ -26,20 +23,12 @@ const ja = {
   },
   settings: {
     title: "設定",
-    catCollection: "猫コレクション",
-    openCatCollection: "猫コレクションを開く",
-    showCat: "猫を表示",
-    hideCat: "猫を非表示",
     playMusic: "BGMを再生",
     pauseMusic: "BGMを一時停止",
     language: "言語",
     volume: "BGMの音量",
   },
   home: {
-    // Site owner asked for the display name itself to translate, since
-    // "Clove" and "Twilight" are also ordinary words (a spice; dusk) and not
-    // just a name. クローブ = clove (the spice, common loanword); 黄昏 =
-    // twilight/dusk.
     title: "クローブ・黄昏",
     bio: "サウサンプトン(英国)在住のトランス女性デベロッパー。個人サイトの実験的な制作や小規模プロジェクトを行い、「doughmination system」という商標のもとインターネットの片隅を運営しています。Linux・Catppuccin・猫が大好きです。",
     viewSource: "GitHubでソースを見る",
@@ -109,11 +98,6 @@ const ja = {
     ariaLabel: "訪問者数",
     label: "訪問者",
     error: "?? 訪問者",
-  },
-  catPicker: {
-    dialogLabel: "猫を選ぶ",
-    close: "閉じる",
-    hint: "猫を選んでね・Cキーで切り替え",
   },
   presence: {
     status: {

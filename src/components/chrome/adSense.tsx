@@ -9,25 +9,6 @@
 import { useEffect, useState } from "react";
 import { readConsent, subscribeConsent } from "@scripts/consent";
 
-/*
- * Google AdSense loader, gated on the `advertising` consent category.
- *
- *   - The publisher ID comes from NEXT_PUBLIC_ADSENSE_ID, defaulting to the
- *     site's own `ca-pub-…`. It is public by design (it ends up in the page),
- *     so a default is fine; the env var just lets a fork override it.
- *   - adsbygoogle.js is injected ONLY after the visitor allows advertising
- *     cookies in the banner. Nothing from Google's ad stack loads before that.
- *   - Ads are always requested NON-PERSONALIZED (requestNonPersonalizedAds = 1)
- *     — set before any <ins> unit is pushed. This keeps us out of "personalized
- *     ads need a certified CMP" territory while still needing consent, because
- *     even non-personalized ads set frequency-capping / fraud cookies.
- *   - Withdrawing consent can't unload a running script; AdUnit stops rendering
- *     units immediately and a reload clears the rest. Same limitation as GA.
- *
- * This component renders nothing — it just loads the library. Individual slots
- * are placed with <AdUnit slot="…" /> (adUnit.tsx).
- */
-
 export const ADSENSE_ID =
   process.env.NEXT_PUBLIC_ADSENSE_ID ?? "ca-pub-9418323669012622";
 
@@ -38,7 +19,6 @@ declare global {
   }
 }
 
-/** True once the visitor has opted into advertising cookies. */
 export function useAdConsent(): boolean {
   const [allowed, setAllowed] = useState(false);
 
@@ -55,7 +35,6 @@ function loadAdSense(): void {
   if (window.__adsLoaded) return;
   window.__adsLoaded = true;
 
-  // Must exist, and be set to non-personalized, before the first unit pushes.
   window.adsbygoogle = window.adsbygoogle || [];
   window.adsbygoogle.requestNonPersonalizedAds = 1;
 

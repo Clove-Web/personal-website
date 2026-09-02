@@ -3,7 +3,6 @@
  * Licensed under the DASL-1.0 Licence.
  * See LICENCE.md in the project root for full licence information.
  */
-/* personal/src/app/page.module.css */
 
 .page {
   --background: #fafafa;
@@ -101,7 +100,6 @@ a.secondary {
   border-color: var(--button-secondary-border);
 }
 
-/* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   a.primary:hover {
     background: var(--button-primary-hover);

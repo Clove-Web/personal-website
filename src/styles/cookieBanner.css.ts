@@ -4,20 +4,10 @@
  * See LICENCE.md in the project root for full licence information.
  */
 
-/**
- * cookie-banner.css.ts — the consent banner pinned to the bottom of the
- * viewport (CookieBanner.tsx).
- *
- * Plain global class rules, same approach as nav.css.ts: the component renders
- * against these class strings. Imported in layout.tsx after scroll-wrap and
- * before responsive so its own media queries still win.
- */
 import { globalStyle } from "@vanilla-extract/css";
 import { vars } from "./themes.css";
 
 const MONO = "'Comic Code', ui-monospace, monospace";
-
-/* ---- shell -------------------------------------------------------------- */
 
 globalStyle(".cookie-banner", {
   position: "fixed",
@@ -55,8 +45,6 @@ globalStyle(".cb-link", {
   color: vars.accent,
   textDecoration: "underline",
 });
-
-/* ---- action row ------------------------------------------------------------ */
 
 globalStyle(".cb-actions", {
   display: "flex",
@@ -101,8 +89,6 @@ globalStyle(".cb-btn.cb-primary:hover", {
   background: vars.accentAlt,
   borderColor: vars.accentAlt,
 });
-
-/* ---- customise panel ---------------------------------------------------- */
 
 globalStyle(".cb-panel", {
   marginTop: "1rem",
@@ -149,7 +135,6 @@ globalStyle(".cb-always", {
   paddingTop: "0.1rem",
 });
 
-/* Checkbox toggle — kept simple and native, just re-tinted. */
 globalStyle(".cb-toggle", {
   flexShrink: 0,
   width: 18,
@@ -158,4 +143,3 @@ globalStyle(".cb-toggle", {
   accentColor: vars.accent,
   cursor: "inherit",
 });
-
