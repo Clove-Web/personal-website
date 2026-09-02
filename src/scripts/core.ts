@@ -7,7 +7,7 @@
 /* eslint-disable */
 // @ts-nocheck
 import { icon } from "./presenceIcons";
-import { randomAscii } from "./asciis";
+import { randomAscii, randomAsciiColour } from "./asciis";
 import { dictionaries } from "@/i18n/dictionaries";
 import {
   DEFAULT_LANGUAGE,
@@ -29,7 +29,7 @@ function currentDictionary() {
 }
 
 export function initCore() {
-  console.log(randomAscii());
+  console.log(`%c${randomAscii()}`, `color: ${randomAsciiColour()}`);
   let ctpTracking = false;
   const ctpDocListeners = [];
   const ctpWinListeners = [];
