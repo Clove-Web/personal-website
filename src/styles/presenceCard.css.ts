@@ -533,7 +533,7 @@ globalStyle(".pc-star", {
   alignSelf: "flex-start",
   background: "none",
   border: "none",
-  cursor: 'url("https://m.doughmination.gay/img/cursor/pointer_0.png"), pointer',
+  cursor: 'url("https://m.doughmination.gay/cursors/sandrone/Link.png") 4 0, pointer',
   fontSize: "0.95rem",
   lineHeight: 1,
   color: vars.textMuted,

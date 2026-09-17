@@ -7,7 +7,7 @@
 import { globalStyle, globalKeyframes } from "@vanilla-extract/css";
 import { vars } from "../themes.css";
 
-const POINTER = 'url("https://m.doughmination.gay/img/cursor/pointer_0.png"), pointer';
+const POINTER = 'url("https://m.doughmination.gay/cursors/sandrone/Link.png") 4 0, pointer';
 
 globalStyle(
   "html:has(.dev-info), body:has(.dev-info), html:has(.dev-info-page), body:has(.dev-info-page)",

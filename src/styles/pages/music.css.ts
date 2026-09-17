@@ -202,7 +202,7 @@ globalStyle(".ly-lock", {
   fontFamily: "inherit",
   fontSize: "0.72rem",
   letterSpacing: "0.04em",
-  cursor: 'url("https://m.doughmination.gay/img/cursor/pointer_0.png"), pointer',
+  cursor: 'url("https://m.doughmination.gay/cursors/sandrone/Link.png") 4 0, pointer',
   borderRadius: 0,
   padding: "0.28rem 0.8rem 0.28rem 0.7rem",
   background: vars.surface,

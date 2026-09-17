@@ -7,8 +7,8 @@
 import { globalStyle } from "@vanilla-extract/css";
 import { vars } from "./themes.css";
 
-const cursor = (file: string, fallback: string, hotspot = "") =>
-  `url('https://m.doughmination.gay/img/cursor/${file}.png')${hotspot ? " " + hotspot : ""}, ${fallback}`;
+const cursor = (file: string, fallback: string, hotspot = "0 0") =>
+  `url('https://m.doughmination.gay/cursors/sandrone/${file}.png') ${hotspot}, ${fallback}`;
 
 const PAGE_BG = `linear-gradient(135deg, ${vars.bg} 0%, ${vars.bgRaised} 60%, ${vars.bgDeep} 100%)`;
 
@@ -17,7 +17,7 @@ globalStyle("*", {
 });
 
 globalStyle("html", {
-  cursor: cursor("default_0", "auto", "3 3"),
+  cursor: cursor("Normal", "auto"),
   background: PAGE_BG,
 });
 
@@ -45,32 +45,33 @@ globalStyle("h1, h2, h3, h4, h5, h6", {
 
 globalStyle(
   'a, button, [role="button"], [role="link"], [data-href], label[for], select, summary, .pc-name--link',
-  { cursor: cursor("pointer_0", "pointer") },
+  { cursor: cursor("Link", "pointer", "4 0") },
 );
 
 globalStyle(
   'input:not([type="button"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]), textarea, [contenteditable="true"]',
-  { cursor: cursor("text_0", "text") },
+  { cursor: cursor("Text", "text", "4 9") },
 );
 
-globalStyle(".is-loading", { cursor: "wait" });
-globalStyle(".is-progress", { cursor: "progress" });
+globalStyle(".is-loading", { cursor: cursor("Busy", "wait") });
+globalStyle(".is-progress", { cursor: cursor("Working", "progress") });
 
 globalStyle('[title]:not(a):not(button), .help', {
-  cursor: cursor("help_0", "help"),
+  cursor: cursor("Help", "help"),
 });
 
 globalStyle(':disabled, [disabled], [aria-disabled="true"]', {
-  cursor: cursor("not-allowed_0", "not-allowed"),
+  cursor: cursor("Unavailable", "not-allowed"),
 });
 
 globalStyle('[draggable="true"]', {
-  cursor: cursor("openhand_0", "grab"),
+  cursor: cursor("Move", "grab", "15 15"),
 });
 
-globalStyle(".crosshair", { cursor: cursor("crosshair_0", "crosshair") });
-globalStyle(".zoom-in", { cursor: cursor("zoom-in_0", "zoom-in") });
-globalStyle(".zoom-out", { cursor: cursor("zoom-out_0", "zoom-out") });
+globalStyle(".crosshair", { cursor: cursor("Precision", "crosshair", "5 6") });
+// No zoom-in/zoom-out cursors in the Sandrone pack; fall back to the browser's own.
+globalStyle(".zoom-in", { cursor: "zoom-in" });
+globalStyle(".zoom-out", { cursor: "zoom-out" });
 
 globalStyle("body::before", {
   content: '""',

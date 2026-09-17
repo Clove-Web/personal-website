@@ -31,7 +31,7 @@
   background: var(--surface);
   border: 1px solid var(--surface-hi);
   color: var(--text);
-  cursor: url("https://m.doughmination.gay/img/cursor/pointer_0.png"), pointer;
+  cursor: url("https://m.doughmination.gay/cursors/sandrone/Link.png") 4 0, pointer;
   transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
 }
 
@@ -151,7 +151,7 @@
   border-radius: 0;
   background: var(--surface-hi);
   outline-offset: 3px;
-  cursor: url("https://m.doughmination.gay/img/cursor/pointer_0.png"), pointer;
+  cursor: url("https://m.doughmination.gay/cursors/sandrone/Link.png") 4 0, pointer;
   -webkit-appearance: none;
   appearance: none;
 }
@@ -164,7 +164,7 @@
   border-radius: 0;
   background: var(--accent);
   border: none;
-  cursor: url("https://m.doughmination.gay/img/cursor/pointer_0.png"), pointer;
+  cursor: url("https://m.doughmination.gay/cursors/sandrone/Link.png") 4 0, pointer;
 }
 
 .volumeSlider::-moz-range-thumb {
@@ -173,7 +173,7 @@
   border-radius: 0;
   background: var(--accent);
   border: none;
-  cursor: url("https://m.doughmination.gay/img/cursor/pointer_0.png"), pointer;
+  cursor: url("https://m.doughmination.gay/cursors/sandrone/Link.png") 4 0, pointer;
 }
 
 .langPill {
@@ -189,7 +189,7 @@
   color: var(--text);
   font-size: 0.8rem;
   white-space: nowrap;
-  cursor: url("https://m.doughmination.gay/img/cursor/pointer_0.png"), pointer;
+  cursor: url("https://m.doughmination.gay/cursors/sandrone/Link.png") 4 0, pointer;
   transition: border-color 0.15s ease, background 0.15s ease;
 }
 
@@ -249,7 +249,7 @@
   color: var(--text-soft);
   font-size: 0.75rem;
   white-space: nowrap;
-  cursor: url("https://m.doughmination.gay/img/cursor/pointer_0.png"), pointer;
+  cursor: url("https://m.doughmination.gay/cursors/sandrone/Link.png") 4 0, pointer;
   transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
 }
 

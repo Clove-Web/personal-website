@@ -17,7 +17,7 @@ globalStyle(".bgm-gate", {
   padding: "1rem",
   background: "rgba(17, 17, 27, 0.75)",
   backdropFilter: "blur(3px)",
-  cursor: 'url("https://m.doughmination.gay/img/cursor/pointer_0.png"), pointer',
+  cursor: 'url("https://m.doughmination.gay/cursors/sandrone/Link.png") 4 0, pointer',
   opacity: 1,
   transition: "opacity 0.25s ease",
 });
