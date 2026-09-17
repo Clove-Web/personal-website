@@ -7,7 +7,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { CameraFill } from "react-bootstrap-icons";
+import { Camera as CameraFill } from "pixelarticons/react";
 import { playClickSound } from "@lib/sound";
 import { useLanguage } from "@/i18n/languageProvider";
 

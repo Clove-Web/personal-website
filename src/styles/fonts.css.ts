@@ -8,38 +8,9 @@ import { globalFontFace } from "@vanilla-extract/css";
 
 const CDN = "https://m.doughmination.gay/f";
 
-const COMIC_CODE = [
-  {
-    file: "ComicCode-Regular",
-    weight: 400,
-    style: "normal"
-  },
-  {
-    file: "ComicCode-Italic",
-    weight: 400,
-    style: "italic"
-  },
-  {
-    file: "ComicCode-Medium",
-    weight: 500,
-    style: "normal"
-  },
-  {
-    file: "ComicCode-Bold",
-    weight: 700,
-    style: "normal"
-  },
-] as const;
-
-for (const { file, weight, style } of COMIC_CODE) {
-  globalFontFace("Comic Code", {
-    src: `url('${CDN}/Comic-Code/woff2/${file}.woff2') format('woff2'), url('${CDN}/Comic-Code/woff/${file}.woff') format('woff')`,
-    fontWeight: weight,
-    fontStyle: style,
-    fontDisplay: "swap",
-  });
-}
-
+// Site chrome uses system fonts (matches auth-server); these DDN faces stay
+// because they render actual Discord Nitro nameplate styles on presence data,
+// not site branding.
 const DDN: Array<[family: string, file: string]> = [
   ["DDN 8Bit", "8Bit.woff2"],
   ["DDN Jellybean", "Jellybean.woff2"],

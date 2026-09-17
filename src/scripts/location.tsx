@@ -12,7 +12,7 @@ import { useDeviceState } from "@doughmination/react-api";
 
 import { realText, relTime } from "./util";
 import { useLanguage } from "@/i18n/languageProvider";
-import { BoxArrowUpRight, GeoAltFill } from "react-bootstrap-icons";
+import { ExternalLink, MapPin } from "pixelarticons/react";
 import "leaflet/dist/leaflet.css";
 
 const CityMap = dynamic(() => import("./cityMap"), { ssr: false });
@@ -67,7 +67,7 @@ export default function Location() {
   return (
     <section className="location-card" aria-label={t("location.ariaLabel")}>
       <div className="loc-head">
-        <GeoAltFill aria-hidden="true" />
+        <MapPin aria-hidden="true" />
         <span className="loc-label">{t("location.heading")}</span>
       </div>
       <div className="loc-body">
@@ -77,7 +77,7 @@ export default function Location() {
         <div className="loc-cap">
           {linkUrl ? (
             <a className="loc-place loc-link" href={linkUrl} target="_blank" rel="noopener noreferrer">
-              {loc.label} <BoxArrowUpRight aria-hidden="true" />
+              {loc.label} <ExternalLink aria-hidden="true" />
             </a>
           ) : (
             <span className="loc-place">{loc.label}</span>

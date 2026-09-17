@@ -6,12 +6,14 @@
 
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { HeartFill, type Icon } from "react-bootstrap-icons";
+import { useEffect, useRef, useState, type ComponentType, type SVGProps } from "react";
+import { Heart } from "pixelarticons/react";
 import { useGuestbook, useGuestbookPost } from "@doughmination/react-api";
 import { playClickSound } from "@lib/sound";
 import { useLanguage } from "@/i18n/languageProvider";
 import type { Dictionary } from "@/i18n/locales/en";
+
+type Icon = ComponentType<SVGProps<SVGSVGElement>>;
 
 type Status = {
   text: string;
@@ -108,7 +110,7 @@ export default function Guestbook({ turnstileKey }: Props) {
       setStatus({
         text: t("guestbook.thanks"),
         kind: "ok",
-        icon: HeartFill
+        icon: Heart
       });
       setName("");
       setWebsite("");
@@ -140,7 +142,7 @@ export default function Guestbook({ turnstileKey }: Props) {
       setStatus({
         text: t("guestbook.thanks"),
         kind: "ok",
-        icon: HeartFill
+        icon: Heart
       });
       setName("");
       setWebsite("");

@@ -14,13 +14,13 @@ import {
 } from "@doughmination/react-api";
 import type { UnifiedMinecraftGeneral } from "@doughmination/react-api";
 import {
-  Award,
-  BoxArrowUpRight,
-  Feather,
-  Layers,
-  Stars,
-  XLg,
-} from "react-bootstrap-icons";
+  Trophy,
+  ExternalLink,
+  Sparkle,
+  Blocks,
+  Sparkles,
+  X,
+} from "pixelarticons/react";
 import { createWave } from "./skinAnimations";
 import { playClickSound } from "@lib/sound";
 import { useLanguage } from "@/i18n/languageProvider";
@@ -351,7 +351,7 @@ function Skin3D({ data }: { data: ProfileData }) {
                   });
                 }}
               >
-                <Feather aria-hidden="true" /> {t("minecraftPage.elytra")}
+                <Sparkle aria-hidden="true" /> {t("minecraftPage.elytra")}
               </button>
             </>
           ) : null}
@@ -466,7 +466,7 @@ function AccountModal({
             requestClose();
           }}
         >
-          <XLg aria-hidden="true" />
+          <X aria-hidden="true" />
         </button>
 
         <div className="mc-d-head">
@@ -515,7 +515,7 @@ function AccountModal({
                   setShowHat((v) => !v);
                 }}
               >
-                <Layers aria-hidden="true" />{" "}
+                <Blocks aria-hidden="true" />{" "}
                 {showHat ? t("minecraftPage.hideHat") : t("minecraftPage.showHat")}
               </button>
             </div>
@@ -568,7 +568,7 @@ function AccountModal({
               rel="noopener noreferrer"
               href={`https://namemc.com/profile/${encodeURIComponent(uid)}`}
             >
-              {t("minecraftPage.viewNameMc")} <BoxArrowUpRight aria-hidden="true" />
+              {t("minecraftPage.viewNameMc")} <ExternalLink aria-hidden="true" />
             </a>
           </div>
 
@@ -579,7 +579,7 @@ function AccountModal({
           <div className={`mc-panel${tab === "hypixel" ? " is-active" : ""}`}>
             <div className="mc-section-t">{t("minecraftPage.hypixelStats")}</div>
             <div className="mc-soon">
-              {t("minecraftPage.comingSoon")} <Stars aria-hidden="true" />
+              {t("minecraftPage.comingSoon")} <Sparkles aria-hidden="true" />
             </div>
           </div>
         </div>
@@ -618,7 +618,7 @@ function AccountCard({ cfg, data, onOpen }: { cfg: Cfg; data: ProfileData; onOpe
       <img className="mc-body" alt="" referrerPolicy="no-referrer" src={bodySrc} />
       <span className="mc-name">{data.name || cfg.uid}</span>
       <span className="mc-cape" hidden={capes.length === 0}>
-        <Award aria-hidden="true" /> {capes.length}{" "}
+        <Trophy aria-hidden="true" /> {capes.length}{" "}
         {capes.length === 1 ? t("minecraftPage.capeOne") : t("minecraftPage.capeMany")}
       </span>
     </a>

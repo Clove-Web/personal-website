@@ -15,12 +15,17 @@ import {
   useSyncExternalStore,
 } from "react";
 import { useDiscordUser, useUserPresence } from "@doughmination/react-api";
-import type { Icon } from "react-bootstrap-icons";
+import type { ComponentType, SVGProps } from "react";
 import {
-  Amazon, Bluesky, Discord, Facebook, Github, Globe, Instagram, Laptop, Linkedin,
-  Mastodon, Paypal, Phone, Playstation, Reddit, Spotify, Steam, Tiktok, Twitch,
-  TwitterX, Xbox, Youtube,
-} from "react-bootstrap-icons";
+  Bluesky, Discord, Facebook, Github, Globe, Instagram, Laptop, Linkedin,
+  Mastodon, Phone, Tiktok, Youtube,
+} from "pixelarticons/react";
+// These brands have no pixelarticons equivalent yet; kept for accurate
+// recognition until matching logo art lands on the CDN (see the `img:`
+// entries in CONNECTION_ICON below for the same problem solved that way).
+import { Amazon, Paypal, Playstation, Reddit, Spotify, Steam, Twitch, TwitterX, Xbox } from "react-bootstrap-icons";
+
+type Icon = ComponentType<SVGProps<SVGSVGElement> & { title?: string }>;
 
 export type Dict = Record<string, unknown>;
 

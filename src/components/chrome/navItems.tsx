@@ -4,28 +4,24 @@
  * See LICENCE.md in the project root for full licence information.
  */
 
-import type { ComponentType } from "react";
+import type { ComponentType, SVGProps } from "react";
 import {
-  House,
-  People,
-  CodeSlash,
+  Home,
+  Users,
+  Code,
   Discord,
-  HddNetwork,
-  Kanban,
-  MusicNoteBeamed,
-  Grid,
-  Book,
+  Server,
+  Layout,
+  Music,
+  Grid3x3,
+  BookOpen,
   Camera,
-  Boxes,
-  Controller,
-} from "react-bootstrap-icons";
+  Blocks,
+  Gamepad,
+} from "pixelarticons/react";
 import type { TranslationKey } from "@/i18n/translate";
 
-interface IconProps {
-  size?: number | string;
-  className?: string;
-  color?: string;
-}
+type IconProps = SVGProps<SVGSVGElement>;
 
 export interface NavItem {
   labelKey: TranslationKey;
@@ -37,17 +33,17 @@ export const navItems: NavItem[] = [
   {
     labelKey: "nav.home",
     href: "/",
-    Icon: House,
+    Icon: Home,
   },
   {
     labelKey: "nav.coolPeople",
     href: "/cool-people",
-    Icon: People,
+    Icon: Users,
   },
   {
     labelKey: "nav.devInfo",
     href: "/dev-info",
-    Icon: CodeSlash,
+    Icon: Code,
   },
   {
     labelKey: "nav.discord",
@@ -57,27 +53,27 @@ export const navItems: NavItem[] = [
   {
     labelKey: "nav.servers",
     href: "/servers",
-    Icon: HddNetwork,
+    Icon: Server,
   },
   {
     labelKey: "nav.projects",
     href: "/projects",
-    Icon: Kanban,
+    Icon: Layout,
   },
   {
     labelKey: "nav.music",
     href: "/music",
-    Icon: MusicNoteBeamed,
+    Icon: Music,
   },
   {
     labelKey: "nav.webring",
     href: "/88x31",
-    Icon: Grid,
+    Icon: Grid3x3,
   },
   {
     labelKey: "nav.guestbook",
     href: "/guestbook",
-    Icon: Book,
+    Icon: BookOpen,
   },
   {
     labelKey: "nav.selfies",
@@ -87,11 +83,11 @@ export const navItems: NavItem[] = [
   {
     labelKey: "nav.minecraft",
     href: "/minecraft",
-    Icon: Boxes,
+    Icon: Blocks,
   },
   {
     labelKey: "nav.genshin",
     href: "/genshin",
-    Icon: Controller,
+    Icon: Gamepad,
   },
 ];

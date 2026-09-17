@@ -9,13 +9,13 @@
 import { useCallback, useEffect, useState } from "react";
 import {
   Gear,
-  PlayFill,
-  PauseFill,
-  Translate,
+  Play,
+  Pause,
+  Languages,
   ChevronDown,
-  VolumeDownFill,
-  Cookie,
-} from "react-bootstrap-icons";
+  Volume1,
+  Cake,
+} from "pixelarticons/react";
 import { playClickSound, playOpenSound, playCloseSound, playHoverSound } from "@lib/sound";
 import { useLanguage } from "@/i18n/languageProvider";
 import { LANGUAGE_NAMES, SUPPORTED_LANGUAGES } from "@/i18n/config";
@@ -106,7 +106,7 @@ export default function SettingsMenu() {
           toggle("settings");
         }}
       >
-        <Gear size={22} />
+        <Gear width={22} height={22} />
       </button>
 
       <div className={styles.items} aria-hidden={!open}>
@@ -124,7 +124,7 @@ export default function SettingsMenu() {
               window.ctpBgm?.toggle();
             }}
           >
-            {paused ? <PlayFill size={22} /> : <PauseFill size={22} />}
+            {paused ? <Play width={22} height={22} /> : <Pause width={22} height={22} />}
           </button>
 
           <button
@@ -140,12 +140,12 @@ export default function SettingsMenu() {
               openCookieSettings();
             }}
           >
-            <Cookie size={22} />
+            <Cake width={22} height={22} />
           </button>
         </div>
 
         <div className={styles.volumeRow}>
-          <VolumeDownFill size={18} aria-hidden="true" className={styles.volumeIcon} />
+          <Volume1 width={18} height={18} aria-hidden="true" className={styles.volumeIcon} />
           <input
             type="range"
             className={styles.volumeSlider}
@@ -176,10 +176,11 @@ export default function SettingsMenu() {
             setLangPickerOpen((o) => !o);
           }}
         >
-          <Translate size={20} aria-hidden="true" />
+          <Languages width={20} height={20} aria-hidden="true" />
           <span className={styles.langPillName}>{LANGUAGE_NAMES[lang]}</span>
           <ChevronDown
-            size={16}
+            width={16}
+            height={16}
             aria-hidden="true"
             className={`${styles.langChevron}${langPickerOpen ? " " + styles.langChevronOpen : ""}`}
           />

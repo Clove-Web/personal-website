@@ -7,7 +7,7 @@
 import { globalStyle, globalKeyframes } from "@vanilla-extract/css";
 import { vars } from "../themes.css";
 
-const MONO = "'Comic Code', ui-monospace, monospace";
+const MONO = "ui-monospace, 'Cascadia Code', Menlo, monospace";
 const ELLIPSIS = {
   whiteSpace: "nowrap",
   overflow: "hidden",

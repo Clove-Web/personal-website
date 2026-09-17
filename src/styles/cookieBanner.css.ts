@@ -7,7 +7,7 @@
 import { globalStyle } from "@vanilla-extract/css";
 import { vars } from "./themes.css";
 
-const MONO = "'Comic Code', ui-monospace, monospace";
+const MONO = "ui-monospace, 'Cascadia Code', Menlo, monospace";
 
 globalStyle(".cookie-banner", {
   position: "fixed",

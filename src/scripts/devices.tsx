@@ -13,12 +13,12 @@ import { realText, relTime, type RelTimeStrings } from "./util";
 import { useLanguage } from "@/i18n/languageProvider";
 import type { TranslationKey } from "@/i18n/translate";
 import {
-  BatteryHalf,
-  Earbuds,
-  LightningChargeFill,
-  Smartwatch,
+  BatteryMedium,
+  Headphone,
+  Zap,
+  Watch,
   Wifi,
-} from "react-bootstrap-icons";
+} from "pixelarticons/react";
 
 const NAMES: Record<string, string> = {
   pixel: "Pixel",
@@ -64,7 +64,7 @@ function DeviceRow({ d, t, time }: { d: DeviceRecord; t: (key: TranslationKey) =
           <span className="dev-fill" style={{ width: `${width}%` }} />
         </span>
         <span className="dev-pct">
-          {charging ? <LightningChargeFill className="dev-bolt" aria-hidden="true" /> : null}
+          {charging ? <Zap className="dev-bolt" aria-hidden="true" /> : null}
           {pct}
         </span>
       </div>
@@ -72,12 +72,12 @@ function DeviceRow({ d, t, time }: { d: DeviceRecord; t: (key: TranslationKey) =
         <div className="dev-meta">
           {charging ? (
             <span className="dev-tag dev-charging" title={t("devices.charging")}>
-              <LightningChargeFill aria-hidden="true" /> {t("devices.charging")}
+              <Zap aria-hidden="true" /> {t("devices.charging")}
             </span>
           ) : null}
           {d.lowPowerMode === true ? (
             <span className="dev-tag dev-lowpower" title={t("devices.lowPowerTitle")}>
-              <BatteryHalf aria-hidden="true" /> {t("devices.lowPower")}
+              <BatteryMedium aria-hidden="true" /> {t("devices.lowPower")}
             </span>
           ) : null}
           {wifiName ? (
@@ -87,12 +87,12 @@ function DeviceRow({ d, t, time }: { d: DeviceRecord; t: (key: TranslationKey) =
           ) : null}
           {watch ? (
             <span className="dev-tag dev-watch" title={t("devices.watchTitle")}>
-              <Smartwatch aria-hidden="true" /> {t("devices.watch")}
+              <Watch aria-hidden="true" /> {t("devices.watch")}
             </span>
           ) : null}
           {airpods ? (
             <span className="dev-tag dev-airpods" title={t("devices.airpodsTitle")}>
-              <Earbuds aria-hidden="true" /> {t("devices.airpods")}
+              <Headphone aria-hidden="true" /> {t("devices.airpods")}
             </span>
           ) : null}
           {when ? <span className="dev-when">{when}</span> : null}

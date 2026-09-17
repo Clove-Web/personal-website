@@ -8,7 +8,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useUserPresence } from "@doughmination/react-api";
-import { MusicNoteBeamed } from "react-bootstrap-icons";
+import { Music as MusicNoteIcon } from "pixelarticons/react";
 import { playClickSound } from "@lib/sound";
 import { dmListening } from "./presenceShared";
 import { useLanguage } from "@/i18n/languageProvider";
@@ -634,8 +634,8 @@ export default function Music() {
           <p className="ly-note">{ly.msg}</p>
         ) : ly.kind === "instrumental" ? (
           <p className="ly-note">
-            <MusicNoteBeamed aria-hidden="true" /> {t("music.instrumental")}{" "}
-            <MusicNoteBeamed aria-hidden="true" />
+            <MusicNoteIcon aria-hidden="true" /> {t("music.instrumental")}{" "}
+            <MusicNoteIcon aria-hidden="true" />
           </p>
         ) : ly.kind === "synced" ? (
           ly.lines.map((l, i) => (
@@ -667,7 +667,7 @@ export default function Music() {
                   <img className="rc-art" src={t.art} alt="" loading="lazy" />
                 ) : (
                   <span className="rc-art rc-art-blank" aria-hidden="true">
-                    <MusicNoteBeamed />
+                    <MusicNoteIcon />
                   </span>
                 )}
                 <span className="rc-text">
@@ -699,7 +699,7 @@ export default function Music() {
                       <img className="top-art" src={topImg[a.name]} alt="" referrerPolicy="no-referrer" />
                     ) : (
                       <span className="top-art top-art-blank" aria-hidden="true">
-                        <MusicNoteBeamed />
+                        <MusicNoteIcon />
                       </span>
                     )}
                     <span className="top-text">

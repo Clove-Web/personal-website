@@ -6,7 +6,7 @@
 
 "use client";
 
-import { Github } from "react-bootstrap-icons";
+import { Github } from "pixelarticons/react";
 import Fronting from "@scripts/fronting";
 import Devices from "@scripts/devices";
 import Location from "@scripts/location";

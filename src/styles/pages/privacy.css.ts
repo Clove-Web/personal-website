@@ -48,7 +48,7 @@ globalStyle(".privacy-body ul", {
 });
 
 globalStyle(".privacy-body code", {
-  fontFamily: "'Comic Code', ui-monospace, monospace",
+  fontFamily: "ui-monospace, 'Cascadia Code', Menlo, monospace",
   fontSize: "0.8rem",
   padding: "0.05rem 0.3rem",
   background: vars.surfaceHi,

@@ -28,7 +28,7 @@ globalStyle("html, body", {
 });
 
 globalStyle("body", {
-  fontFamily: "'Comic Code', sans-serif",
+  fontFamily: "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
   display: "flex",
   justifyContent: "center",
   alignItems: "safe center",
@@ -37,6 +37,10 @@ globalStyle("body", {
   padding: "1.5rem 1rem",
   background: PAGE_BG,
   color: vars.text,
+});
+
+globalStyle("h1, h2, h3, h4, h5, h6", {
+  fontFamily: "Georgia, 'Iowan Old Style', 'Palatino Linotype', serif",
 });
 
 globalStyle(

@@ -8,8 +8,10 @@
 
 import { useEffect, useMemo, useState } from "react";
 import {
-  Clock as ClockIcon, Gem, GeoAltFill, Globe, PatchCheckFill, Spotify, StarFill, Stars,
-} from "react-bootstrap-icons";
+  Clock as ClockIcon, DiamondGem as Gem, MapPin as GeoAltFill, Globe, Check as PatchCheckFill, Star as StarFill, Sparkles as Stars,
+} from "pixelarticons/react";
+// Spotify has no pixelarticons equivalent; kept for accurate brand recognition.
+import { Spotify } from "react-bootstrap-icons";
 import {
   BADGE_FLAGS, CONNECTION_ICON, CONNECTION_URLS, NAME_FONTS, PLATFORM_ICONS,
   assetUrl, avatarUrl, bannerUrl, clamp, elapsedStr,
