@@ -9,7 +9,7 @@ The personal homepage and hub for Clove Nytrix Doughmination Twilight — projec
 - **[Vanilla Extract](https://vanilla-extract.style/)** for styling — `.css.ts` files compiled to static CSS at build time (zero runtime).
 - **[Turbopack](https://turbo.build/pack)** for dev and build (`--webpack` scripts kept as an escape hatch).
 - **[@tanstack/react-query](https://tanstack.com/query)** for data fetching.
-- **[@doughmination/react-api](https://www.npmjs.com/package/@doughmination/react-api)** — the site's own API client for presence, music, and related live data.
+- **[doughmination-api](https://www.npmjs.com/package/doughmination-api)** — the site's own API client for presence, music, and related live data.
 - **[Bun](https://bun.sh/)** as the package manager (`bun.lock`).
 - Deployed on **Cloudflare Pages**, with locale routing handled at the edge by a Pages Function (`functions/_middleware.ts`).
 
