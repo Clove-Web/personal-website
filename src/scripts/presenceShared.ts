@@ -14,7 +14,7 @@ import {
   useState,
   useSyncExternalStore,
 } from "react";
-import { useDiscordUser, useUserPresence } from "@doughmination/react-api";
+import { useDiscordUser, useUserPresence } from "doughmination-api";
 import type { ComponentType, SVGProps } from "react";
 import {
   Bluesky, Discord, Facebook, Github, Globe, Instagram, Laptop, Linkedin,

@@ -7,7 +7,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useUserPresence } from "@doughmination/react-api";
+import { useUserPresence } from "doughmination-api";
 import { Music as MusicNoteIcon } from "pixelarticons/react";
 import { playClickSound } from "@lib/sound";
 import { dmListening } from "./presenceShared";

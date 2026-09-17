@@ -6,7 +6,7 @@
 
 "use client";
 
-import { useGenshinRoster } from "@doughmination/react-api";
+import { useGenshinRoster } from "doughmination-api";
 import Model3D from "@components/chrome/model3D";
 import { useLanguage } from "@/i18n/languageProvider";
 

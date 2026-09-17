@@ -11,8 +11,8 @@ import { useQueries } from "@tanstack/react-query";
 import {
   useDoughminationClient,
   queryKeys,
-} from "@doughmination/react-api";
-import type { UnifiedMinecraftGeneral } from "@doughmination/react-api";
+} from "doughmination-api";
+import type { UnifiedMinecraftGeneral } from "doughmination-api";
 import {
   Trophy,
   ExternalLink,

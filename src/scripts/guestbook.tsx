@@ -8,7 +8,7 @@
 
 import { useEffect, useRef, useState, type ComponentType, type SVGProps } from "react";
 import { Heart } from "pixelarticons/react";
-import { useGuestbook, useGuestbookPost } from "@doughmination/react-api";
+import { useGuestbook, useGuestbookPost } from "doughmination-api";
 import { playClickSound } from "@lib/sound";
 import { useLanguage } from "@/i18n/languageProvider";
 import type { Dictionary } from "@/i18n/locales/en";

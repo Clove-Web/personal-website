@@ -6,8 +6,8 @@
 
 "use client";
 
-import { useDevices } from "@doughmination/react-api";
-import type { DeviceRecord } from "@doughmination/react-api";
+import { useDevices } from "doughmination-api";
+import type { DeviceRecord } from "doughmination-api";
 
 import { realText, relTime, type RelTimeStrings } from "./util";
 import { useLanguage } from "@/i18n/languageProvider";

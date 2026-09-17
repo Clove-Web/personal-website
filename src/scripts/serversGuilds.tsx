@@ -6,7 +6,7 @@
 
 "use client";
 
-import { useGuild } from "@doughmination/react-api";
+import { useGuild } from "doughmination-api";
 import { useLanguage } from "@/i18n/languageProvider";
 import type { TranslationKey } from "@/i18n/translate";
 

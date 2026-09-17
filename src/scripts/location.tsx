@@ -8,7 +8,7 @@
 
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { useDeviceState } from "@doughmination/react-api";
+import { useDeviceState } from "doughmination-api";
 
 import { realText, relTime } from "./util";
 import { useLanguage } from "@/i18n/languageProvider";

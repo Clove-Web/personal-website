@@ -7,7 +7,7 @@
 "use client";
 
 import type { CSSProperties } from "react";
-import { useFronters } from "@doughmination/react-api";
+import { useFronters } from "doughmination-api";
 import { useLanguage } from "@/i18n/languageProvider";
 
 function colorHex(color?: string | null): string | undefined {
